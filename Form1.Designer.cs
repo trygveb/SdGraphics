@@ -35,15 +35,16 @@
             this.buttonOpenFile = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDownScale = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownDiamondReduction = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDownDiamondWidth = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownLineHeight = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxCopyright = new System.Windows.Forms.TextBox();
+            this.checkBoxBorder = new System.Windows.Forms.CheckBox();
+            this.numericUpDownDancersSize = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScale)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDiamondReduction)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDiamondWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancersSize)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonReadFile
@@ -60,7 +61,7 @@
             // buttonPrint
             // 
             this.buttonPrint.Enabled = false;
-            this.buttonPrint.Location = new System.Drawing.Point(29, 287);
+            this.buttonPrint.Location = new System.Drawing.Point(16, 398);
             this.buttonPrint.Name = "buttonPrint";
             this.buttonPrint.Size = new System.Drawing.Size(75, 23);
             this.buttonPrint.TabIndex = 2;
@@ -70,7 +71,7 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(119, 287);
+            this.buttonExit.Location = new System.Drawing.Point(106, 398);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(75, 23);
             this.buttonExit.TabIndex = 3;
@@ -146,64 +147,33 @@
             0,
             0});
             // 
-            // numericUpDownDiamondReduction
-            // 
-            this.numericUpDownDiamondReduction.Location = new System.Drawing.Point(136, 147);
-            this.numericUpDownDiamondReduction.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDownDiamondReduction.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownDiamondReduction.Name = "numericUpDownDiamondReduction";
-            this.numericUpDownDiamondReduction.Size = new System.Drawing.Size(45, 20);
-            this.numericUpDownDiamondReduction.TabIndex = 11;
-            this.numericUpDownDiamondReduction.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 154);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 13);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Diamond H reduction";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(14, 187);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 13);
+            this.label3.Size = new System.Drawing.Size(59, 13);
             this.label3.TabIndex = 14;
-            this.label3.Text = "Diamond W size";
+            this.label3.Text = "Line height";
             // 
-            // numericUpDownDiamondWidth
+            // numericUpDownLineHeight
             // 
-            this.numericUpDownDiamondWidth.Location = new System.Drawing.Point(136, 185);
-            this.numericUpDownDiamondWidth.Maximum = new decimal(new int[] {
+            this.numericUpDownLineHeight.Location = new System.Drawing.Point(136, 185);
+            this.numericUpDownLineHeight.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.numericUpDownLineHeight.Minimum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numericUpDownDiamondWidth.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownDiamondWidth.Name = "numericUpDownDiamondWidth";
-            this.numericUpDownDiamondWidth.Size = new System.Drawing.Size(45, 20);
-            this.numericUpDownDiamondWidth.TabIndex = 13;
-            this.numericUpDownDiamondWidth.Value = new decimal(new int[] {
-            7,
+            this.numericUpDownLineHeight.Name = "numericUpDownLineHeight";
+            this.numericUpDownLineHeight.Size = new System.Drawing.Size(45, 20);
+            this.numericUpDownLineHeight.TabIndex = 13;
+            this.numericUpDownLineHeight.Value = new decimal(new int[] {
+            22,
             0,
             0,
             0});
@@ -226,17 +196,61 @@
             this.textBoxCopyright.Text = "Thomas Bernhed 2020";
             this.textBoxCopyright.TextChanged += new System.EventHandler(this.textBoxCopyright_TextChanged);
             // 
+            // checkBoxBorder
+            // 
+            this.checkBoxBorder.AutoSize = true;
+            this.checkBoxBorder.Checked = true;
+            this.checkBoxBorder.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxBorder.Location = new System.Drawing.Point(17, 281);
+            this.checkBoxBorder.Name = "checkBoxBorder";
+            this.checkBoxBorder.Size = new System.Drawing.Size(84, 17);
+            this.checkBoxBorder.TabIndex = 17;
+            this.checkBoxBorder.Text = "Draw border";
+            this.checkBoxBorder.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownDancersSize
+            // 
+            this.numericUpDownDancersSize.Location = new System.Drawing.Point(136, 147);
+            this.numericUpDownDancersSize.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.numericUpDownDancersSize.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownDancersSize.Name = "numericUpDownDancersSize";
+            this.numericUpDownDancersSize.Size = new System.Drawing.Size(45, 20);
+            this.numericUpDownDancersSize.TabIndex = 11;
+            this.numericUpDownDancersSize.Value = new decimal(new int[] {
+            18,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(14, 154);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(63, 13);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Dancer size";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(285, 360);
+            this.ClientSize = new System.Drawing.Size(285, 451);
+            this.Controls.Add(this.checkBoxBorder);
             this.Controls.Add(this.textBoxCopyright);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.numericUpDownDiamondWidth);
+            this.Controls.Add(this.numericUpDownLineHeight);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.numericUpDownDiamondReduction);
+            this.Controls.Add(this.numericUpDownDancersSize);
             this.Controls.Add(this.numericUpDownScale);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonOpenFile);
@@ -248,8 +262,8 @@
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScale)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDiamondReduction)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDiamondWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancersSize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -264,12 +278,13 @@
         private System.Windows.Forms.Button buttonOpenFile;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDownScale;
-        private System.Windows.Forms.NumericUpDown numericUpDownDiamondReduction;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown numericUpDownDiamondWidth;
+        private System.Windows.Forms.NumericUpDown numericUpDownLineHeight;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxCopyright;
+        private System.Windows.Forms.CheckBox checkBoxBorder;
+        private System.Windows.Forms.NumericUpDown numericUpDownDancersSize;
+        private System.Windows.Forms.Label label2;
     }
 }
 
