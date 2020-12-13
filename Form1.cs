@@ -42,7 +42,9 @@ namespace SdGraphics
 
         Brush brushForDancers = new SolidBrush(System.Drawing.Color.Black);
         Brush brushForNoses = new SolidBrush(System.Drawing.Color.Red);
-        Brush brushForSpace = new SolidBrush(System.Drawing.Color.Green);
+        Brush brushForSpace = new SolidBrush(System.Drawing.Color.Blue);
+        Pen penForBorder = new Pen(Color.Red, 2);
+        Pen penForPhantom = new Pen(Color.Blue, 1);
         private String copyright;
         private int currentIndex = 0;
         // For display
@@ -91,7 +93,8 @@ namespace SdGraphics
             // Make reservation for one nose in each end in both directions
             int bitMapWidth = maxWidth + NOSE_SIZE;
             
-            int h = Math.Max(NOSE_SIZE*2 + dancerSize, NOSE_SIZE*2+lineHeight);
+            //int h = Math.Max(NOSE_SIZE*2 + dancerSize, NOSE_SIZE*2+lineHeight);
+            int h = Math.Max(NOSE_SIZE + dancerSize, NOSE_SIZE + lineHeight);
             int numberOfLinesInFormation = buffer1.Count;
             for (int lineNumberInFormation = 0; lineNumberInFormation < numberOfLinesInFormation; lineNumberInFormation++) {
                 if (lineNumberInFormation > 0) {
@@ -116,22 +119,26 @@ namespace SdGraphics
             return bitMapSize;
         }
 
-        private int checkBufferAndWriteCall(ref Bitmap pageBitmap,  List<SdLine> buffer1, int y, ref int callNumber,
-                    ref bool skipNext, int i, SdLine sdLine, ref int pageNumber, int lineHeight)
+        private int checkBufferAndWriteCall(ref Bitmap pageBitmap,  List<SdLine> buffer1, int y,  SdLine sdLine, ref int pageNumber, int lineHeight)
         {
             // The line contains a call 
             // Check if we have a buffer for the end formation from the last call.
             // If so we create the bitmap for that formation, and copies it to the page bitmap
             if (buffer1.Count > 0) {
+                int height1 = calculateBitMapSize(buffer1, lineHeight, 0, (int)numericUpDownDancersSize.Value).Height;
+                int h2 = y + height1;
                 y += SPACE_BETWEEN_CALL_AND_FORMATION;
                 int height = createAndCopyFormationBitmap(ref pageBitmap, checkBoxBorder.Checked, buffer1, y, this.currentXoffset);
                 y += height;
             }
             if (matchSdId(sdLine.text)) {
-                // Do nothing
+                buffer1.Clear();
             } else {
                 // Add extra 5 pixelsfor safety (Needed due to some calculation miss)
-                if (y + lineHeight * (buffer1.Count + 3) + MARGIN_TOP + 5 > PAGE_HEIGHT - MARGIN_BOTTOM) {
+                //int height = lineHeight * (buffer1.Count + 3) + MARGIN_TOP + 5;
+                int height= calculateBitMapSize(buffer1, lineHeight, 0, (int) numericUpDownDancersSize.Value).Height;
+                buffer1.Clear();
+                if (y + height +LINE_HEIGHT*2 > PAGE_HEIGHT - MARGIN_BOTTOM) {
                     if (IsOdd(pageNumber)) {
 
                         this.writeText(String.Format("Copyright \u00a9 {0}", this.copyright), lineHeight, pageBitmap, PAGE_HEIGHT - lineHeight, PAGE_WIDTH / 2 - 100);
@@ -171,7 +178,7 @@ namespace SdGraphics
                     y = writeText(String.Format("{0}", sdLine.text), lineHeight, pageBitmap, y, this.currentXoffset);
                     y += lineHeight / 2;
                 } else if (sdLine.callNumber > 0) {
-                    y += lineHeight / 2;
+                    y += lineHeight;
                     y = writeText(String.Format("{0}) {1}", sdLine.callNumber, sdLine.text), lineHeight, pageBitmap, y, this.currentXoffset);
                     y += lineHeight / 2;
                 }
@@ -212,7 +219,7 @@ namespace SdGraphics
                 copyRegionIntoImage(bmp1, srcRegion, ref bmp, destRegion);
                 height = bmp1.Height;
             }
-            buffer1.Clear();
+            
             return height;
         }
 
@@ -315,7 +322,7 @@ namespace SdGraphics
         {
 
             if (this.graphicsForm == null) {
-                this.graphicsForm = new GraphicsForm(ref pictureBox1);
+                this.graphicsForm = new GraphicsForm(ref pictureBox1, this);
                 this.graphicsForm.FormClosing += fManage_FormOneClosing;
                 this.graphicsForm.Show();
                 //PictureBox pictureBox1 = this.graphicsForm.getPictureBox();
@@ -323,7 +330,8 @@ namespace SdGraphics
             PANEL_SCALE = (double)numericUpDownScale.Value;
             pictureBox1.Height = (int)(PANEL_SCALE * PAGE_HEIGHT);
             pictureBox1.Width = (int)(PANEL_SCALE * PAGE_WIDTH);
-            this.graphicsForm.Height = (int)(PANEL_SCALE * PAGE_HEIGHT) + 60;
+            int heightOfTitleBar = 40;
+            this.graphicsForm.Height = (int)(PANEL_SCALE * PAGE_HEIGHT) + pictureBox1.Location.Y+ heightOfTitleBar;
             this.graphicsForm.Width = (int)(PANEL_SCALE * PAGE_WIDTH) + 35;
             //DIAMOND_REDUCTION = (int)numericUpDownDiamondReduction.Value;
             //DIAMOND_WIDTH = (int)numericUpDownLineHeight.Value;
@@ -348,7 +356,7 @@ namespace SdGraphics
             this.currentXoffset = 0;// MARGIN_LEFT;
             writePageHeader(pageBitmap, y, 1, lineHeight);
             y += lineHeight;
-            int callNumber = 0;
+            //int callNumber = 0;
             String lastCall = "";
             for (int i = 0; i < sdLines.Count; i++) {
                 if (skipNext) {
@@ -358,7 +366,7 @@ namespace SdGraphics
                 SdLine sdLine = sdLines[i];
                 if (sdLine.noOfDancers == 0) {
                     if (lastCall != AT_HOME) {
-                       y= checkBufferAndWriteCall(ref pageBitmap, buffer1, y, ref callNumber, ref skipNext, i, sdLine,
+                       y= checkBufferAndWriteCall(ref pageBitmap, buffer1, y, sdLine,
                             ref pageNumber, lineHeight);
                     }
                     lastCall = sdLine.text;
@@ -366,19 +374,16 @@ namespace SdGraphics
                     buffer1.Add(sdLine);
                 }
             }
-            this.writeText("Copyright \u00a9 Bronc Wise 2012", lineHeight, pageBitmap, PAGE_HEIGHT - lineHeight, PAGE_WIDTH / 2 - 100);
+           // this.writeText("Copyright \u00a9 Bronc Wise 2012", lineHeight, pageBitmap, PAGE_HEIGHT - lineHeight, PAGE_WIDTH / 2 - 100);
 
             this.bitmapList.Add(pageBitmap);  // The last bitmap (Could be a duplicate?)
             this.viewBitmap(0);
         }
 
-        private void drawBorder(Bitmap bmp, Brush brush)
+        private void drawBorder(Bitmap bmp)
         {
             using (Graphics g = Graphics.FromImage(bmp)) {
-                g.DrawLine(new Pen(brush, 2), new Point(0, 0), new Point(0, bmp.Height));
-                g.DrawLine(new Pen(brush, 2), new Point(0, 0), new Point(bmp.Width, 0));
-                g.DrawLine(new Pen(brush, 2), new Point(0, bmp.Height), new Point(bmp.Width, bmp.Height));
-                g.DrawLine(new Pen(brush, 2), new Point(bmp.Width, 0), new Point(bmp.Width, bmp.Height));
+                g.DrawRectangle(penForBorder, 0, 0, bmp.Width, bmp.Height);
             }
         }
 
@@ -439,7 +444,7 @@ namespace SdGraphics
             }
             //bmp1.RotateFlip(RotateFlipType.Rotate90FlipNone);
             if (drawBorder) {
-                this.drawBorder(bmp1, Brushes.Red);
+                this.drawBorder(bmp1);
             }
             return bmp1;
 
@@ -452,7 +457,11 @@ namespace SdGraphics
             int y = yc - dancerSize / 2;
             using (Graphics g = Graphics.FromImage(bmp)) {
                 if (dancer == ".") {
-                    g.FillEllipse(brushForDancers, xc - 2, yc - 2, 4, 4);
+                    // the point is only 1 char, so we have to add an extra spcace before
+                    g.DrawEllipse(penForPhantom, x- BLANK_SPACE, yc - dancerSize/2, dancerSize, dancerSize);
+                    xc -= 2*BLANK_SPACE;  // Subtle
+
+
                 } else if (dancer == SPACE_CHAR) {
                     String extraSpace = " ".PadLeft(DIAMOND_WIDTH);  // Does not work
                     g.DrawString(extraSpace, fontForCalls, brushForDancers, x, y);
@@ -498,27 +507,6 @@ namespace SdGraphics
             return dancers;
         }
 
-        private Dictionary<int, string> findDancersOld(String[] atoms)
-        {
-            Dictionary<int, string> dancers = new Dictionary<int, string>();
-
-            for (int i = 0; i < atoms.Length; i++) {
-                Boolean add = false;
-                char firstChar = atoms[i][0];
-                if (atoms[i] == ".") {
-                    add = true;
-                } else if (Char.IsDigit(firstChar) && atoms[i].Length == 3) {
-                    if (atoms[i][1] == 'B' || atoms[i][1] == 'G') {
-                        add = true;
-                    }
-                }
-                if (add) {
-                    dancers.Add(i, atoms[i]);
-                }
-            }
-            return dancers;
-        }
-
         private int getNumberOfDancers(String[] line)
         {
             int length = line.Length;
@@ -550,8 +538,21 @@ namespace SdGraphics
             }
             return retVal;
         }
+        public void nextPage()
+        {
+            if (this.currentIndex < this.bitmapList.Count) {
+                this.viewBitmap(this.currentIndex + 1);
+            }
+        }
 
-        private void printImage()
+        public void previousPage()
+        {
+            if (this.currentIndex > 0) {
+                this.viewBitmap(this.currentIndex - 1);
+            }
+        }
+
+        public void printImage()
         {
 
             PrintDocument printDocument = new PrintDocument();
@@ -679,10 +680,9 @@ namespace SdGraphics
 
         private void buttonBack_Click(object sender, EventArgs e)
         {
-            if (this.currentIndex > 0) {
-                this.viewBitmap(this.currentIndex - 1);
-            }
+            this.previousPage();
         }
+
 
         private void buttonExit_Click(object sender, EventArgs e)
         {
@@ -691,10 +691,9 @@ namespace SdGraphics
 
         private void buttonForward_Click(object sender, EventArgs e)
         {
-            if (this.currentIndex < this.bitmapList.Count) {
-                this.viewBitmap(this.currentIndex + 1);
-            }
+            nextPage();
         }
+
 
         private void buttonOpenFile_Click(object sender, EventArgs e)
         {
@@ -744,10 +743,6 @@ namespace SdGraphics
         private void numericUpDownScale_ValueChanged(object sender, EventArgs e)
         {
             this.createTip();
-        }
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void textBoxCopyright_TextChanged(object sender, EventArgs e)

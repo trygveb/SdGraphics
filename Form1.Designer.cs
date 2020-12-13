@@ -160,7 +160,7 @@
             // 
             this.numericUpDownLineHeight.Location = new System.Drawing.Point(136, 185);
             this.numericUpDownLineHeight.Maximum = new decimal(new int[] {
-            30,
+            40,
             0,
             0,
             0});
@@ -173,7 +173,7 @@
             this.numericUpDownLineHeight.Size = new System.Drawing.Size(45, 20);
             this.numericUpDownLineHeight.TabIndex = 13;
             this.numericUpDownLineHeight.Value = new decimal(new int[] {
-            22,
+            26,
             0,
             0,
             0});
@@ -199,8 +199,6 @@
             // checkBoxBorder
             // 
             this.checkBoxBorder.AutoSize = true;
-            this.checkBoxBorder.Checked = true;
-            this.checkBoxBorder.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxBorder.Location = new System.Drawing.Point(17, 281);
             this.checkBoxBorder.Name = "checkBoxBorder";
             this.checkBoxBorder.Size = new System.Drawing.Size(84, 17);

@@ -12,10 +12,12 @@ namespace SdGraphics
 {
     public partial class GraphicsForm : Form
     {
-        public GraphicsForm(ref PictureBox myPictureBox)
+        private Form1 myParentForm;
+        public GraphicsForm(ref PictureBox myPictureBox, Form1 parent)
         {
             InitializeComponent();
             myPictureBox = this.pictureBox1;
+            myParentForm = parent;
         }
         public PictureBox getPictureBox()
         {
@@ -25,6 +27,22 @@ namespace SdGraphics
         private void GraphicsForm_FormClosed(object sender, FormClosedEventArgs e)
         {
 
+        }
+
+        private void buttonBack_Click(object sender, EventArgs e)
+        {
+            myParentForm.previousPage();
+        }
+
+        private void buttonForward_Click(object sender, EventArgs e)
+        {
+            myParentForm.nextPage();
+
+        }
+
+        private void buttonPrint_Click(object sender, EventArgs e)
+        {
+            myParentForm.printImage();
         }
     }
 }
