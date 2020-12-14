@@ -42,9 +42,15 @@
             this.checkBoxBorder = new System.Windows.Forms.CheckBox();
             this.numericUpDownDancersSize = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericUpDownBlankSpace = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.numericUpDownNoseSize = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancersSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBlankSpace)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNoseSize)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonReadFile
@@ -61,7 +67,7 @@
             // buttonPrint
             // 
             this.buttonPrint.Enabled = false;
-            this.buttonPrint.Location = new System.Drawing.Point(16, 398);
+            this.buttonPrint.Location = new System.Drawing.Point(29, 398);
             this.buttonPrint.Name = "buttonPrint";
             this.buttonPrint.Size = new System.Drawing.Size(75, 23);
             this.buttonPrint.TabIndex = 2;
@@ -71,7 +77,7 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(106, 398);
+            this.buttonExit.Location = new System.Drawing.Point(119, 398);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(75, 23);
             this.buttonExit.TabIndex = 3;
@@ -112,7 +118,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 123);
+            this.label1.Location = new System.Drawing.Point(39, 123);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(34, 13);
             this.label1.TabIndex = 8;
@@ -127,7 +133,7 @@
             0,
             0,
             65536});
-            this.numericUpDownScale.Location = new System.Drawing.Point(136, 121);
+            this.numericUpDownScale.Location = new System.Drawing.Point(124, 119);
             this.numericUpDownScale.Maximum = new decimal(new int[] {
             1,
             0,
@@ -150,7 +156,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 187);
+            this.label3.Location = new System.Drawing.Point(39, 181);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 13);
             this.label3.TabIndex = 14;
@@ -158,7 +164,7 @@
             // 
             // numericUpDownLineHeight
             // 
-            this.numericUpDownLineHeight.Location = new System.Drawing.Point(136, 185);
+            this.numericUpDownLineHeight.Location = new System.Drawing.Point(124, 177);
             this.numericUpDownLineHeight.Maximum = new decimal(new int[] {
             40,
             0,
@@ -181,7 +187,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 224);
+            this.label4.Location = new System.Drawing.Point(19, 286);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(51, 13);
             this.label4.TabIndex = 15;
@@ -189,7 +195,7 @@
             // 
             // textBoxCopyright
             // 
-            this.textBoxCopyright.Location = new System.Drawing.Point(131, 224);
+            this.textBoxCopyright.Location = new System.Drawing.Point(85, 283);
             this.textBoxCopyright.Name = "textBoxCopyright";
             this.textBoxCopyright.Size = new System.Drawing.Size(141, 20);
             this.textBoxCopyright.TabIndex = 16;
@@ -199,7 +205,7 @@
             // checkBoxBorder
             // 
             this.checkBoxBorder.AutoSize = true;
-            this.checkBoxBorder.Location = new System.Drawing.Point(17, 281);
+            this.checkBoxBorder.Location = new System.Drawing.Point(61, 328);
             this.checkBoxBorder.Name = "checkBoxBorder";
             this.checkBoxBorder.Size = new System.Drawing.Size(84, 17);
             this.checkBoxBorder.TabIndex = 17;
@@ -208,7 +214,7 @@
             // 
             // numericUpDownDancersSize
             // 
-            this.numericUpDownDancersSize.Location = new System.Drawing.Point(136, 147);
+            this.numericUpDownDancersSize.Location = new System.Drawing.Point(124, 148);
             this.numericUpDownDancersSize.Maximum = new decimal(new int[] {
             30,
             0,
@@ -231,17 +237,88 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 154);
+            this.label2.Location = new System.Drawing.Point(39, 152);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 13);
             this.label2.TabIndex = 12;
             this.label2.Text = "Dancer size";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(39, 210);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(66, 13);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "Blank space";
+            // 
+            // numericUpDownBlankSpace
+            // 
+            this.numericUpDownBlankSpace.Location = new System.Drawing.Point(124, 206);
+            this.numericUpDownBlankSpace.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownBlankSpace.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericUpDownBlankSpace.Name = "numericUpDownBlankSpace";
+            this.numericUpDownBlankSpace.Size = new System.Drawing.Size(45, 20);
+            this.numericUpDownBlankSpace.TabIndex = 18;
+            this.numericUpDownBlankSpace.Value = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(39, 239);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(53, 13);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Nose size";
+            // 
+            // numericUpDownNoseSize
+            // 
+            this.numericUpDownNoseSize.Increment = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownNoseSize.Location = new System.Drawing.Point(124, 235);
+            this.numericUpDownNoseSize.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownNoseSize.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownNoseSize.Name = "numericUpDownNoseSize";
+            this.numericUpDownNoseSize.Size = new System.Drawing.Size(45, 20);
+            this.numericUpDownNoseSize.TabIndex = 20;
+            this.numericUpDownNoseSize.Value = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(285, 451);
+            this.ClientSize = new System.Drawing.Size(239, 451);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.numericUpDownNoseSize);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.numericUpDownBlankSpace);
             this.Controls.Add(this.checkBoxBorder);
             this.Controls.Add(this.textBoxCopyright);
             this.Controls.Add(this.label4);
@@ -262,6 +339,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancersSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBlankSpace)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNoseSize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -283,6 +362,10 @@
         private System.Windows.Forms.CheckBox checkBoxBorder;
         private System.Windows.Forms.NumericUpDown numericUpDownDancersSize;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown numericUpDownBlankSpace;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown numericUpDownNoseSize;
     }
 }
 

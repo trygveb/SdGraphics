@@ -22,7 +22,7 @@ namespace SdGraphics
         //private int DANCER_SIZE = 18;
         //private static bool DRAW_BORDER = false;
         //private static int HORIZONTAL_SPACE = 30;
-        private static int BLANK_SPACE = 6;
+        //private static int BLANK_SPACE = 6;
         private static int LEFT_SHIFT = 30;
         private static int LINE_HEIGHT = 20;
         //private static int LINE_HEIGHT_FORMATION = 27;
@@ -30,7 +30,7 @@ namespace SdGraphics
         private static int MARGIN_BOTTOM = 50;
         private static int MARGIN_LEFT = 25; // For text only
         private static int MARGIN_TOP = 15;
-        private static int NOSE_SIZE = 6;
+        //private static int NOSE_SIZE = 6;
         private static int PAGE_HEIGHT = 1100;
         private static int PAGE_WIDTH = 778;
         //private static int MIDDLE = 150;
@@ -88,13 +88,13 @@ namespace SdGraphics
         {
             return value % 2 != 0;
         }
-        Size calculateBitMapSize(List<SdLine> buffer1, int lineHeight, int maxWidth, int dancerSize)
+        Size calculateBitMapSize(List<SdLine> buffer1, int lineHeight, int maxWidth, int dancerSize, int noseSize)
         {
             // Make reservation for one nose in each end in both directions
-            int bitMapWidth = maxWidth + NOSE_SIZE;
+            int bitMapWidth = maxWidth + noseSize;
             
             //int h = Math.Max(NOSE_SIZE*2 + dancerSize, NOSE_SIZE*2+lineHeight);
-            int h = Math.Max(NOSE_SIZE + dancerSize, NOSE_SIZE + lineHeight);
+            int h = Math.Max(noseSize*2 + dancerSize, noseSize*2 + lineHeight);
             int numberOfLinesInFormation = buffer1.Count;
             for (int lineNumberInFormation = 0; lineNumberInFormation < numberOfLinesInFormation; lineNumberInFormation++) {
                 if (lineNumberInFormation > 0) {
@@ -119,13 +119,14 @@ namespace SdGraphics
             return bitMapSize;
         }
 
-        private int checkBufferAndWriteCall(ref Bitmap pageBitmap,  List<SdLine> buffer1, int y,  SdLine sdLine, ref int pageNumber, int lineHeight)
+        private int checkBufferAndWriteCall(ref Bitmap pageBitmap,  List<SdLine> buffer1, int y,  SdLine sdLine, ref int pageNumber,
+            int lineHeight, int noseSize)
         {
             // The line contains a call 
             // Check if we have a buffer for the end formation from the last call.
             // If so we create the bitmap for that formation, and copies it to the page bitmap
             if (buffer1.Count > 0) {
-                int height1 = calculateBitMapSize(buffer1, lineHeight, 0, (int)numericUpDownDancersSize.Value).Height;
+                int height1 = calculateBitMapSize(buffer1, lineHeight, 0, (int)numericUpDownDancersSize.Value, noseSize).Height;
                 int h2 = y + height1;
                 y += SPACE_BETWEEN_CALL_AND_FORMATION;
                 int height = createAndCopyFormationBitmap(ref pageBitmap, checkBoxBorder.Checked, buffer1, y, this.currentXoffset);
@@ -136,7 +137,7 @@ namespace SdGraphics
             } else {
                 // Add extra 5 pixelsfor safety (Needed due to some calculation miss)
                 //int height = lineHeight * (buffer1.Count + 3) + MARGIN_TOP + 5;
-                int height= calculateBitMapSize(buffer1, lineHeight, 0, (int) numericUpDownDancersSize.Value).Height;
+                int height= calculateBitMapSize(buffer1, lineHeight, 0, (int) numericUpDownDancersSize.Value, noseSize).Height;
                 buffer1.Clear();
                 if (y + height +LINE_HEIGHT*2 > PAGE_HEIGHT - MARGIN_BOTTOM) {
                     if (IsOdd(pageNumber)) {
@@ -211,7 +212,8 @@ namespace SdGraphics
             int height = 0;
             int dancerSize = (int) numericUpDownDancersSize.Value;
             int lineHeight = (int)numericUpDownLineHeight.Value;
-            using (Bitmap bmp1 = this.drawFormation(buffer1, drawBorder, dancerSize, lineHeight)) {
+            using (Bitmap bmp1 = this.drawFormation(buffer1, drawBorder, dancerSize, lineHeight, 
+                (int) numericUpDownBlankSpace.Value, (int) numericUpDownNoseSize.Value)) {
                 Rectangle srcRegion = new Rectangle(0, 0, bmp1.Width, bmp1.Height);
                 int destx0 = xOffset+PAGE_WIDTH/4 - bmp1.Width/2 -LEFT_SHIFT ;
                 // Rectangle destRegion = new Rectangle(xOffset + MARGIN_LEFT, y, bmp1.Width, bmp1.Height);
@@ -367,7 +369,7 @@ namespace SdGraphics
                 if (sdLine.noOfDancers == 0) {
                     if (lastCall != AT_HOME) {
                        y= checkBufferAndWriteCall(ref pageBitmap, buffer1, y, sdLine,
-                            ref pageNumber, lineHeight);
+                            ref pageNumber, lineHeight, (int) numericUpDownNoseSize.Value);
                     }
                     lastCall = sdLine.text;
                 } else if (lastCall != TWO_COUPLES_ONLY) {
@@ -387,9 +389,10 @@ namespace SdGraphics
             }
         }
 
-        private Bitmap drawFormation( List<SdLine> buffer1, Boolean drawBorder, int dancerSize, int lineHeight)
+        private Bitmap drawFormation( List<SdLine> buffer1, Boolean drawBorder, int dancerSize, int lineHeight,
+            int blankSpace, int noseSize)
         {
-            int y = NOSE_SIZE + dancerSize / 2;
+            int y = noseSize + dancerSize / 2;
             int maxNumberOfPositions = 0;
             //foreach (String[] dancers in buffer) {
             //    if (dancers.Length > maxNumberOfPositions) {
@@ -406,7 +409,7 @@ namespace SdGraphics
                 }
                 int width = sdLine.noOfDancers * dancerSize; //pixels
                 foreach (int n in sdLine.noOfLeadingSpaces) {
-                    width += n * BLANK_SPACE;
+                    width += n * blankSpace;
                 }
                 if (width > maxWidth) {
                     maxWidth = width;
@@ -414,7 +417,7 @@ namespace SdGraphics
             }
 
             
-            Size bitMapSize=  calculateBitMapSize(buffer1, lineHeight, maxWidth, dancerSize);
+            Size bitMapSize=  calculateBitMapSize(buffer1, lineHeight, maxWidth, dancerSize, noseSize);
 
             Bitmap bmp1 = new Bitmap(bitMapSize.Width, bitMapSize.Height);
             int numberOfLinesInFormation = buffer1.Count;
@@ -431,7 +434,8 @@ namespace SdGraphics
 
                 }
                 for (int i = 0; i < positions.Length; i++) {
-                    xCenter = drawDancerOrSpace(ref bmp1, xCenter + noOfLeadingSpaces[i] * BLANK_SPACE, y, positions[i], dancerSize);
+                    xCenter = drawDancerOrSpace(ref bmp1, xCenter + noOfLeadingSpaces[i] * blankSpace, y, positions[i],
+                        dancerSize, blankSpace, noseSize);
                 }
                 //if (lineNumberInFormation < numberOfLinesInFormation - 1) {
                 //    int numberOfDancersInThisLine = this.getNumberOfDancers(positions);
@@ -450,7 +454,7 @@ namespace SdGraphics
 
         }
 
-        private int drawDancerOrSpace(ref Bitmap bmp, int xc, int yc, String dancer, int dancerSize)
+        private int drawDancerOrSpace(ref Bitmap bmp, int xc, int yc, String dancer, int dancerSize, int blankSpace, int noseSize)
         {
             Pen pen = new Pen(System.Drawing.Color.Black, 1);
             int x = Math.Max(0, xc - dancerSize / 2);
@@ -458,8 +462,8 @@ namespace SdGraphics
             using (Graphics g = Graphics.FromImage(bmp)) {
                 if (dancer == ".") {
                     // the point is only 1 char, so we have to add an extra spcace before
-                    g.DrawEllipse(penForPhantom, x- BLANK_SPACE, yc - dancerSize/2, dancerSize, dancerSize);
-                    xc -= 2*BLANK_SPACE;  // Subtle
+                    g.DrawEllipse(penForPhantom, x- blankSpace, yc - dancerSize/2, dancerSize, dancerSize);
+                    xc -= 2*blankSpace;  // Subtle
 
 
                 } else if (dancer == SPACE_CHAR) {
@@ -476,13 +480,13 @@ namespace SdGraphics
                     g.DrawString(dancer[0].ToString(), fontForCalls, brushForDancers, x + 2, y + 2);
 
                     if (dancer[2] == '>') {
-                        g.FillEllipse(brushForNoses, x + dancerSize, y + dancerSize / 2 - NOSE_SIZE / 2, NOSE_SIZE, NOSE_SIZE);
+                        g.FillEllipse(brushForNoses, x + dancerSize, y + dancerSize / 2 - noseSize / 2, noseSize, noseSize);
                     } else if (dancer[2] == '<') {
-                        g.FillEllipse(brushForNoses, x - NOSE_SIZE, y + dancerSize / 2 - NOSE_SIZE / 2, NOSE_SIZE, NOSE_SIZE);
+                        g.FillEllipse(brushForNoses, x - noseSize, y + dancerSize / 2 - noseSize / 2, noseSize, noseSize);
                     } else if (dancer[2] == '^') {
-                        g.FillEllipse(brushForNoses, x + dancerSize / 2 - NOSE_SIZE / 2, y - NOSE_SIZE, NOSE_SIZE, NOSE_SIZE);
+                        g.FillEllipse(brushForNoses, x + dancerSize / 2 - noseSize / 2, y - noseSize, noseSize, noseSize);
                     } else if (dancer[2] == 'V') {
-                        g.FillEllipse(brushForNoses, x + dancerSize / 2 - NOSE_SIZE / 2, y + dancerSize, NOSE_SIZE, NOSE_SIZE);
+                        g.FillEllipse(brushForNoses, x + dancerSize / 2 - noseSize / 2, y + dancerSize, noseSize, noseSize);
                     }
                 }
                 //g.DrawString(String.Format("Line {0}", accCounter + 1), fy, br, leftMargin, y);
