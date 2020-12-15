@@ -44,5 +44,30 @@ namespace SdGraphics
         {
             myParentForm.printImage();
         }
+
+        private void printToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            myParentForm.printImage();
+        }
+
+        private void buttonForward_Click_1(object sender, EventArgs e)
+        {
+            myParentForm.nextPage();
+        }
+
+        private void buttonBack_Click_1(object sender, EventArgs e)
+        {
+            myParentForm.previousPage();
+        }
+
+        private void buttonBeginnin_Click(object sender, EventArgs e)
+        {
+            myParentForm.firstPage();
+        }
+
+        private void buttonEnd_Click(object sender, EventArgs e)
+        {
+            myParentForm.lastPage();
+        }
     }
 }

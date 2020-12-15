@@ -28,14 +28,13 @@ namespace SdGraphics
         //private static int LINE_HEIGHT_FORMATION = 27;
         private static int LINE_LENGTH = 75;
         private static int MARGIN_BOTTOM = 50;
-        private static int MARGIN_LEFT = 25; // For text only
+        private static int MARGIN_LEFT = 40; // For text only
         private static int MARGIN_TOP = 15;
         //private static int NOSE_SIZE = 6;
         private static int PAGE_HEIGHT = 1100;
         private static int PAGE_WIDTH = 778;
         //private static int MIDDLE = 150;
         private static String SPACE_CHAR = "%";
-        private int SPACE_BETWEEN_CALL_AND_FORMATION = 15;
         private List<Bitmap> bitmapList = new List<Bitmap>();
         //=210 * PAGE_HEIGHT / 297; // A4= 210 mm × 297 mm
         Brush brushForCalls = new SolidBrush(System.Drawing.Color.Black);
@@ -43,22 +42,24 @@ namespace SdGraphics
         Brush brushForDancers = new SolidBrush(System.Drawing.Color.Black);
         Brush brushForNoses = new SolidBrush(System.Drawing.Color.Red);
         Brush brushForSpace = new SolidBrush(System.Drawing.Color.Blue);
-        Pen penForBorder = new Pen(Color.Red, 2);
-        Pen penForPhantom = new Pen(Color.Blue, 1);
         private String copyright;
-        private int currentIndex = 0;
+        private int currentIndex = -1;
         // For display
         //private String fileName = @"e:\Downloads\sequence_C1.txt";
-        private String fileName = @"c:\Sd\Tony_C3_Tip_01.txt";
+        private String fileName;
 
         Font fontForCalls = new Font("Helvetica", 10, FontStyle.Bold);
         private Form graphicsForm;
         private int pageIndex = 0;
         private double PANEL_SCALE = 1;
+        Pen penForBorder = new Pen(Color.Red, 2);
+        Pen penForPhantom = new Pen(Color.Blue, 1);
         private PictureBox pictureBox1 = new PictureBox();
         // For printing
         private String sdId = "";
+
         private List<SdLine> sdLines = new List<SdLine>();
+        private int SPACE_BETWEEN_CALL_AND_FORMATION = 15;
         // The id text from the Sd text file
 
         struct SdLine
@@ -84,10 +85,53 @@ namespace SdGraphics
             this.init();
         }
 
+        public void firstPage()
+        {
+            if (this.currentIndex > 0) {
+                this.viewBitmap(0);
+            }
+        }
         public bool IsOdd(int value)
         {
             return value % 2 != 0;
         }
+
+        public void lastPage()
+        {
+            if (this.currentIndex > 0) {
+                this.viewBitmap(this.bitmapList.Count - 1);
+            }
+        }
+
+        public void nextPage()
+        {
+            if (this.currentIndex < this.bitmapList.Count) {
+                this.viewBitmap(this.currentIndex + 1);
+            }
+        }
+
+        public void previousPage()
+        {
+            if (this.currentIndex > 0) {
+                this.viewBitmap(this.currentIndex - 1);
+            }
+        }
+
+        public void printImage()
+        {
+
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.PrintPage += docPrintPage;
+            PrintPreviewDialog previewDialog = new PrintPreviewDialog();
+            previewDialog.Height = 1200;
+            previewDialog.Width = 800;
+            previewDialog.Document = printDocument;
+            pageIndex = 0;
+            previewDialog.ShowDialog();
+            // don't forget to detach the event handler when you are done
+            printDocument.PrintPage -= docPrintPage;
+        }
+
         Size calculateBitMapSize(List<SdLine> buffer1, int lineHeight, int maxWidth, int dancerSize, int noseSize)
         {
             // Make reservation for one nose in each end in both directions
@@ -142,7 +186,6 @@ namespace SdGraphics
                 if (y + height +LINE_HEIGHT*2 > PAGE_HEIGHT - MARGIN_BOTTOM) {
                     if (IsOdd(pageNumber)) {
 
-                        this.writeText(String.Format("Copyright \u00a9 {0}", this.copyright), lineHeight, pageBitmap, PAGE_HEIGHT - lineHeight, PAGE_WIDTH / 2 - 100);
                         this.currentXoffset = PAGE_WIDTH / 2; //+MARGIN_LEFT
                         y = MARGIN_TOP + lineHeight;
 
@@ -153,6 +196,7 @@ namespace SdGraphics
                         this.bitmapList.Add(pageBitmap);
                         pageBitmap = new Bitmap(PAGE_WIDTH, PAGE_HEIGHT);
                         y = MARGIN_TOP;
+                        writeCopyright(pageBitmap, lineHeight);
                         writePageHeader(pageBitmap, y, 1 + pageNumber / 2, lineHeight);
                         y += lineHeight;
                     }
@@ -187,6 +231,7 @@ namespace SdGraphics
             }
             return y;
         }
+
 
         private String cleanUp(string line)
         {
@@ -356,7 +401,8 @@ namespace SdGraphics
             Boolean skipNext = false;
             int pageNumber = 1;
             this.currentXoffset = 0;// MARGIN_LEFT;
-            writePageHeader(pageBitmap, y, 1, lineHeight);
+            this.writePageHeader(pageBitmap, y, 1, lineHeight);
+            this.writeCopyright(pageBitmap, lineHeight);
             y += lineHeight;
             //int callNumber = 0;
             String lastCall = "";
@@ -389,8 +435,48 @@ namespace SdGraphics
             }
         }
 
-        private Bitmap drawFormation( List<SdLine> buffer1, Boolean drawBorder, int dancerSize, int lineHeight,
-            int blankSpace, int noseSize)
+        private int drawDancerOrSpace(ref Bitmap bmp, int xc, int yc, String dancer, int dancerSize, int blankSpace, int noseSize)
+        {
+            Pen pen = new Pen(System.Drawing.Color.Black, 1);
+            int x = Math.Max(0, xc - dancerSize / 2);
+            int y = yc - dancerSize / 2;
+            using (Graphics g = Graphics.FromImage(bmp)) {
+                if (dancer == ".") {
+                    // the point is only 1 char, so we have to add an extra spcace before
+                    g.DrawEllipse(penForPhantom, x - blankSpace, yc - dancerSize / 2, dancerSize, dancerSize);
+                    xc -= 2 * blankSpace;  // Subtle
+
+
+                } else if (dancer == SPACE_CHAR) {
+                    String extraSpace = " ".PadLeft(DIAMOND_WIDTH);  // Does not work
+                    g.DrawString(extraSpace, fontForCalls, brushForDancers, x, y);
+
+                } else {
+                    if (dancer[1] == 'B') {
+                        g.DrawRectangle(pen, x, y, dancerSize, dancerSize);
+                    } else {
+                        g.DrawEllipse(pen, x, y, dancerSize, dancerSize);
+                    }
+                    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+                    g.DrawString(dancer[0].ToString(), fontForCalls, brushForDancers, x + 2, y + 2);
+
+                    if (dancer[2] == '>') {
+                        g.FillEllipse(brushForNoses, x + dancerSize, y + dancerSize / 2 - noseSize / 2, noseSize, noseSize);
+                    } else if (dancer[2] == '<') {
+                        g.FillEllipse(brushForNoses, x - noseSize, y + dancerSize / 2 - noseSize / 2, noseSize, noseSize);
+                    } else if (dancer[2] == '^') {
+                        g.FillEllipse(brushForNoses, x + dancerSize / 2 - noseSize / 2, y - noseSize, noseSize, noseSize);
+                    } else if (dancer[2] == 'V') {
+                        g.FillEllipse(brushForNoses, x + dancerSize / 2 - noseSize / 2, y + dancerSize, noseSize, noseSize);
+                    }
+                }
+                //g.DrawString(String.Format("Line {0}", accCounter + 1), fy, br, leftMargin, y);
+            }
+            return xc + dancerSize;
+        }
+
+        private Bitmap drawFormation(List<SdLine> buffer1, Boolean drawBorder, int dancerSize, int lineHeight,
+                    int blankSpace, int noseSize)
         {
             int y = noseSize + dancerSize / 2;
             int maxNumberOfPositions = 0;
@@ -453,47 +539,6 @@ namespace SdGraphics
             return bmp1;
 
         }
-
-        private int drawDancerOrSpace(ref Bitmap bmp, int xc, int yc, String dancer, int dancerSize, int blankSpace, int noseSize)
-        {
-            Pen pen = new Pen(System.Drawing.Color.Black, 1);
-            int x = Math.Max(0, xc - dancerSize / 2);
-            int y = yc - dancerSize / 2;
-            using (Graphics g = Graphics.FromImage(bmp)) {
-                if (dancer == ".") {
-                    // the point is only 1 char, so we have to add an extra spcace before
-                    g.DrawEllipse(penForPhantom, x- blankSpace, yc - dancerSize/2, dancerSize, dancerSize);
-                    xc -= 2*blankSpace;  // Subtle
-
-
-                } else if (dancer == SPACE_CHAR) {
-                    String extraSpace = " ".PadLeft(DIAMOND_WIDTH);  // Does not work
-                    g.DrawString(extraSpace, fontForCalls, brushForDancers, x, y);
-
-                } else {
-                    if (dancer[1] == 'B') {
-                        g.DrawRectangle(pen, x, y, dancerSize, dancerSize);
-                    } else {
-                        g.DrawEllipse(pen, x, y, dancerSize, dancerSize);
-                    }
-                    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
-                    g.DrawString(dancer[0].ToString(), fontForCalls, brushForDancers, x + 2, y + 2);
-
-                    if (dancer[2] == '>') {
-                        g.FillEllipse(brushForNoses, x + dancerSize, y + dancerSize / 2 - noseSize / 2, noseSize, noseSize);
-                    } else if (dancer[2] == '<') {
-                        g.FillEllipse(brushForNoses, x - noseSize, y + dancerSize / 2 - noseSize / 2, noseSize, noseSize);
-                    } else if (dancer[2] == '^') {
-                        g.FillEllipse(brushForNoses, x + dancerSize / 2 - noseSize / 2, y - noseSize, noseSize, noseSize);
-                    } else if (dancer[2] == 'V') {
-                        g.FillEllipse(brushForNoses, x + dancerSize / 2 - noseSize / 2, y + dancerSize, noseSize, noseSize);
-                    }
-                }
-                //g.DrawString(String.Format("Line {0}", accCounter + 1), fy, br, leftMargin, y);
-            }
-            return xc + dancerSize;
-        }
-
         private Dictionary<int, string> findDancers(String line)
         {
             String[] atoms = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
@@ -526,7 +571,6 @@ namespace SdGraphics
         {
             //numericUpDownScale.Value = (decimal) 0.7;
             this.numericUpDownScale.ValueChanged += new System.EventHandler(this.numericUpDownScale_ValueChanged);
-            this.copyright = textBoxCopyright.Text;
         }
 
         private Boolean matchSdId(String line)
@@ -542,35 +586,6 @@ namespace SdGraphics
             }
             return retVal;
         }
-        public void nextPage()
-        {
-            if (this.currentIndex < this.bitmapList.Count) {
-                this.viewBitmap(this.currentIndex + 1);
-            }
-        }
-
-        public void previousPage()
-        {
-            if (this.currentIndex > 0) {
-                this.viewBitmap(this.currentIndex - 1);
-            }
-        }
-
-        public void printImage()
-        {
-
-            PrintDocument printDocument = new PrintDocument();
-            printDocument.PrintPage += docPrintPage;
-            PrintPreviewDialog previewDialog = new PrintPreviewDialog();
-            previewDialog.Height = 1200;
-            previewDialog.Width = 800;
-            previewDialog.Document = printDocument;
-            pageIndex = 0;
-            previewDialog.ShowDialog();
-            // don't forget to detach the event handler when you are done
-            printDocument.PrintPage -= docPrintPage;
-        }
-
         private Boolean skip(ref String line, ref String sdId, ref Boolean warning, ref Boolean emptyLine)
         {
             Boolean skip = false;
@@ -612,6 +627,12 @@ namespace SdGraphics
                 pictureBox1.Refresh();
                 this.currentIndex = index;
             }
+        }
+
+        private void writeCopyright(Bitmap pageBitmap, int lineHeight)
+        {
+            this.writeText(String.Format("Copyright \u00a9 {0} {1}", textBoxCopyrightName.Text, numericUpDownCopyrightYear.Value),
+                lineHeight, pageBitmap, PAGE_HEIGHT - lineHeight, PAGE_WIDTH / 2 - 150);
         }
 
         private int writePageHeader(Bitmap pageBitmap, int y, int pageNumber, int lineHeight)
@@ -688,6 +709,21 @@ namespace SdGraphics
         }
 
 
+        private void buttonBack_Click_1(object sender, EventArgs e)
+        {
+            this.previousPage();
+        }
+
+        private void buttonBeginnin_Click(object sender, EventArgs e)
+        {
+            this.firstPage();
+        }
+
+        private void buttonEnd_Click(object sender, EventArgs e)
+        {
+            this.lastPage();
+        }
+
         private void buttonExit_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -695,9 +731,14 @@ namespace SdGraphics
 
         private void buttonForward_Click(object sender, EventArgs e)
         {
-            nextPage();
+            this.nextPage();
         }
 
+
+        private void buttonForward_Click_1(object sender, EventArgs e)
+        {
+            this.nextPage();
+        }
 
         private void buttonOpenFile_Click(object sender, EventArgs e)
         {
@@ -751,10 +792,8 @@ namespace SdGraphics
 
         private void textBoxCopyright_TextChanged(object sender, EventArgs e)
         {
-            this.copyright = textBoxCopyright.Text;
+            this.copyright = textBoxCopyrightName.Text;
         }
-
         #endregion ------------------------------------- Event Handlers
-
     }
 }
