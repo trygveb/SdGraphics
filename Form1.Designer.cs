@@ -187,7 +187,6 @@
             this.textBoxCopyrightName.Size = new System.Drawing.Size(141, 20);
             this.textBoxCopyrightName.TabIndex = 16;
             this.textBoxCopyrightName.Text = "Thomas Bernhed";
-            this.textBoxCopyrightName.TextChanged += new System.EventHandler(this.textBoxCopyright_TextChanged);
             // 
             // checkBoxBorder
             // 

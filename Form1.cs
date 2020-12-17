@@ -13,33 +13,55 @@ namespace SdGraphics
     public partial class Form1 : Form
     {
         #region ----------------------------------------- Attributes
+
+        // Form feed character are found i Sd files when the "End this sequence" command has been used
         public static Char FF = '\f';
+
+        // The formation from this Sd Command is currently ignored
         public static String TWO_COUPLES_ONLY = "Two couples only";
+
+        // currentXoffset should be zero for the left column and typically pageSize.Width/2 for the right column
         public int currentXoffset = 0;
+
+        // This line i one of several criteria to detect end of a sequence
         private static String AT_HOME = "at home";
-        private static int LINE_HEIGHT = 20;
-        private static int LINE_LENGTH = 75;
+
         private static int MARGIN_BOTTOM = 50;
         private static int MARGIN_TOP = 15;
-        
-        private Size pageSize = new Size(778, 1100); // A4= 210 mm × 297 mm
+        private static int MAX_TEXT_LINE_LENGTH = 60;
+
+        // Each bitmap in this list corresponds to a (A4) page
         private List<Bitmap> bitmapList = new List<Bitmap>();
 
-        private Brush brushForCalls = new SolidBrush(System.Drawing.Color.Black);
+        private int currentIndex = -1;  // Index in bitmapList
 
+        private String fileName;    // Current Sd file
+
+        private Font fontForCalls = new Font("Helvetica", 10, FontStyle.Bold);
+
+        private Form graphicsForm;  // The window with the graphics
+
+        private int marginLeftFormations = 30;
+        private int marginLeftText = 40;
+
+        private int pageIndex = 0;  // Used by the printing function
+
+        // Size of the each page in pixels. Corresponds to 94 pixels/inch for an A4 page (210 mm × 297 mm)
+        private Size pageSize = new Size(778, 1100); 
+
+        #region ----------------------------------------- Brushes
+        private Brush brushForCalls = new SolidBrush(System.Drawing.Color.Black);
         private Brush brushForDancers = new SolidBrush(System.Drawing.Color.Black);
         private Brush brushForNoses = new SolidBrush(System.Drawing.Color.Red);
-        private String copyright;
-        private int currentIndex = -1;
-        private String fileName;
-        private Font fontForCalls = new Font("Helvetica", 10, FontStyle.Bold);
-        private Form graphicsForm;
-        private int marginLeftFormations = 30;  
-        private int marginLeftText = 40;        
-        private int pageIndex = 0;
+        #endregion  ------------------------------------- Brushes
+
         private double PANEL_SCALE = 1;
+
+        #region ----------------------------------------- Pens
         private Pen penForBorder = new Pen(Color.Red, 2);
         private Pen penForPhantom = new Pen(Color.Blue, 1);
+        #endregion  ------------------------------------- Pens
+
         private PictureBox pictureBox1 = new PictureBox();
         // For printing
         private String sdId = "";
@@ -169,7 +191,7 @@ namespace SdGraphics
                 //int height = lineHeight * (buffer1.Count + 3) + MARGIN_TOP + 5;
                 int height= calculateBitMapSize(buffer1, lineHeight, 0, (int) numericUpDownDancersSize.Value, noseSize).Height;
                 buffer1.Clear();
-                if (y + height +LINE_HEIGHT*2 > pageSize.Height - MARGIN_BOTTOM) {
+                if (y + height + lineHeight * 2 > pageSize.Height - MARGIN_BOTTOM) {
                     if (IsOdd(pageNumber)) {
 
                         this.currentXoffset = pageSize.Width / 2; //+MARGIN_LEFT
@@ -625,9 +647,9 @@ namespace SdGraphics
                 g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
-                if (line.Length > LINE_LENGTH && lineBreak) {
-                    String line1 = line.Substring(0, LINE_LENGTH);
-                    String line2 = line.Substring(LINE_LENGTH, line.Length - LINE_LENGTH);
+                if (line.Length > MAX_TEXT_LINE_LENGTH && lineBreak) {
+                    String line1 = line.Substring(0, MAX_TEXT_LINE_LENGTH);
+                    String line2 = line.Substring(MAX_TEXT_LINE_LENGTH, line.Length - MAX_TEXT_LINE_LENGTH);
                     g.DrawString(line1, this.fontForCalls, brushForCalls, x, y);
                     y += lineHeight;
                     g.DrawString(line2, this.fontForCalls, brushForCalls, x, y);
@@ -765,10 +787,6 @@ namespace SdGraphics
             this.createTip();
         }
 
-        private void textBoxCopyright_TextChanged(object sender, EventArgs e)
-        {
-            this.copyright = textBoxCopyrightName.Text;
-        }
         #endregion ------------------------------------- Event Handlers
     }
 }
