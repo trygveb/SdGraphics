@@ -16,44 +16,30 @@ namespace SdGraphics
         public static Char FF = '\f';
         public static String TWO_COUPLES_ONLY = "Two couples only";
         public int currentXoffset = 0;
-        public int DIAMOND_REDUCTION = 7;
-        public int DIAMOND_WIDTH = 3;
         private static String AT_HOME = "at home";
-        //private int DANCER_SIZE = 18;
-        //private static bool DRAW_BORDER = false;
-        //private static int HORIZONTAL_SPACE = 30;
-        //private static int BLANK_SPACE = 6;
-        private static int LEFT_SHIFT = 30;
         private static int LINE_HEIGHT = 20;
-        //private static int LINE_HEIGHT_FORMATION = 27;
         private static int LINE_LENGTH = 75;
         private static int MARGIN_BOTTOM = 50;
-        private static int MARGIN_LEFT = 40; // For text only
         private static int MARGIN_TOP = 15;
-        //private static int NOSE_SIZE = 6;
-        private static int PAGE_HEIGHT = 1100;
-        private static int PAGE_WIDTH = 778;
-        //private static int MIDDLE = 150;
-        private static String SPACE_CHAR = "%";
+        
+        private Size pageSize = new Size(778, 1100); // A4= 210 mm × 297 mm
         private List<Bitmap> bitmapList = new List<Bitmap>();
-        //=210 * PAGE_HEIGHT / 297; // A4= 210 mm × 297 mm
-        Brush brushForCalls = new SolidBrush(System.Drawing.Color.Black);
 
-        Brush brushForDancers = new SolidBrush(System.Drawing.Color.Black);
-        Brush brushForNoses = new SolidBrush(System.Drawing.Color.Red);
-        Brush brushForSpace = new SolidBrush(System.Drawing.Color.Blue);
+        private Brush brushForCalls = new SolidBrush(System.Drawing.Color.Black);
+
+        private Brush brushForDancers = new SolidBrush(System.Drawing.Color.Black);
+        private Brush brushForNoses = new SolidBrush(System.Drawing.Color.Red);
         private String copyright;
         private int currentIndex = -1;
-        // For display
-        //private String fileName = @"e:\Downloads\sequence_C1.txt";
         private String fileName;
-
-        Font fontForCalls = new Font("Helvetica", 10, FontStyle.Bold);
+        private Font fontForCalls = new Font("Helvetica", 10, FontStyle.Bold);
         private Form graphicsForm;
+        private int marginLeftFormations = 30;  
+        private int marginLeftText = 40;        
         private int pageIndex = 0;
         private double PANEL_SCALE = 1;
-        Pen penForBorder = new Pen(Color.Red, 2);
-        Pen penForPhantom = new Pen(Color.Blue, 1);
+        private Pen penForBorder = new Pen(Color.Red, 2);
+        private Pen penForPhantom = new Pen(Color.Blue, 1);
         private PictureBox pictureBox1 = new PictureBox();
         // For printing
         private String sdId = "";
@@ -183,10 +169,10 @@ namespace SdGraphics
                 //int height = lineHeight * (buffer1.Count + 3) + MARGIN_TOP + 5;
                 int height= calculateBitMapSize(buffer1, lineHeight, 0, (int) numericUpDownDancersSize.Value, noseSize).Height;
                 buffer1.Clear();
-                if (y + height +LINE_HEIGHT*2 > PAGE_HEIGHT - MARGIN_BOTTOM) {
+                if (y + height +LINE_HEIGHT*2 > pageSize.Height - MARGIN_BOTTOM) {
                     if (IsOdd(pageNumber)) {
 
-                        this.currentXoffset = PAGE_WIDTH / 2; //+MARGIN_LEFT
+                        this.currentXoffset = pageSize.Width / 2; //+MARGIN_LEFT
                         y = MARGIN_TOP + lineHeight;
 
                         //y = writeText(String.Format("Sd file= {0}                  Page {1}", this.fileName, pageNumber),
@@ -194,7 +180,7 @@ namespace SdGraphics
                     } else {
                         this.currentXoffset = 0;//MARGIN_LEFT
                         this.bitmapList.Add(pageBitmap);
-                        pageBitmap = new Bitmap(PAGE_WIDTH, PAGE_HEIGHT);
+                        pageBitmap = new Bitmap(pageSize.Width, pageSize.Height);
                         y = MARGIN_TOP;
                         writeCopyright(pageBitmap, lineHeight);
                         writePageHeader(pageBitmap, y, 1 + pageNumber / 2, lineHeight);
@@ -260,7 +246,7 @@ namespace SdGraphics
             using (Bitmap bmp1 = this.drawFormation(buffer1, drawBorder, dancerSize, lineHeight, 
                 (int) numericUpDownBlankSpace.Value, (int) numericUpDownNoseSize.Value)) {
                 Rectangle srcRegion = new Rectangle(0, 0, bmp1.Width, bmp1.Height);
-                int destx0 = xOffset+PAGE_WIDTH/4 - bmp1.Width/2 -LEFT_SHIFT ;
+                int destx0 = xOffset+pageSize.Width/4 - bmp1.Width/2 -marginLeftFormations ;
                 // Rectangle destRegion = new Rectangle(xOffset + MARGIN_LEFT, y, bmp1.Width, bmp1.Height);
                 Rectangle destRegion = new Rectangle(destx0, y, bmp1.Width, bmp1.Height);
                 copyRegionIntoImage(bmp1, srcRegion, ref bmp, destRegion);
@@ -375,11 +361,11 @@ namespace SdGraphics
                 //PictureBox pictureBox1 = this.graphicsForm.getPictureBox();
             }
             PANEL_SCALE = (double)numericUpDownScale.Value;
-            pictureBox1.Height = (int)(PANEL_SCALE * PAGE_HEIGHT);
-            pictureBox1.Width = (int)(PANEL_SCALE * PAGE_WIDTH);
+            pictureBox1.Height = (int)(PANEL_SCALE * pageSize.Height);
+            pictureBox1.Width = (int)(PANEL_SCALE * pageSize.Width);
             int heightOfTitleBar = 40;
-            this.graphicsForm.Height = (int)(PANEL_SCALE * PAGE_HEIGHT) + pictureBox1.Location.Y+ heightOfTitleBar;
-            this.graphicsForm.Width = (int)(PANEL_SCALE * PAGE_WIDTH) + 35;
+            this.graphicsForm.Height = (int)(PANEL_SCALE * pageSize.Height) + pictureBox1.Location.Y+ heightOfTitleBar;
+            this.graphicsForm.Width = (int)(PANEL_SCALE * pageSize.Width) + 35;
             //DIAMOND_REDUCTION = (int)numericUpDownDiamondReduction.Value;
             //DIAMOND_WIDTH = (int)numericUpDownLineHeight.Value;
             this.bitmapList.Clear();
@@ -393,7 +379,7 @@ namespace SdGraphics
 
             this.sdId = this.createSdLines(lines);
             int lineHeight = (int)numericUpDownLineHeight.Value;
-            Bitmap pageBitmap = new Bitmap(PAGE_WIDTH, PAGE_HEIGHT);
+            Bitmap pageBitmap = new Bitmap(pageSize.Width, pageSize.Height);
             //List<String[]> buffer = new List<string[]>();
             List<SdLine> buffer1 = new List<SdLine>();
             int y = MARGIN_TOP;
@@ -422,7 +408,7 @@ namespace SdGraphics
                     buffer1.Add(sdLine);
                 }
             }
-           // this.writeText("Copyright \u00a9 Bronc Wise 2012", lineHeight, pageBitmap, PAGE_HEIGHT - lineHeight, PAGE_WIDTH / 2 - 100);
+           // this.writeText("Copyright \u00a9 Bronc Wise 2012", lineHeight, pageBitmap, pageSize.Height - lineHeight, pageSize.Width / 2 - 100);
 
             this.bitmapList.Add(pageBitmap);  // The last bitmap (Could be a duplicate?)
             this.viewBitmap(0);
@@ -445,12 +431,6 @@ namespace SdGraphics
                     // the point is only 1 char, so we have to add an extra spcace before
                     g.DrawEllipse(penForPhantom, x - blankSpace, yc - dancerSize / 2, dancerSize, dancerSize);
                     xc -= 2 * blankSpace;  // Subtle
-
-
-                } else if (dancer == SPACE_CHAR) {
-                    String extraSpace = " ".PadLeft(DIAMOND_WIDTH);  // Does not work
-                    g.DrawString(extraSpace, fontForCalls, brushForDancers, x, y);
-
                 } else {
                     if (dancer[1] == 'B') {
                         g.DrawRectangle(pen, x, y, dancerSize, dancerSize);
@@ -549,7 +529,7 @@ namespace SdGraphics
 
                 Match match = regex.Match(atoms[i]);
 
-                if (match.Success || atoms[i] == "." || atoms[i] == SPACE_CHAR) {
+                if (match.Success || atoms[i] == "." ) {
                     dancers.Add(i, atoms[i]);
                 }
             }
@@ -559,11 +539,6 @@ namespace SdGraphics
         private int getNumberOfDancers(String[] line)
         {
             int length = line.Length;
-            foreach (String postion in line) {
-                if (postion == SPACE_CHAR) {
-                    length--;
-                }
-            }
             return length;
         }
 
@@ -632,7 +607,7 @@ namespace SdGraphics
         private void writeCopyright(Bitmap pageBitmap, int lineHeight)
         {
             this.writeText(String.Format("Copyright \u00a9 {0} {1}", textBoxCopyrightName.Text, numericUpDownCopyrightYear.Value),
-                lineHeight, pageBitmap, PAGE_HEIGHT - lineHeight, PAGE_WIDTH / 2 - 150);
+                lineHeight, pageBitmap, pageSize.Height - lineHeight, pageSize.Width / 2 - 150);
         }
 
         private int writePageHeader(Bitmap pageBitmap, int y, int pageNumber, int lineHeight)
@@ -643,7 +618,7 @@ namespace SdGraphics
 
         private int writeText(string line, int lineHeight, Bitmap bmp, int y, int xOffset, Boolean lineBreak = true)
         {
-            int x = xOffset+MARGIN_LEFT;
+            int x = xOffset+marginLeftText;
             using (Graphics g = Graphics.FromImage(bmp)) {
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
