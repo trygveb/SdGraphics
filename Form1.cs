@@ -26,12 +26,7 @@ namespace SdGraphics
         // This line i one of several criteria to detect end of a sequence
         private static String AT_HOME = "at home";
 
-        private static int MARGIN_BOTTOM = 50;
-        private static int MARGIN_TOP = 15;
-        private static int MAX_TEXT_LINE_LENGTH = 60;
-
-        // Each bitmap in this list corresponds to a (A4) page
-        private List<Bitmap> bitmapList = new List<Bitmap>();
+        private List<Bitmap> bitmapList = new List<Bitmap>(); // Each bitmap in this list corresponds to a (A4) page
 
         private int currentIndex = -1;  // Index in bitmapList
 
@@ -172,7 +167,7 @@ namespace SdGraphics
         }
 
         private int checkBufferAndWriteCall(ref Bitmap pageBitmap,  List<SdLine> buffer1, int y,  SdLine sdLine, ref int pageNumber,
-            int lineHeight, int noseSize)
+            int lineHeight, int noseSize, int marginTop, int marginBottom, int maxTextLineLength, Boolean lineBreak)
         {
             // The line contains a call 
             // Check if we have a buffer for the end formation from the last call.
@@ -191,11 +186,11 @@ namespace SdGraphics
                 //int height = lineHeight * (buffer1.Count + 3) + MARGIN_TOP + 5;
                 int height= calculateBitMapSize(buffer1, lineHeight, 0, (int) numericUpDownDancersSize.Value, noseSize).Height;
                 buffer1.Clear();
-                if (y + height + lineHeight * 2 > pageSize.Height - MARGIN_BOTTOM) {
+                if (y + height + lineHeight * 2 > pageSize.Height - marginBottom) {
                     if (IsOdd(pageNumber)) {
 
                         this.currentXoffset = pageSize.Width / 2; //+MARGIN_LEFT
-                        y = MARGIN_TOP + lineHeight;
+                        y = marginTop + lineHeight;
 
                         //y = writeText(String.Format("Sd file= {0}                  Page {1}", this.fileName, pageNumber),
                         //    pageBitmap, y, MARGIN_LEFT, false);
@@ -203,7 +198,7 @@ namespace SdGraphics
                         this.currentXoffset = 0;//MARGIN_LEFT
                         this.bitmapList.Add(pageBitmap);
                         pageBitmap = new Bitmap(pageSize.Width, pageSize.Height);
-                        y = MARGIN_TOP;
+                        y = marginTop;
                         writeCopyright(pageBitmap, lineHeight);
                         writePageHeader(pageBitmap, y, 1 + pageNumber / 2, lineHeight);
                         y += lineHeight;
@@ -228,11 +223,11 @@ namespace SdGraphics
 
                 if (sdLine.callNumber == 0) {
                     y += lineHeight / 2;
-                    y = writeText(String.Format("{0}", sdLine.text), lineHeight, pageBitmap, y, this.currentXoffset);
+                    y = writeText(String.Format("{0}", sdLine.text), lineHeight, pageBitmap, y, this.currentXoffset, maxTextLineLength, lineBreak);
                     y += lineHeight / 2;
                 } else if (sdLine.callNumber > 0) {
                     y += lineHeight;
-                    y = writeText(String.Format("{0}) {1}", sdLine.callNumber, sdLine.text), lineHeight, pageBitmap, y, this.currentXoffset);
+                    y = writeText(String.Format("{0}) {1}", sdLine.callNumber, sdLine.text), lineHeight, pageBitmap, y, this.currentXoffset, maxTextLineLength, lineBreak);
                     y += lineHeight / 2;
                 }
                 
@@ -335,7 +330,7 @@ namespace SdGraphics
                 if (sdLine.warning) {
                     sdLine.callNumber = -1;
                 } else if (sdLine.text == AT_HOME) {
-                    sdLine.text = "---------------------- " + sdLine.text + " -----------------------";
+                    sdLine.text = "------------ " + sdLine.text + " -------------";
                     sdLine.callNumber = 0;
                 } else if (regex1.Match(sdLine.text).Success || regex2.Match(sdLine.text).Success) {
                     addSequenceEnd = true;
@@ -404,7 +399,7 @@ namespace SdGraphics
             Bitmap pageBitmap = new Bitmap(pageSize.Width, pageSize.Height);
             //List<String[]> buffer = new List<string[]>();
             List<SdLine> buffer1 = new List<SdLine>();
-            int y = MARGIN_TOP;
+            int y = (int) numericUpDownMarginTop.Value;
 
             Boolean skipNext = false;
             int pageNumber = 1;
@@ -423,7 +418,9 @@ namespace SdGraphics
                 if (sdLine.noOfDancers == 0) {
                     if (lastCall != AT_HOME) {
                        y= checkBufferAndWriteCall(ref pageBitmap, buffer1, y, sdLine,
-                            ref pageNumber, lineHeight, (int) numericUpDownNoseSize.Value);
+                            ref pageNumber, lineHeight, (int) numericUpDownNoseSize.Value,
+                            (int)numericUpDownMarginTop.Value, (int) numericUpDownMarginBottom.Value, (int)numericUpDownMaxLineLength.Value,
+                            checkBoxBreakLines.Checked);
                     }
                     lastCall = sdLine.text;
                 } else if (lastCall != TWO_COUPLES_ONLY) {
@@ -629,16 +626,16 @@ namespace SdGraphics
         private void writeCopyright(Bitmap pageBitmap, int lineHeight)
         {
             this.writeText(String.Format("Copyright \u00a9 {0} {1}", textBoxCopyrightName.Text, numericUpDownCopyrightYear.Value),
-                lineHeight, pageBitmap, pageSize.Height - lineHeight, pageSize.Width / 2 - 150);
+                lineHeight, pageBitmap, pageSize.Height - lineHeight, pageSize.Width / 2 - 150, (int)numericUpDownMaxLineLength.Value, false);
         }
 
         private int writePageHeader(Bitmap pageBitmap, int y, int pageNumber, int lineHeight)
         {
             return writeText(String.Format("Sd file={0}     Date={1}          Page {2}",
-                Path.GetFileName(fileName), this.sdId, pageNumber), lineHeight, pageBitmap, y, 0, false);
+                Path.GetFileName(fileName), this.sdId, pageNumber), lineHeight, pageBitmap, y, 0, (int) numericUpDownLineHeight.Value, false);
         }
 
-        private int writeText(string line, int lineHeight, Bitmap bmp, int y, int xOffset, Boolean lineBreak = true)
+        private int writeText(string line, int lineHeight, Bitmap bmp, int y, int xOffset, int maxTextLineLength, Boolean lineBreak)
         {
             int x = xOffset+marginLeftText;
             using (Graphics g = Graphics.FromImage(bmp)) {
@@ -647,9 +644,10 @@ namespace SdGraphics
                 g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
-                if (line.Length > MAX_TEXT_LINE_LENGTH && lineBreak) {
-                    String line1 = line.Substring(0, MAX_TEXT_LINE_LENGTH);
-                    String line2 = line.Substring(MAX_TEXT_LINE_LENGTH, line.Length - MAX_TEXT_LINE_LENGTH);
+                if (line.Length > maxTextLineLength && lineBreak) {
+                    int breakIndex=Math.Max(maxTextLineLength, line.IndexOf(' ', maxTextLineLength));
+                    String line1 = line.Substring(0, breakIndex);
+                    String line2 = line.Substring(breakIndex, line.Length - breakIndex);
                     g.DrawString(line1, this.fontForCalls, brushForCalls, x, y);
                     y += lineHeight;
                     g.DrawString(line2, this.fontForCalls, brushForCalls, x, y);
