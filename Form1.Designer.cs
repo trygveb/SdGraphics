@@ -552,6 +552,8 @@
             // checkBoxBreakLines
             // 
             this.checkBoxBreakLines.AutoSize = true;
+            this.checkBoxBreakLines.Checked = true;
+            this.checkBoxBreakLines.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxBreakLines.Location = new System.Drawing.Point(213, 223);
             this.checkBoxBreakLines.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBoxBreakLines.Name = "checkBoxBreakLines";

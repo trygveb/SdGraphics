@@ -643,11 +643,11 @@ namespace SdGraphics
                 g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
                 g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+                int breakIndex = line.LastIndexOf(' ', Math.Min(line.Length-1,maxTextLineLength));
 
-                if (line.Length > maxTextLineLength && lineBreak) {
-                    int breakIndex=Math.Max(maxTextLineLength, line.IndexOf(' ', maxTextLineLength));
+                if (breakIndex >0 && line.Length > maxTextLineLength && lineBreak) {
                     String line1 = line.Substring(0, breakIndex);
-                    String line2 = line.Substring(breakIndex, line.Length - breakIndex);
+                    String line2 = "  " + line.Substring(breakIndex, line.Length - breakIndex);
                     g.DrawString(line1, this.fontForCalls, brushForCalls, x, y);
                     y += lineHeight;
                     g.DrawString(line2, this.fontForCalls, brushForCalls, x, y);
