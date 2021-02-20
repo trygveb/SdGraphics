@@ -167,7 +167,7 @@ namespace SdGraphics
         }
 
         private int checkBufferAndWriteCall(ref Bitmap pageBitmap,  List<SdLine> buffer1, int y,  SdLine sdLine, ref int pageNumber,
-            int lineHeight, int noseSize, int marginTop, int marginBottom, int maxTextLineLength, Boolean lineBreak)
+            int lineHeight, int noseSize, int marginTop, int marginBottom, int maxTextLineLength, Boolean lineBreak, int noOfColumns=1)
         {
             // The line contains a call 
             // Check if we have a buffer for the end formation from the last call.
@@ -187,7 +187,7 @@ namespace SdGraphics
                 int height= calculateBitMapSize(buffer1, lineHeight, 0, (int) numericUpDownDancersSize.Value, noseSize).Height;
                 buffer1.Clear();
                 if (y + height + lineHeight * 2 > pageSize.Height - marginBottom) {
-                    if (IsOdd(pageNumber)) {
+                    if (noOfColumns==2 && IsOdd(pageNumber)) {
 
                         this.currentXoffset = pageSize.Width / 2; //+MARGIN_LEFT
                         y = marginTop + lineHeight;
@@ -420,7 +420,7 @@ namespace SdGraphics
                        y= checkBufferAndWriteCall(ref pageBitmap, buffer1, y, sdLine,
                             ref pageNumber, lineHeight, (int) numericUpDownNoseSize.Value,
                             (int)numericUpDownMarginTop.Value, (int) numericUpDownMarginBottom.Value, (int)numericUpDownMaxLineLength.Value,
-                            checkBoxBreakLines.Checked);
+                            checkBoxBreakLines.Checked, (int)numericUpDownColumns.Value);
                     }
                     lastCall = sdLine.text;
                 } else if (lastCall != TWO_COUPLES_ONLY) {

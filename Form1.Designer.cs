@@ -46,11 +46,6 @@
             this.numericUpDownNoseSize = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownCopyrightYear = new System.Windows.Forms.NumericUpDown();
-            this.buttonBeginnin = new System.Windows.Forms.Button();
-            this.buttonEnd = new System.Windows.Forms.Button();
-            this.buttonBack = new System.Windows.Forms.Button();
-            this.buttonForward = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownMarginTop = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownMarginBottom = new System.Windows.Forms.NumericUpDown();
@@ -58,16 +53,18 @@
             this.numericUpDownMaxLineLength = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.checkBoxBreakLines = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.numericUpDownColumns = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancersSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBlankSpace)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNoseSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCopyrightYear)).BeginInit();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMarginTop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMarginBottom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLineLength)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonReadFile
@@ -85,7 +82,7 @@
             // buttonPrint
             // 
             this.buttonPrint.Enabled = false;
-            this.buttonPrint.Location = new System.Drawing.Point(44, 612);
+            this.buttonPrint.Location = new System.Drawing.Point(47, 477);
             this.buttonPrint.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonPrint.Name = "buttonPrint";
             this.buttonPrint.Size = new System.Drawing.Size(112, 35);
@@ -96,7 +93,7 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(178, 612);
+            this.buttonExit.Location = new System.Drawing.Point(181, 477);
             this.buttonExit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(112, 35);
@@ -120,7 +117,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 100);
+            this.label1.Location = new System.Drawing.Point(16, 146);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 20);
@@ -137,7 +134,7 @@
             0,
             0,
             65536});
-            this.numericUpDownScale.Location = new System.Drawing.Point(114, 94);
+            this.numericUpDownScale.Location = new System.Drawing.Point(114, 140);
             this.numericUpDownScale.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownScale.Maximum = new decimal(new int[] {
             1,
@@ -163,7 +160,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(16, 189);
+            this.label3.Location = new System.Drawing.Point(16, 235);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 20);
@@ -172,7 +169,7 @@
             // 
             // numericUpDownLineHeight
             // 
-            this.numericUpDownLineHeight.Location = new System.Drawing.Point(114, 183);
+            this.numericUpDownLineHeight.Location = new System.Drawing.Point(114, 229);
             this.numericUpDownLineHeight.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownLineHeight.Maximum = new decimal(new int[] {
             40,
@@ -217,7 +214,7 @@
             // checkBoxBorder
             // 
             this.checkBoxBorder.AutoSize = true;
-            this.checkBoxBorder.Location = new System.Drawing.Point(213, 272);
+            this.checkBoxBorder.Location = new System.Drawing.Point(213, 318);
             this.checkBoxBorder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBoxBorder.Name = "checkBoxBorder";
             this.checkBoxBorder.Size = new System.Drawing.Size(115, 24);
@@ -227,7 +224,7 @@
             // 
             // numericUpDownDancersSize
             // 
-            this.numericUpDownDancersSize.Location = new System.Drawing.Point(114, 138);
+            this.numericUpDownDancersSize.Location = new System.Drawing.Point(114, 184);
             this.numericUpDownDancersSize.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownDancersSize.Maximum = new decimal(new int[] {
             30,
@@ -253,7 +250,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(16, 145);
+            this.label2.Location = new System.Drawing.Point(16, 191);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(93, 20);
@@ -264,7 +261,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(16, 234);
+            this.label5.Location = new System.Drawing.Point(16, 280);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(96, 20);
@@ -273,7 +270,7 @@
             // 
             // numericUpDownBlankSpace
             // 
-            this.numericUpDownBlankSpace.Location = new System.Drawing.Point(114, 228);
+            this.numericUpDownBlankSpace.Location = new System.Drawing.Point(114, 274);
             this.numericUpDownBlankSpace.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownBlankSpace.Maximum = new decimal(new int[] {
             10,
@@ -299,7 +296,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(16, 278);
+            this.label6.Location = new System.Drawing.Point(16, 324);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 20);
@@ -313,7 +310,7 @@
             0,
             0,
             0});
-            this.numericUpDownNoseSize.Location = new System.Drawing.Point(114, 272);
+            this.numericUpDownNoseSize.Location = new System.Drawing.Point(114, 318);
             this.numericUpDownNoseSize.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownNoseSize.Maximum = new decimal(new int[] {
             10,
@@ -365,75 +362,16 @@
             this.numericUpDownCopyrightYear.TabIndex = 22;
             this.numericUpDownCopyrightYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownCopyrightYear.Value = new decimal(new int[] {
-            2020,
+            2021,
             0,
             0,
             0});
-            // 
-            // buttonBeginnin
-            // 
-            this.buttonBeginnin.Image = global::SdGraphics.Properties.Resources.beginning;
-            this.buttonBeginnin.Location = new System.Drawing.Point(26, 26);
-            this.buttonBeginnin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.buttonBeginnin.Name = "buttonBeginnin";
-            this.buttonBeginnin.Size = new System.Drawing.Size(40, 38);
-            this.buttonBeginnin.TabIndex = 27;
-            this.buttonBeginnin.UseVisualStyleBackColor = true;
-            this.buttonBeginnin.Click += new System.EventHandler(this.buttonBeginnin_Click);
-            // 
-            // buttonEnd
-            // 
-            this.buttonEnd.Image = global::SdGraphics.Properties.Resources.end;
-            this.buttonEnd.Location = new System.Drawing.Point(174, 26);
-            this.buttonEnd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.buttonEnd.Name = "buttonEnd";
-            this.buttonEnd.Size = new System.Drawing.Size(40, 38);
-            this.buttonEnd.TabIndex = 26;
-            this.buttonEnd.UseVisualStyleBackColor = true;
-            this.buttonEnd.Click += new System.EventHandler(this.buttonEnd_Click);
-            // 
-            // buttonBack
-            // 
-            this.buttonBack.Image = global::SdGraphics.Properties.Resources.backward;
-            this.buttonBack.Location = new System.Drawing.Point(75, 26);
-            this.buttonBack.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(40, 38);
-            this.buttonBack.TabIndex = 25;
-            this.buttonBack.UseVisualStyleBackColor = true;
-            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click_1);
-            // 
-            // buttonForward
-            // 
-            this.buttonForward.Image = global::SdGraphics.Properties.Resources.forward;
-            this.buttonForward.Location = new System.Drawing.Point(124, 26);
-            this.buttonForward.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.buttonForward.Name = "buttonForward";
-            this.buttonForward.Size = new System.Drawing.Size(40, 38);
-            this.buttonForward.TabIndex = 24;
-            this.buttonForward.UseVisualStyleBackColor = true;
-            this.buttonForward.Click += new System.EventHandler(this.buttonForward_Click_1);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.buttonBeginnin);
-            this.groupBox1.Controls.Add(this.buttonEnd);
-            this.groupBox1.Controls.Add(this.buttonBack);
-            this.groupBox1.Controls.Add(this.buttonForward);
-            this.groupBox1.Location = new System.Drawing.Point(39, 497);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Size = new System.Drawing.Size(250, 83);
-            this.groupBox1.TabIndex = 28;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Navigate";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(209, 96);
+            this.label8.Location = new System.Drawing.Point(209, 142);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(84, 20);
@@ -447,7 +385,7 @@
             0,
             0,
             0});
-            this.numericUpDownMarginTop.Location = new System.Drawing.Point(325, 94);
+            this.numericUpDownMarginTop.Location = new System.Drawing.Point(325, 140);
             this.numericUpDownMarginTop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownMarginTop.Maximum = new decimal(new int[] {
             30,
@@ -476,7 +414,7 @@
             0,
             0,
             0});
-            this.numericUpDownMarginBottom.Location = new System.Drawing.Point(325, 143);
+            this.numericUpDownMarginBottom.Location = new System.Drawing.Point(325, 189);
             this.numericUpDownMarginBottom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownMarginBottom.Maximum = new decimal(new int[] {
             90,
@@ -502,7 +440,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(209, 145);
+            this.label9.Location = new System.Drawing.Point(209, 191);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(111, 20);
@@ -516,7 +454,7 @@
             0,
             0,
             0});
-            this.numericUpDownMaxLineLength.Location = new System.Drawing.Point(325, 187);
+            this.numericUpDownMaxLineLength.Location = new System.Drawing.Point(325, 233);
             this.numericUpDownMaxLineLength.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownMaxLineLength.Maximum = new decimal(new int[] {
             90,
@@ -542,7 +480,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(209, 189);
+            this.label10.Location = new System.Drawing.Point(209, 235);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(110, 20);
@@ -554,7 +492,7 @@
             this.checkBoxBreakLines.AutoSize = true;
             this.checkBoxBreakLines.Checked = true;
             this.checkBoxBreakLines.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxBreakLines.Location = new System.Drawing.Point(213, 223);
+            this.checkBoxBreakLines.Location = new System.Drawing.Point(213, 269);
             this.checkBoxBreakLines.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBoxBreakLines.Name = "checkBoxBreakLines";
             this.checkBoxBreakLines.Size = new System.Drawing.Size(106, 24);
@@ -562,11 +500,48 @@
             this.checkBoxBreakLines.Text = "Break lines";
             this.checkBoxBreakLines.UseVisualStyleBackColor = true;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(17, 102);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(71, 20);
+            this.label11.TabIndex = 37;
+            this.label11.Text = "Columns";
+            // 
+            // numericUpDownColumns
+            // 
+            this.numericUpDownColumns.Location = new System.Drawing.Point(115, 96);
+            this.numericUpDownColumns.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownColumns.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownColumns.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownColumns.Name = "numericUpDownColumns";
+            this.numericUpDownColumns.Size = new System.Drawing.Size(68, 26);
+            this.numericUpDownColumns.TabIndex = 36;
+            this.numericUpDownColumns.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownColumns.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 694);
+            this.ClientSize = new System.Drawing.Size(428, 546);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.numericUpDownColumns);
             this.Controls.Add(this.checkBoxBreakLines);
             this.Controls.Add(this.numericUpDownMaxLineLength);
             this.Controls.Add(this.label10);
@@ -574,7 +549,6 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.numericUpDownMarginTop);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.numericUpDownCopyrightYear);
             this.Controls.Add(this.label6);
@@ -604,10 +578,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBlankSpace)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNoseSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCopyrightYear)).EndInit();
-            this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMarginTop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMarginBottom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLineLength)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -633,11 +607,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownNoseSize;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numericUpDownCopyrightYear;
-        private System.Windows.Forms.Button buttonBeginnin;
-        private System.Windows.Forms.Button buttonEnd;
-        private System.Windows.Forms.Button buttonBack;
-        private System.Windows.Forms.Button buttonForward;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numericUpDownMarginTop;
         private System.Windows.Forms.NumericUpDown numericUpDownMarginBottom;
@@ -645,6 +614,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDownMaxLineLength;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox checkBoxBreakLines;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown numericUpDownColumns;
     }
 }
 
