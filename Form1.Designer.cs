@@ -55,9 +55,20 @@
             this.checkBoxBreakLines = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
             this.numericUpDownColumns = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxShowCaller = new System.Windows.Forms.CheckBox();
-            this.label12 = new System.Windows.Forms.Label();
             this.numericUpDownNoseUp = new System.Windows.Forms.NumericUpDown();
+            this.label13 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButtonBelle = new System.Windows.Forms.RadioButton();
+            this.radioButtonBeau = new System.Windows.Forms.RadioButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButtonCallerView = new System.Windows.Forms.RadioButton();
+            this.radioButtonDancerView = new System.Windows.Forms.RadioButton();
+            this.panelFocusDancer = new System.Windows.Forms.Panel();
+            this.panelSettings = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.checkBoxShowCaller = new System.Windows.Forms.CheckBox();
+            this.textBoxFile = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancersSize)).BeginInit();
@@ -69,24 +80,28 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLineLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNoseUp)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.panelFocusDancer.SuspendLayout();
+            this.panelSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonReadFile
             // 
             this.buttonReadFile.Enabled = false;
-            this.buttonReadFile.Location = new System.Drawing.Point(178, 28);
+            this.buttonReadFile.Location = new System.Drawing.Point(202, 541);
             this.buttonReadFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonReadFile.Name = "buttonReadFile";
-            this.buttonReadFile.Size = new System.Drawing.Size(112, 35);
+            this.buttonReadFile.Size = new System.Drawing.Size(143, 35);
             this.buttonReadFile.TabIndex = 1;
-            this.buttonReadFile.Text = "Read file";
+            this.buttonReadFile.Text = "Read opened file";
             this.buttonReadFile.UseVisualStyleBackColor = true;
             this.buttonReadFile.Click += new System.EventHandler(this.buttonReadFile_Click);
             // 
             // buttonPrint
             // 
             this.buttonPrint.Enabled = false;
-            this.buttonPrint.Location = new System.Drawing.Point(55, 526);
+            this.buttonPrint.Location = new System.Drawing.Point(75, 586);
             this.buttonPrint.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonPrint.Name = "buttonPrint";
             this.buttonPrint.Size = new System.Drawing.Size(112, 35);
@@ -97,7 +112,7 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(189, 526);
+            this.buttonExit.Location = new System.Drawing.Point(209, 586);
             this.buttonExit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(112, 35);
@@ -108,7 +123,7 @@
             // 
             // buttonOpenFile
             // 
-            this.buttonOpenFile.Location = new System.Drawing.Point(44, 28);
+            this.buttonOpenFile.Location = new System.Drawing.Point(68, 541);
             this.buttonOpenFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonOpenFile.Name = "buttonOpenFile";
             this.buttonOpenFile.Size = new System.Drawing.Size(112, 35);
@@ -121,12 +136,12 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 146);
+            this.label1.Location = new System.Drawing.Point(16, 115);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 20);
+            this.label1.Size = new System.Drawing.Size(50, 20);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Scale";
+            this.label1.Text = "Zoom";
             // 
             // numericUpDownScale
             // 
@@ -138,10 +153,10 @@
             0,
             0,
             65536});
-            this.numericUpDownScale.Location = new System.Drawing.Point(114, 143);
+            this.numericUpDownScale.Location = new System.Drawing.Point(114, 112);
             this.numericUpDownScale.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownScale.Maximum = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
@@ -164,7 +179,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(16, 236);
+            this.label3.Location = new System.Drawing.Point(2, 47);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 20);
@@ -173,7 +188,7 @@
             // 
             // numericUpDownLineHeight
             // 
-            this.numericUpDownLineHeight.Location = new System.Drawing.Point(114, 233);
+            this.numericUpDownLineHeight.Location = new System.Drawing.Point(121, 44);
             this.numericUpDownLineHeight.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownLineHeight.Maximum = new decimal(new int[] {
             40,
@@ -199,7 +214,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(11, 431);
+            this.label4.Location = new System.Drawing.Point(2, 195);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(120, 20);
@@ -208,7 +223,7 @@
             // 
             // textBoxCopyrightName
             // 
-            this.textBoxCopyrightName.Location = new System.Drawing.Point(136, 427);
+            this.textBoxCopyrightName.Location = new System.Drawing.Point(121, 191);
             this.textBoxCopyrightName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxCopyrightName.Name = "textBoxCopyrightName";
             this.textBoxCopyrightName.Size = new System.Drawing.Size(210, 26);
@@ -218,7 +233,7 @@
             // checkBoxBorder
             // 
             this.checkBoxBorder.AutoSize = true;
-            this.checkBoxBorder.Location = new System.Drawing.Point(221, 322);
+            this.checkBoxBorder.Location = new System.Drawing.Point(206, 70);
             this.checkBoxBorder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBoxBorder.Name = "checkBoxBorder";
             this.checkBoxBorder.Size = new System.Drawing.Size(115, 24);
@@ -228,7 +243,7 @@
             // 
             // numericUpDownDancersSize
             // 
-            this.numericUpDownDancersSize.Location = new System.Drawing.Point(114, 188);
+            this.numericUpDownDancersSize.Location = new System.Drawing.Point(301, 44);
             this.numericUpDownDancersSize.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownDancersSize.Maximum = new decimal(new int[] {
             30,
@@ -254,7 +269,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(16, 191);
+            this.label2.Location = new System.Drawing.Point(203, 47);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(93, 20);
@@ -265,7 +280,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(16, 280);
+            this.label5.Location = new System.Drawing.Point(2, 83);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(96, 20);
@@ -274,7 +289,7 @@
             // 
             // numericUpDownBlankSpace
             // 
-            this.numericUpDownBlankSpace.Location = new System.Drawing.Point(114, 277);
+            this.numericUpDownBlankSpace.Location = new System.Drawing.Point(121, 80);
             this.numericUpDownBlankSpace.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownBlankSpace.Maximum = new decimal(new int[] {
             10,
@@ -300,7 +315,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(16, 324);
+            this.label6.Location = new System.Drawing.Point(203, 83);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 20);
@@ -314,7 +329,7 @@
             0,
             0,
             0});
-            this.numericUpDownNoseSize.Location = new System.Drawing.Point(114, 321);
+            this.numericUpDownNoseSize.Location = new System.Drawing.Point(301, 80);
             this.numericUpDownNoseSize.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownNoseSize.Maximum = new decimal(new int[] {
             10,
@@ -340,7 +355,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(11, 477);
+            this.label7.Location = new System.Drawing.Point(2, 232);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(110, 20);
@@ -349,7 +364,7 @@
             // 
             // numericUpDownCopyrightYear
             // 
-            this.numericUpDownCopyrightYear.Location = new System.Drawing.Point(152, 471);
+            this.numericUpDownCopyrightYear.Location = new System.Drawing.Point(121, 226);
             this.numericUpDownCopyrightYear.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownCopyrightYear.Maximum = new decimal(new int[] {
             2050,
@@ -375,7 +390,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(217, 102);
+            this.label8.Location = new System.Drawing.Point(203, 119);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(84, 20);
@@ -389,7 +404,7 @@
             0,
             0,
             0});
-            this.numericUpDownMarginTop.Location = new System.Drawing.Point(336, 99);
+            this.numericUpDownMarginTop.Location = new System.Drawing.Point(301, 116);
             this.numericUpDownMarginTop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownMarginTop.Maximum = new decimal(new int[] {
             30,
@@ -418,7 +433,7 @@
             0,
             0,
             0});
-            this.numericUpDownMarginBottom.Location = new System.Drawing.Point(336, 143);
+            this.numericUpDownMarginBottom.Location = new System.Drawing.Point(121, 116);
             this.numericUpDownMarginBottom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownMarginBottom.Maximum = new decimal(new int[] {
             90,
@@ -444,7 +459,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(217, 146);
+            this.label9.Location = new System.Drawing.Point(2, 119);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(111, 20);
@@ -458,7 +473,7 @@
             0,
             0,
             0});
-            this.numericUpDownMaxLineLength.Location = new System.Drawing.Point(336, 188);
+            this.numericUpDownMaxLineLength.Location = new System.Drawing.Point(121, 156);
             this.numericUpDownMaxLineLength.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownMaxLineLength.Maximum = new decimal(new int[] {
             90,
@@ -484,19 +499,19 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(217, 191);
+            this.label10.Location = new System.Drawing.Point(2, 159);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(110, 20);
+            this.label10.Size = new System.Drawing.Size(114, 20);
             this.label10.TabIndex = 33;
-            this.label10.Text = "Max line lrngth";
+            this.label10.Text = "Max line length";
             // 
             // checkBoxBreakLines
             // 
             this.checkBoxBreakLines.AutoSize = true;
             this.checkBoxBreakLines.Checked = true;
             this.checkBoxBreakLines.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxBreakLines.Location = new System.Drawing.Point(221, 278);
+            this.checkBoxBreakLines.Location = new System.Drawing.Point(207, 157);
             this.checkBoxBreakLines.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBoxBreakLines.Name = "checkBoxBreakLines";
             this.checkBoxBreakLines.Size = new System.Drawing.Size(106, 24);
@@ -508,7 +523,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(17, 102);
+            this.label11.Location = new System.Drawing.Point(17, 71);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(71, 20);
@@ -517,7 +532,7 @@
             // 
             // numericUpDownColumns
             // 
-            this.numericUpDownColumns.Location = new System.Drawing.Point(115, 99);
+            this.numericUpDownColumns.Location = new System.Drawing.Point(115, 68);
             this.numericUpDownColumns.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownColumns.Maximum = new decimal(new int[] {
             2,
@@ -539,34 +554,17 @@
             0,
             0});
             // 
-            // checkBoxShowCaller
-            // 
-            this.checkBoxShowCaller.AutoSize = true;
-            this.checkBoxShowCaller.Location = new System.Drawing.Point(221, 234);
-            this.checkBoxShowCaller.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.checkBoxShowCaller.Name = "checkBoxShowCaller";
-            this.checkBoxShowCaller.Size = new System.Drawing.Size(109, 24);
-            this.checkBoxShowCaller.TabIndex = 38;
-            this.checkBoxShowCaller.Text = "Show caller";
-            this.checkBoxShowCaller.UseVisualStyleBackColor = true;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(34, 381);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(144, 20);
-            this.label12.TabIndex = 40;
-            this.label12.Text = "Nose up for dancer";
-            // 
             // numericUpDownNoseUp
             // 
-            this.numericUpDownNoseUp.Location = new System.Drawing.Point(189, 378);
+            this.numericUpDownNoseUp.Location = new System.Drawing.Point(111, 65);
             this.numericUpDownNoseUp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownNoseUp.Maximum = new decimal(new int[] {
-            8,
+            4,
+            0,
+            0,
+            0});
+            this.numericUpDownNoseUp.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
@@ -574,43 +572,188 @@
             this.numericUpDownNoseUp.Size = new System.Drawing.Size(55, 26);
             this.numericUpDownNoseUp.TabIndex = 39;
             this.numericUpDownNoseUp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownNoseUp.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(23, 67);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(81, 20);
+            this.label13.TabIndex = 41;
+            this.label13.Text = "Couple no";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.radioButtonBelle);
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.numericUpDownNoseUp);
+            this.groupBox1.Controls.Add(this.radioButtonBeau);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(4, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(188, 97);
+            this.groupBox1.TabIndex = 42;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Focus dancer";
+            // 
+            // radioButtonBelle
+            // 
+            this.radioButtonBelle.AutoSize = true;
+            this.radioButtonBelle.Location = new System.Drawing.Point(105, 35);
+            this.radioButtonBelle.Name = "radioButtonBelle";
+            this.radioButtonBelle.Size = new System.Drawing.Size(62, 24);
+            this.radioButtonBelle.TabIndex = 1;
+            this.radioButtonBelle.Text = "Belle";
+            this.radioButtonBelle.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonBeau
+            // 
+            this.radioButtonBeau.AutoSize = true;
+            this.radioButtonBeau.Checked = true;
+            this.radioButtonBeau.Location = new System.Drawing.Point(16, 35);
+            this.radioButtonBeau.Name = "radioButtonBeau";
+            this.radioButtonBeau.Size = new System.Drawing.Size(65, 24);
+            this.radioButtonBeau.TabIndex = 0;
+            this.radioButtonBeau.TabStop = true;
+            this.radioButtonBeau.Text = "Beau";
+            this.radioButtonBeau.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.radioButtonCallerView);
+            this.groupBox2.Controls.Add(this.radioButtonDancerView);
+            this.groupBox2.Location = new System.Drawing.Point(15, 158);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(173, 64);
+            this.groupBox2.TabIndex = 42;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "View";
+            // 
+            // radioButtonCallerView
+            // 
+            this.radioButtonCallerView.AutoSize = true;
+            this.radioButtonCallerView.Checked = true;
+            this.radioButtonCallerView.Location = new System.Drawing.Point(98, 25);
+            this.radioButtonCallerView.Name = "radioButtonCallerView";
+            this.radioButtonCallerView.Size = new System.Drawing.Size(67, 24);
+            this.radioButtonCallerView.TabIndex = 1;
+            this.radioButtonCallerView.TabStop = true;
+            this.radioButtonCallerView.Text = "Caller";
+            this.radioButtonCallerView.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonDancerView
+            // 
+            this.radioButtonDancerView.AutoSize = true;
+            this.radioButtonDancerView.Location = new System.Drawing.Point(13, 25);
+            this.radioButtonDancerView.Name = "radioButtonDancerView";
+            this.radioButtonDancerView.Size = new System.Drawing.Size(79, 24);
+            this.radioButtonDancerView.TabIndex = 0;
+            this.radioButtonDancerView.Text = "Dancer";
+            this.radioButtonDancerView.UseVisualStyleBackColor = true;
+            this.radioButtonDancerView.CheckedChanged += new System.EventHandler(this.radioButtonDancerView_CheckedChanged);
+            // 
+            // panelFocusDancer
+            // 
+            this.panelFocusDancer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelFocusDancer.Controls.Add(this.checkBoxShowCaller);
+            this.panelFocusDancer.Controls.Add(this.groupBox1);
+            this.panelFocusDancer.Location = new System.Drawing.Point(199, 104);
+            this.panelFocusDancer.Name = "panelFocusDancer";
+            this.panelFocusDancer.Size = new System.Drawing.Size(193, 133);
+            this.panelFocusDancer.TabIndex = 43;
+            this.panelFocusDancer.Visible = false;
+            // 
+            // panelSettings
+            // 
+            this.panelSettings.Controls.Add(this.label12);
+            this.panelSettings.Controls.Add(this.label2);
+            this.panelSettings.Controls.Add(this.numericUpDownLineHeight);
+            this.panelSettings.Controls.Add(this.numericUpDownDancersSize);
+            this.panelSettings.Controls.Add(this.label7);
+            this.panelSettings.Controls.Add(this.label9);
+            this.panelSettings.Controls.Add(this.numericUpDownCopyrightYear);
+            this.panelSettings.Controls.Add(this.numericUpDownMarginTop);
+            this.panelSettings.Controls.Add(this.label3);
+            this.panelSettings.Controls.Add(this.textBoxCopyrightName);
+            this.panelSettings.Controls.Add(this.label4);
+            this.panelSettings.Controls.Add(this.numericUpDownMarginBottom);
+            this.panelSettings.Controls.Add(this.numericUpDownBlankSpace);
+            this.panelSettings.Controls.Add(this.label8);
+            this.panelSettings.Controls.Add(this.label5);
+            this.panelSettings.Controls.Add(this.label6);
+            this.panelSettings.Controls.Add(this.checkBoxBreakLines);
+            this.panelSettings.Controls.Add(this.label10);
+            this.panelSettings.Controls.Add(this.numericUpDownNoseSize);
+            this.panelSettings.Controls.Add(this.numericUpDownMaxLineLength);
+            this.panelSettings.Location = new System.Drawing.Point(15, 250);
+            this.panelSettings.Name = "panelSettings";
+            this.panelSettings.Size = new System.Drawing.Size(377, 270);
+            this.panelSettings.TabIndex = 44;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(4, 5);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(76, 24);
+            this.label12.TabIndex = 36;
+            this.label12.Text = "Settings";
+            // 
+            // checkBoxShowCaller
+            // 
+            this.checkBoxShowCaller.AutoSize = true;
+            this.checkBoxShowCaller.Location = new System.Drawing.Point(27, 106);
+            this.checkBoxShowCaller.Name = "checkBoxShowCaller";
+            this.checkBoxShowCaller.Size = new System.Drawing.Size(109, 24);
+            this.checkBoxShowCaller.TabIndex = 43;
+            this.checkBoxShowCaller.Text = "Show caller";
+            this.checkBoxShowCaller.UseVisualStyleBackColor = true;
+            // 
+            // textBoxFile
+            // 
+            this.textBoxFile.Location = new System.Drawing.Point(21, 34);
+            this.textBoxFile.Name = "textBoxFile";
+            this.textBoxFile.ReadOnly = true;
+            this.textBoxFile.Size = new System.Drawing.Size(371, 26);
+            this.textBoxFile.TabIndex = 45;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(19, 11);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(90, 20);
+            this.label14.TabIndex = 46;
+            this.label14.Text = "Opened file";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 585);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.numericUpDownNoseUp);
-            this.Controls.Add(this.checkBoxShowCaller);
+            this.ClientSize = new System.Drawing.Size(452, 647);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.textBoxFile);
+            this.Controls.Add(this.panelSettings);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.numericUpDownColumns);
-            this.Controls.Add(this.checkBoxBreakLines);
-            this.Controls.Add(this.numericUpDownMaxLineLength);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.numericUpDownMarginBottom);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.numericUpDownMarginTop);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.numericUpDownCopyrightYear);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.numericUpDownNoseSize);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.numericUpDownBlankSpace);
             this.Controls.Add(this.checkBoxBorder);
-            this.Controls.Add(this.textBoxCopyrightName);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.numericUpDownLineHeight);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.numericUpDownDancersSize);
             this.Controls.Add(this.numericUpDownScale);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonOpenFile);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.buttonPrint);
             this.Controls.Add(this.buttonReadFile);
+            this.Controls.Add(this.panelFocusDancer);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
@@ -626,6 +769,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLineLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNoseUp)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.panelFocusDancer.ResumeLayout(false);
+            this.panelFocusDancer.PerformLayout();
+            this.panelSettings.ResumeLayout(false);
+            this.panelSettings.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -660,9 +811,20 @@
         private System.Windows.Forms.CheckBox checkBoxBreakLines;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.NumericUpDown numericUpDownColumns;
-        private System.Windows.Forms.CheckBox checkBoxShowCaller;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.NumericUpDown numericUpDownNoseUp;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton radioButtonBelle;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.RadioButton radioButtonBeau;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton radioButtonCallerView;
+        private System.Windows.Forms.RadioButton radioButtonDancerView;
+        private System.Windows.Forms.Panel panelFocusDancer;
+        private System.Windows.Forms.Panel panelSettings;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.CheckBox checkBoxShowCaller;
+        private System.Windows.Forms.TextBox textBoxFile;
+        private System.Windows.Forms.Label label14;
     }
 }
 
