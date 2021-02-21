@@ -528,7 +528,7 @@ namespace SdGraphics
             if (drawBorder) {
                 this.drawBorder(bmp1);
             }
-            bmp1.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            //bmp1.RotateFlip(RotateFlipType.Rotate90FlipNone);
             return bmp1;
 
         }
