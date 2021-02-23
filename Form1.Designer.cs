@@ -64,9 +64,9 @@
             this.radioButtonCallerView = new System.Windows.Forms.RadioButton();
             this.radioButtonDancerView = new System.Windows.Forms.RadioButton();
             this.panelFocusDancer = new System.Windows.Forms.Panel();
+            this.checkBoxShowPartner = new System.Windows.Forms.CheckBox();
             this.panelSettings = new System.Windows.Forms.Panel();
             this.label12 = new System.Windows.Forms.Label();
-            this.checkBoxShowCaller = new System.Windows.Forms.CheckBox();
             this.textBoxFile = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScale)).BeginInit();
@@ -94,7 +94,7 @@
             this.buttonReadFile.Name = "buttonReadFile";
             this.buttonReadFile.Size = new System.Drawing.Size(143, 35);
             this.buttonReadFile.TabIndex = 1;
-            this.buttonReadFile.Text = "Read opened file";
+            this.buttonReadFile.Text = "Redraw";
             this.buttonReadFile.UseVisualStyleBackColor = true;
             this.buttonReadFile.Click += new System.EventHandler(this.buttonReadFile_Click);
             // 
@@ -660,13 +660,23 @@
             // panelFocusDancer
             // 
             this.panelFocusDancer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelFocusDancer.Controls.Add(this.checkBoxShowCaller);
+            this.panelFocusDancer.Controls.Add(this.checkBoxShowPartner);
             this.panelFocusDancer.Controls.Add(this.groupBox1);
             this.panelFocusDancer.Location = new System.Drawing.Point(199, 104);
             this.panelFocusDancer.Name = "panelFocusDancer";
             this.panelFocusDancer.Size = new System.Drawing.Size(193, 133);
             this.panelFocusDancer.TabIndex = 43;
             this.panelFocusDancer.Visible = false;
+            // 
+            // checkBoxShowPartner
+            // 
+            this.checkBoxShowPartner.AutoSize = true;
+            this.checkBoxShowPartner.Location = new System.Drawing.Point(27, 106);
+            this.checkBoxShowPartner.Name = "checkBoxShowPartner";
+            this.checkBoxShowPartner.Size = new System.Drawing.Size(123, 24);
+            this.checkBoxShowPartner.TabIndex = 43;
+            this.checkBoxShowPartner.Text = "Show partner";
+            this.checkBoxShowPartner.UseVisualStyleBackColor = true;
             // 
             // panelSettings
             // 
@@ -705,16 +715,6 @@
             this.label12.Size = new System.Drawing.Size(76, 24);
             this.label12.TabIndex = 36;
             this.label12.Text = "Settings";
-            // 
-            // checkBoxShowCaller
-            // 
-            this.checkBoxShowCaller.AutoSize = true;
-            this.checkBoxShowCaller.Location = new System.Drawing.Point(27, 106);
-            this.checkBoxShowCaller.Name = "checkBoxShowCaller";
-            this.checkBoxShowCaller.Size = new System.Drawing.Size(109, 24);
-            this.checkBoxShowCaller.TabIndex = 43;
-            this.checkBoxShowCaller.Text = "Show caller";
-            this.checkBoxShowCaller.UseVisualStyleBackColor = true;
             // 
             // textBoxFile
             // 
@@ -822,7 +822,7 @@
         private System.Windows.Forms.Panel panelFocusDancer;
         private System.Windows.Forms.Panel panelSettings;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.CheckBox checkBoxShowCaller;
+        private System.Windows.Forms.CheckBox checkBoxShowPartner;
         private System.Windows.Forms.TextBox textBoxFile;
         private System.Windows.Forms.Label label14;
     }

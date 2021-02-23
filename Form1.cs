@@ -57,7 +57,10 @@ namespace SdGraphics
 
         #region ----------------------------------------- Pens
         private Pen penForBorder = new Pen(Color.Red, 2);
+        private Pen penForCaller = new Pen(Color.DarkGreen, 1);
         private Pen penForPhantom = new Pen(Color.Blue, 1);
+        private Pen penForFocusDancer = new Pen(Color.Red, 2);
+        private Pen penForPartner = new Pen(Color.Black,1);
         #endregion  ------------------------------------- Pens
 
         private PictureBox pictureBox1 = new PictureBox();
@@ -142,7 +145,7 @@ namespace SdGraphics
             printDocument.PrintPage -= docPrintPage;
         }
 
-        Size calculateBitMapSize(List<SdLine> sdLineList, int lineHeight, int maxWidth, int dancerSize, int noseSize, bool showCaller)
+        Size calculateBitMapSize(List<SdLine> sdLineList, int lineHeight, int maxWidth, int dancerSize, int noseSize)
         {
             // Make reservation for one nose in each end in both directions
             int bitMapWidth = maxWidth + noseSize;
@@ -159,8 +162,9 @@ namespace SdGraphics
                 }
             }
 
-            if (showCaller)
+            if (this.dancerView)
             {
+                // Add space for casller
                 h += lineHeight;
             }
             Size bitMapSize = new Size(bitMapWidth, h);
@@ -176,7 +180,7 @@ namespace SdGraphics
             // If so we create the bitmap for that formation, and copies it to the page bitmap
             if (sdLineList.Count > 0)
             {
-                int height1 = calculateBitMapSize(sdLineList, lineHeight, 0, (int)numericUpDownDancersSize.Value, noseSize, showCaller).Height;
+                int height1 = calculateBitMapSize(sdLineList, lineHeight, 0, (int)numericUpDownDancersSize.Value, noseSize).Height;
                 int h2 = y + height1;
                 y += SPACE_BETWEEN_CALL_AND_FORMATION;
                 int height = createAndCopyFormationBitmap(ref pageBitmap, checkBoxBorder.Checked, sdLineList, y, this.currentXoffset);
@@ -190,7 +194,7 @@ namespace SdGraphics
             {
                 // Add extra 5 pixelsfor safety (Needed due to some calculation miss)
                 //int height = lineHeight * (buffer1.Count + 3) + MARGIN_TOP + 5;
-                int height = calculateBitMapSize(sdLineList, lineHeight, 0, (int)numericUpDownDancersSize.Value, noseSize, showCaller).Height;
+                int height = calculateBitMapSize(sdLineList, lineHeight, 0, (int)numericUpDownDancersSize.Value, noseSize).Height;
                 sdLineList.Clear();
                 if (y + height + lineHeight * 2 > pageSize.Height - marginBottom)
                 {
@@ -263,7 +267,7 @@ namespace SdGraphics
             int dancerSize = (int)numericUpDownDancersSize.Value;
             int lineHeight = (int)numericUpDownLineHeight.Value;
             using (Bitmap bmp1 = this.drawFormation(sdLineList, drawBorder, dancerSize, lineHeight,
-                (int)numericUpDownBlankSpace.Value, (int)numericUpDownNoseSize.Value, checkBoxShowCaller.Checked,
+                (int)numericUpDownBlankSpace.Value, (int)numericUpDownNoseSize.Value, checkBoxShowPartner.Checked,
                 (int)numericUpDownNoseUp.Value))
             {
                 Rectangle srcRegion = new Rectangle(0, 0, bmp1.Width, bmp1.Height);
@@ -452,7 +456,7 @@ namespace SdGraphics
                         y = checkBufferAndWriteCall(ref pageBitmap, sdLineList, y, sdLine,
                              ref pageNumber, lineHeight, (int)numericUpDownNoseSize.Value,
                              (int)numericUpDownMarginTop.Value, (int)numericUpDownMarginBottom.Value, (int)numericUpDownMaxLineLength.Value,
-                             checkBoxBreakLines.Checked, (int)numericUpDownColumns.Value, checkBoxShowCaller.Checked);
+                             checkBoxBreakLines.Checked, (int)numericUpDownColumns.Value, checkBoxShowPartner.Checked);
                     }
                     lastCall = sdLine.text;
                 }
@@ -483,13 +487,15 @@ namespace SdGraphics
             int x = Math.Max(0, xc - dancerSize / 2);
             using (Graphics g = Graphics.FromImage(bmp))
             {
-                g.DrawEllipse(penForPhantom, x, y, dancerSize, dancerSize);
+
+                g.DrawEllipse(penForCaller, x+2, y+2, (float) 0.8*dancerSize, (float) 0.8*dancerSize);
+                g.DrawRectangle(penForCaller, x, y, dancerSize, dancerSize);
                 g.FillEllipse(brushForNoses, x + dancerSize / 2 - noseSize / 2, y - noseSize, noseSize, noseSize);
             }
+
         }
 
-
-        private int drawDancerOrSpace(ref Bitmap bmp, int xc, int yc, String dancer, int dancerSize, int blankSpace, int noseSize, ref RotateFlipType rft)
+        private int drawDancerOrSpace(ref Bitmap bmp, int xc, int yc, String dancer, int dancerSize, int blankSpace, int noseSize, bool showPartner, ref RotateFlipType rft)
         {
             Pen pen = new Pen(System.Drawing.Color.Black, 1);
             int x = Math.Max(0, xc - dancerSize / 2);
@@ -524,11 +530,19 @@ namespace SdGraphics
                             int symbolSize = dancerSize / 3;
                             if (radioButtonBeau.Checked && dancer[1] == 'B')
                             {
-                                g.DrawRectangle(penForPhantom, x + dancerSize / 2 - symbolSize / 2, y + dancerSize / 2 - symbolSize / 2, symbolSize, symbolSize);
+                                g.DrawRectangle(penForFocusDancer, x + dancerSize / 2 - symbolSize / 2, y + dancerSize / 2 - symbolSize / 2, symbolSize, symbolSize);
                             }
                             else if (radioButtonBelle.Checked && dancer[1] == 'G')
                             {
-                                g.DrawEllipse(penForPhantom, x + dancerSize / 2 - symbolSize / 2, y + dancerSize / 2 - symbolSize / 2, symbolSize, symbolSize);
+                                g.DrawEllipse(penForFocusDancer, x + dancerSize / 2 - symbolSize / 2, y + dancerSize / 2 - symbolSize / 2, symbolSize, symbolSize);
+                            }
+                            else if (radioButtonBeau.Checked && dancer[1] == 'G' && showPartner)
+                            {
+                                g.DrawEllipse(penForPartner, x + dancerSize / 2 - symbolSize / 2, y + dancerSize / 2 - symbolSize / 2, symbolSize, symbolSize);
+                            }
+                            else if (radioButtonBelle.Checked && dancer[1] == 'B' && showPartner)
+                            {
+                                g.DrawRectangle(penForPartner, x + dancerSize / 2 - symbolSize / 2, y + dancerSize / 2 - symbolSize / 2, symbolSize, symbolSize);
                             }
                         }
                     }
@@ -594,7 +608,7 @@ namespace SdGraphics
         //}
 
         private Bitmap drawFormation(List<SdLine> sdLineList, Boolean drawBorder, int dancerSize, int lineHeight,
-                    int blankSpace, int noseSize, bool showCaller, int noseUpDancer)
+                    int blankSpace, int noseSize, bool showPartner, int noseUpDancer)
         {
             int y = noseSize + dancerSize / 2;
             int maxNumberOfPositions = 0;
@@ -625,7 +639,7 @@ namespace SdGraphics
             }
 
 
-            Size bitMapSize = calculateBitMapSize(sdLineList, lineHeight, maxWidth, dancerSize, noseSize, showCaller);
+            Size bitMapSize = calculateBitMapSize(sdLineList, lineHeight, maxWidth, dancerSize, noseSize);
 
             Bitmap bmp1 = new Bitmap(bitMapSize.Width, bitMapSize.Height);
             int numberOfLinesInFormation = sdLineList.Count;
@@ -648,9 +662,9 @@ namespace SdGraphics
                 for (int i = 0; i < positions.Length; i++)
                 {
                     xCenter = drawDancerOrSpace(ref bmp1, xCenter + noOfLeadingSpaces[i] * blankSpace, y, positions[i],
-                        dancerSize, blankSpace, noseSize, ref rft);
+                        dancerSize, blankSpace, noseSize, showPartner,ref rft);
                 }
-                if (showCaller)
+                if (this.dancerView)
                 {
                     this.drawCaller(ref bmp1, dancerSize, noseSize);
                 }
