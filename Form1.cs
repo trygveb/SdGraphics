@@ -12,33 +12,15 @@ using System.Configuration;
 
 namespace SdGraphics
 {
-    public struct SettingsStruct
-    {
-        public int lineHeight;
-        public int blankSpace;
-        public int marginBottom;
-        public int maxLineLenght;
-        public int dancerSize;
-        public int noseSize;
-        public int marginTop;
-        public String copyRightName;
-        public String viewTypeName;
-        public Boolean breakLines;
-        public int copyrightYear;
-    }
+
     public partial class Form1 : Form
     {
         #region ----------------------------------------- Attributes
 
-        MyUserSettings mus;
-
-        //SettingsStruct Settings.MySettings= new SettingsStruct();
-
-
-
         // Form feed character are found i Sd files when the "End this sequence" command has been used
         public static Char FF = '\f';
 
+        //SettingsStruct MySettings= new SettingsStruct();
         // The formation from this Sd Command is currently ignored
         public static String TWO_COUPLES_ONLY = "Two couples only";
 
@@ -48,31 +30,32 @@ namespace SdGraphics
         // This line i one of several criteria to detect end of a sequence
         private static String AT_HOME = "at home";
 
-        private List<Bitmap> bitmapList = new List<Bitmap>(); // Each bitmap in this list corresponds to a (A4) page
-
-        private int currentIndex = -1;  // Index in bitmapList
-
+        private List<Bitmap> bitmapList = new List<Bitmap>();
+        private int currentIndex = -1;
         private Boolean dancerView = false;
-
-        private String fileName;    // Current Sd file
+        // Index in bitmapList
+        private String fileName;
 
         private Font fontForCalls = new Font("Helvetica", 10, FontStyle.Bold);
-
-        private Form graphicsForm;  // The window with the graphics
+        // Current Sd file
+        private Form graphicsForm;
 
         private int marginLeftFormations = 30;
+        // The window with the graphics
         private int marginLeftText = 40;
 
+        public MyUserSettings mus= new MyUserSettings();
+        // Each bitmap in this list corresponds to a (A4) page
         private int pageIndex = 0;  // Used by the printing function
 
         // Size of the each page in pixels. Corresponds to 94 pixels/inch for an A4 page (210 mm × 297 mm)
         private Size pageSize = new Size(778, 1100);
 
         #region ----------------------------------------- Brushes
+        private Brush brushForCallerNose = new SolidBrush(System.Drawing.Color.DarkGreen);
         private Brush brushForCalls = new SolidBrush(System.Drawing.Color.Black);
         private Brush brushForDancers = new SolidBrush(System.Drawing.Color.Black);
         private Brush brushForNoses = new SolidBrush(System.Drawing.Color.Red);
-        private Brush brushForCallerNose = new SolidBrush(System.Drawing.Color.DarkGreen);
         #endregion  ------------------------------------- Brushes
 
         private double PANEL_SCALE = 1;
@@ -80,16 +63,16 @@ namespace SdGraphics
         #region ----------------------------------------- Pens
         private Pen penForBorder = new Pen(Color.Red, 2);
         private Pen penForCaller = new Pen(Color.DarkGreen, 1);
-        private Pen penForPhantom = new Pen(Color.Blue, 1);
         private Pen penForFocusDancer = new Pen(Color.Red, 2);
-        private Pen penForPartner = new Pen(Color.Black,1);
+        private Pen penForPartner = new Pen(Color.Black, 1);
+        private Pen penForPhantom = new Pen(Color.Blue, 1);
         #endregion  ------------------------------------- Pens
 
         private PictureBox pictureBox1 = new PictureBox();
+        private List<SdLine> sdLines = new List<SdLine>();
+
         // For printing
         private String sdPrintingId = "";
-
-        private List<SdLine> sdLines = new List<SdLine>();
         private int SPACE_BETWEEN_CALL_AND_FORMATION = 15;
         // The id text from the Sd text file
 
@@ -170,23 +153,23 @@ namespace SdGraphics
         Size calculateBitMapSize(List<SdLine> sdLineList, int maxWidth)
         {
             // Make reservation for one nose in each end in both directions
-            int bitMapWidth = maxWidth + SettingsForm.MySettings.noseSize;
+            int bitMapWidth = maxWidth + mus.NoseSize;
 
-            int h = Math.Max(SettingsForm.MySettings.noseSize * 2 + SettingsForm.MySettings.dancerSize, SettingsForm.MySettings.noseSize * 2 + SettingsForm.MySettings.lineHeight);
+            int h = Math.Max(mus.NoseSize * 2 + mus.DancerSize, mus.NoseSize * 2 + mus.LineHeight);
             int numberOfLinesInFormation = sdLineList.Count;
             for (int lineNumberInFormation = 0; lineNumberInFormation < numberOfLinesInFormation; lineNumberInFormation++)
             {
                 if (lineNumberInFormation > 0)
                 {
                     int emptylinesBefore = Math.Max(1, (sdLineList[lineNumberInFormation].emptylinesBefore));
-                    h += SettingsForm.MySettings.lineHeight * emptylinesBefore;
+                    h += mus.LineHeight * emptylinesBefore;
                 }
             }
 
             if (this.dancerView)
             {
                 // Add space for casller
-                h += SettingsForm.MySettings.lineHeight;
+                h += mus.LineHeight;
             }
             Size bitMapSize = new Size(bitMapWidth, h);
             return bitMapSize;
@@ -217,13 +200,13 @@ namespace SdGraphics
                 //int height = lineHeight * (buffer1.Count + 3) + MARGIN_TOP + 5;
                 int height = calculateBitMapSize(sdLineList,  0).Height;
                 sdLineList.Clear();
-                if (y + height + SettingsForm.MySettings.lineHeight * 2 > pageSize.Height - SettingsForm.MySettings.marginBottom)
+                if (y + height + mus.LineHeight * 2 > pageSize.Height - mus.MarginBottom)
                 {
                     if (noOfColumns == 2 && IsOdd(pageNumber))
                     {
 
                         this.currentXoffset = pageSize.Width / 2;
-                        y = marginTop + SettingsForm.MySettings.lineHeight;
+                        y = marginTop + mus.LineHeight;
 
                     }
                     else
@@ -232,29 +215,29 @@ namespace SdGraphics
                         this.bitmapList.Add(pageBitmap);
                         pageBitmap = new Bitmap(pageSize.Width, pageSize.Height);
                         y = marginTop;
-                        writeCopyright(pageBitmap, SettingsForm.MySettings.lineHeight);
+                        writeCopyright(pageBitmap, mus.LineHeight);
                         int x = pageNumber;
                         if (noOfColumns == 2)
                         {
                             x = pageNumber / 2;
                         }
-                        writePageHeader(pageBitmap, y, 1 + x, SettingsForm.MySettings.lineHeight);
-                        y += SettingsForm.MySettings.lineHeight;
+                        writePageHeader(pageBitmap, y, 1 + x, mus.LineHeight);
+                        y += mus.LineHeight;
                     }
                     pageNumber++;
                 }
 
                 if (sdLine.callNumber == 0)
                 {
-                    y += SettingsForm.MySettings.lineHeight / 2;
+                    y += mus.LineHeight / 2;
                     y = writeText(String.Format("{0}", sdLine.text), pageBitmap, y, this.currentXoffset,  lineBreak);
-                    y += SettingsForm.MySettings.lineHeight / 2;
+                    y += mus.LineHeight / 2;
                 }
                 else if (sdLine.callNumber > 0)
                 {
-                    y += SettingsForm.MySettings.lineHeight;
+                    y += mus.LineHeight;
                     y = writeText(String.Format("{0}) {1}", sdLine.callNumber, sdLine.text),  pageBitmap, y, this.currentXoffset, lineBreak);
-                    y += SettingsForm.MySettings.lineHeight / 2;
+                    y += mus.LineHeight / 2;
                 }
 
             }
@@ -502,14 +485,14 @@ namespace SdGraphics
         {
             Pen pen = new Pen(System.Drawing.Color.Black, 1);
             int xc = bmp.Width / 2;
-            int y = bmp.Height - SettingsForm.MySettings.dancerSize - 2;
-            int x = Math.Max(0, xc - SettingsForm.MySettings.dancerSize / 2);
+            int y = bmp.Height - mus.DancerSize - 2;
+            int x = Math.Max(0, xc - mus.DancerSize / 2);
             using (Graphics g = Graphics.FromImage(bmp))
             {
 
-                g.DrawEllipse(penForCaller, x+2, y+2, (float) 0.8* SettingsForm.MySettings.dancerSize, (float) 0.8* SettingsForm.MySettings.dancerSize);
-                g.DrawRectangle(penForCaller, x, y, SettingsForm.MySettings.dancerSize, SettingsForm.MySettings.dancerSize);
-                g.FillEllipse(brushForCallerNose, x + SettingsForm.MySettings.dancerSize / 2 - SettingsForm.MySettings.noseSize / 2, y - SettingsForm.MySettings.noseSize, SettingsForm.MySettings.noseSize, SettingsForm.MySettings.noseSize);
+                g.DrawEllipse(penForCaller, x+2, y+2, (float) 0.8* mus.DancerSize, (float) 0.8* mus.DancerSize);
+                g.DrawRectangle(penForCaller, x, y, mus.DancerSize, mus.DancerSize);
+                g.FillEllipse(brushForCallerNose, x + mus.DancerSize / 2 - mus.NoseSize / 2, y - mus.NoseSize, mus.NoseSize, mus.NoseSize);
             }
 
         }
@@ -517,8 +500,8 @@ namespace SdGraphics
         private int drawDancerOrSpace(ref Bitmap bmp, int xc, int yc, String dancer,   bool showPartner, ref RotateFlipType rft)
         {
             Pen pen = new Pen(System.Drawing.Color.Black, 1);
-            int x = Math.Max(0, xc - SettingsForm.MySettings.dancerSize / 2);
-            int y = yc - SettingsForm.MySettings.dancerSize / 2;
+            int x = Math.Max(0, xc - mus.DancerSize / 2);
+            int y = yc - mus.DancerSize / 2;
             using (Graphics g = Graphics.FromImage(bmp))
             {
                 bool isFocusDancer = false;
@@ -526,18 +509,18 @@ namespace SdGraphics
                 if (dancer == ".")
                 {
                     // the point is only 1 char, so we have to add an extra spcace before
-                    g.DrawEllipse(penForPhantom, x - SettingsForm.MySettings.blankSpace, yc - SettingsForm.MySettings.dancerSize / 2, SettingsForm.MySettings.dancerSize, SettingsForm.MySettings.dancerSize);
-                    xc -= 2 * SettingsForm.MySettings.blankSpace;  // Subtle
+                    g.DrawEllipse(penForPhantom, x - mus.BlankSpace, yc - mus.DancerSize / 2, mus.DancerSize, mus.DancerSize);
+                    xc -= 2 * mus.BlankSpace;  // Subtle
                 }
                 else
                 {
                     if (dancer[1] == 'B')
                     {
-                        g.DrawRectangle(pen, x, y, SettingsForm.MySettings.dancerSize, SettingsForm.MySettings.dancerSize);
+                        g.DrawRectangle(pen, x, y, mus.DancerSize, mus.DancerSize);
                     }
                     else
                     {
-                        g.DrawEllipse(pen, x, y, SettingsForm.MySettings.dancerSize, SettingsForm.MySettings.dancerSize);
+                        g.DrawEllipse(pen, x, y, mus.DancerSize, mus.DancerSize);
                     }
                     g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
@@ -545,24 +528,24 @@ namespace SdGraphics
                     {
                         if (dancer[0] == numericUpDownNoseUp.Value.ToString()[0])
                         {
-                            int symbolSize = SettingsForm.MySettings.dancerSize / 3;
+                            int symbolSize = mus.DancerSize / 3;
                             if (radioButtonBeau.Checked && dancer[1] == 'B')
                             {
                                 isFocusDancer = true;
-                                g.DrawRectangle(penForFocusDancer, x + SettingsForm.MySettings.dancerSize / 2 - symbolSize / 2, y + SettingsForm.MySettings.dancerSize / 2 - symbolSize / 2, symbolSize, symbolSize);
+                                g.DrawRectangle(penForFocusDancer, x + mus.DancerSize / 2 - symbolSize / 2, y + mus.DancerSize / 2 - symbolSize / 2, symbolSize, symbolSize);
                             }
                             else if (radioButtonBelle.Checked && dancer[1] == 'G')
                             {
                                 isFocusDancer = true;
-                                g.DrawEllipse(penForFocusDancer, x + SettingsForm.MySettings.dancerSize / 2 - symbolSize / 2, y + SettingsForm.MySettings.dancerSize / 2 - symbolSize / 2, symbolSize, symbolSize);
+                                g.DrawEllipse(penForFocusDancer, x + mus.DancerSize / 2 - symbolSize / 2, y + mus.DancerSize / 2 - symbolSize / 2, symbolSize, symbolSize);
                             }
                             else if (radioButtonBeau.Checked && dancer[1] == 'G' && showPartner)
                             {
-                                g.DrawEllipse(penForPartner, x + SettingsForm.MySettings.dancerSize / 2 - symbolSize / 2, y + SettingsForm.MySettings.dancerSize / 2 - symbolSize / 2, symbolSize, symbolSize);
+                                g.DrawEllipse(penForPartner, x + mus.DancerSize / 2 - symbolSize / 2, y + mus.DancerSize / 2 - symbolSize / 2, symbolSize, symbolSize);
                             }
                             else if (radioButtonBelle.Checked && dancer[1] == 'B' && showPartner)
                             {
-                                g.DrawRectangle(penForPartner, x + SettingsForm.MySettings.dancerSize / 2 - symbolSize / 2, y + SettingsForm.MySettings.dancerSize / 2 - symbolSize / 2, symbolSize, symbolSize);
+                                g.DrawRectangle(penForPartner, x + mus.DancerSize / 2 - symbolSize / 2, y + mus.DancerSize / 2 - symbolSize / 2, symbolSize, symbolSize);
                             }
                         }
                     }
@@ -578,7 +561,7 @@ namespace SdGraphics
                         {
                             rft= RotateFlipType.Rotate270FlipNone;
                         }
-                        g.FillEllipse(brushForNoses, x + SettingsForm.MySettings.dancerSize, y + SettingsForm.MySettings.dancerSize / 2 - SettingsForm.MySettings.noseSize / 2, SettingsForm.MySettings.noseSize, SettingsForm.MySettings.noseSize);
+                        g.FillEllipse(brushForNoses, x + mus.DancerSize, y + mus.DancerSize / 2 - mus.NoseSize / 2, mus.NoseSize, mus.NoseSize);
                     }
                     else if (dancer[2] == '<')
                     {
@@ -586,11 +569,11 @@ namespace SdGraphics
                         {
                             rft = RotateFlipType.Rotate90FlipNone;
                         }
-                        g.FillEllipse(brushForNoses, x - SettingsForm.MySettings.noseSize, y + SettingsForm.MySettings.dancerSize / 2 - SettingsForm.MySettings.noseSize / 2, SettingsForm.MySettings.noseSize, SettingsForm.MySettings.noseSize);
+                        g.FillEllipse(brushForNoses, x - mus.NoseSize, y + mus.DancerSize / 2 - mus.NoseSize / 2, mus.NoseSize, mus.NoseSize);
                     }
                     else if (dancer[2] == '^')
                     {
-                        g.FillEllipse(brushForNoses, x + SettingsForm.MySettings.dancerSize / 2 - SettingsForm.MySettings.noseSize / 2, y - SettingsForm.MySettings.noseSize, SettingsForm.MySettings.noseSize, SettingsForm.MySettings.noseSize);
+                        g.FillEllipse(brushForNoses, x + mus.DancerSize / 2 - mus.NoseSize / 2, y - mus.NoseSize, mus.NoseSize, mus.NoseSize);
                     }
                     else if (dancer[2] == 'V')
                     {
@@ -598,17 +581,17 @@ namespace SdGraphics
                         {
                             rft = RotateFlipType.Rotate180FlipNone;
                         }
-                        g.FillEllipse(brushForNoses, x + SettingsForm.MySettings.dancerSize / 2 - SettingsForm.MySettings.noseSize / 2, y + SettingsForm.MySettings.dancerSize, SettingsForm.MySettings.noseSize, SettingsForm.MySettings.noseSize);
+                        g.FillEllipse(brushForNoses, x + mus.DancerSize / 2 - mus.NoseSize / 2, y + mus.DancerSize, mus.NoseSize, mus.NoseSize);
                     }
                 }
             }
 
-            return xc + SettingsForm.MySettings.dancerSize;
+            return xc + mus.DancerSize;
         }
 
         private Bitmap drawFormation(List<SdLine> sdLineList, Boolean drawBorder,  bool showPartner, int noseUpDancer)
         {
-            int y = SettingsForm.MySettings.noseSize + SettingsForm.MySettings.dancerSize / 2;
+            int y = mus.NoseSize + mus.DancerSize / 2;
             int maxNumberOfPositions = 0;
             //foreach (String[] dancers in buffer) {
             //    if (dancers.Length > maxNumberOfPositions) {
@@ -625,10 +608,10 @@ namespace SdGraphics
                 {
                     maxNumberOfPositions = sdLine.noOfDancers;
                 }
-                int width = sdLine.noOfDancers * SettingsForm.MySettings.dancerSize; //pixels
+                int width = sdLine.noOfDancers * mus.DancerSize; //pixels
                 foreach (int n in sdLine.noOfLeadingSpaces)
                 {
-                    width += n * SettingsForm.MySettings.blankSpace;
+                    width += n * mus.BlankSpace;
                 }
                 if (width > maxWidth)
                 {
@@ -647,19 +630,19 @@ namespace SdGraphics
                 //            foreach (String[] dancers in buffer) {
                 String[] positions = sdLineList[lineNumberInFormation].atoms;
                 List<int> noOfLeadingSpaces = sdLineList[lineNumberInFormation].noOfLeadingSpaces;
-                int xCenter = SettingsForm.MySettings.dancerSize / 2; //+NOSE_SIZE
+                int xCenter = mus.DancerSize / 2; //+NOSE_SIZE
                 if (lineNumberInFormation > 0)
                 {
 
                     int emptylinesBefore = Math.Max(1, (sdLineList[lineNumberInFormation].emptylinesBefore));
-                    y += SettingsForm.MySettings.lineHeight * emptylinesBefore;
+                    y += mus.LineHeight * emptylinesBefore;
 
 
                 }
               
                 for (int i = 0; i < positions.Length; i++)
                 {
-                    xCenter = drawDancerOrSpace(ref bmp1, xCenter + noOfLeadingSpaces[i] * SettingsForm.MySettings.blankSpace, y, positions[i],
+                    xCenter = drawDancerOrSpace(ref bmp1, xCenter + noOfLeadingSpaces[i] * mus.BlankSpace, y, positions[i],
                         showPartner,ref rft);
                 }
                 if (this.dancerView)
@@ -705,23 +688,10 @@ namespace SdGraphics
         {
             //numericUpDownScale.Value = (decimal) 0.7;
             this.numericUpDownScale.ValueChanged += new System.EventHandler(this.numericUpDownScale_ValueChanged);
-            SettingsForm.MySettings.blankSpace = 6;
-            SettingsForm.MySettings.lineHeight = 26;
-            SettingsForm.MySettings.marginBottom = 50;
-            SettingsForm.MySettings.maxLineLenght = 40;
-            SettingsForm.MySettings.dancerSize = 18;
-            SettingsForm.MySettings.noseSize = 6;
-            SettingsForm.MySettings.marginTop = 15;
-            SettingsForm.MySettings.breakLines = true;
-            SettingsForm.MySettings.copyRightName = "Thomas Bernhed";
-            SettingsForm.MySettings.copyrightYear = 2021;
-            SettingsForm.MySettings.viewTypeName = "Caller View";
 
-
-            mus = new MyUserSettings();
-            mus.LineHeight = 27;
-            mus.Save();
-            //this.DataBindings.Add(new Binding("BackColor", mus, "BackgroundColor"));
+            this.mus = new MyUserSettings();
+            
+            //mus.Save();
 
         }
 
@@ -828,7 +798,7 @@ namespace SdGraphics
         {
             
             return writeText(String.Format("Sd file={0}     View={1}          Page {2}",
-                Path.GetFileName(fileName), SettingsForm.MySettings.viewTypeName, pageNumber),
+                Path.GetFileName(fileName),mus.ViewTypeName, pageNumber),
                 pageBitmap, y, 0, false);
         }
 
@@ -841,14 +811,14 @@ namespace SdGraphics
                 g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
                 g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
-                int breakIndex = line.LastIndexOf(' ', Math.Min(line.Length - 1, SettingsForm.MySettings.maxLineLenght));
+                int breakIndex = line.LastIndexOf(' ', Math.Min(line.Length - 1,mus.MaxLineLenght));
 
-                if (breakIndex > 0 && line.Length > SettingsForm.MySettings.maxLineLenght && lineBreak)
+                if (breakIndex > 0 && line.Length >mus.MaxLineLenght && lineBreak)
                 {
                     String line1 = line.Substring(0, breakIndex);
                     String line2 = "  " + line.Substring(breakIndex, line.Length - breakIndex);
                     g.DrawString(line1, this.fontForCalls, brushForCalls, x, y);
-                    y += SettingsForm.MySettings.lineHeight;
+                    y += mus.LineHeight;
                     g.DrawString(line2, this.fontForCalls, brushForCalls, x, y);
                 }
                 else
@@ -999,27 +969,27 @@ namespace SdGraphics
         {
             if (radioButtonDancerView.Checked)
             {
-                SettingsForm.MySettings.viewTypeName = "Dancer View";
+               mus.ViewTypeName = "Dancer View";
                 
                 groupBoxFocusDancer.Visible = true;
                 this.dancerView = true;
             }
             else
             {
-                SettingsForm.MySettings.viewTypeName = "Caller View";
+               mus.ViewTypeName = "Caller View";
                 groupBoxFocusDancer.Visible = false;
                 this.dancerView = false;
             }
         }
 
-
-
-        #endregion ------------------------------------- Event Handlers
-
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SettingsForm settingsForm = new SettingsForm(SettingsForm.MySettings);
+            SettingsForm settingsForm = new SettingsForm(this);
             settingsForm.Show();
         }
     }
+
+    #endregion ------------------------------------- Event Handlers
+
+
 }

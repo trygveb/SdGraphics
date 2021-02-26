@@ -12,22 +12,20 @@ namespace SdGraphics
 {
     public partial class SettingsForm : Form
     {
-        public static SdGraphics.SettingsStruct MySettings;
-        private SdGraphics.SettingsStruct settingsIn;
-        public SettingsForm(SdGraphics.SettingsStruct settingsIn)
+        private Form1 parent;
+
+        public SettingsForm(Form1 parent)
         {
+            this.parent = parent;
             InitializeComponent();
-            MySettings = settingsIn;
-            this.settingsIn = MySettings;
         }
 
         private void myInit()
         {
-            numericUpDownLineHeight.Value = (decimal)this.settingsIn.lineHeight;
+            numericUpDownLineHeight.Value = (decimal)this.parent.mus.LineHeight;
         }
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            MySettings = this.settingsIn;
             this.Close();
         }
 
@@ -38,7 +36,7 @@ namespace SdGraphics
 
         private void numericUpDownLineHeight_ValueChanged(object sender, EventArgs e)
         {
-            MySettings.lineHeight= (int) numericUpDownLineHeight.Value;
+            this.parent.mus.LineHeight= (int) numericUpDownLineHeight.Value;
         }
     }
 }
