@@ -27,6 +27,8 @@ namespace SdGraphics
         // currentXoffset should be zero for the left column and typically pageSize.Width/2 for the right column
         public int currentXoffset = 0;
 
+        public MyUserSettings mus = new MyUserSettings();
+
         // This line i one of several criteria to detect end of a sequence
         private static String AT_HOME = "at home";
 
@@ -44,22 +46,27 @@ namespace SdGraphics
         // The window with the graphics
         private int marginLeftText = 40;
 
-        public MyUserSettings mus= new MyUserSettings();
         // Each bitmap in this list corresponds to a (A4) page
-        private int pageIndex = 0;  // Used by the printing function
+        private int pageIndex = 0;
 
         // Size of the each page in pixels. Corresponds to 94 pixels/inch for an A4 page (210 mm × 297 mm)
         private Size pageSize = new Size(778, 1100);
 
+        private double PANEL_SCALE = 1;
+        private PictureBox pictureBox1 = new PictureBox();
+        private List<SdLine> sdLines = new List<SdLine>();
+        // For printing
+        private String sdPrintingId = "";
+
+        private int SPACE_BETWEEN_CALL_AND_FORMATION = 15;
+        private String ViewTypeName = "Caller view";
+        // Used by the printing function
         #region ----------------------------------------- Brushes
         private Brush brushForCallerNose = new SolidBrush(System.Drawing.Color.DarkGreen);
         private Brush brushForCalls = new SolidBrush(System.Drawing.Color.Black);
         private Brush brushForDancers = new SolidBrush(System.Drawing.Color.Black);
         private Brush brushForNoses = new SolidBrush(System.Drawing.Color.Red);
         #endregion  ------------------------------------- Brushes
-
-        private double PANEL_SCALE = 1;
-
         #region ----------------------------------------- Pens
         private Pen penForBorder = new Pen(Color.Red, 2);
         private Pen penForCaller = new Pen(Color.DarkGreen, 1);
@@ -67,13 +74,6 @@ namespace SdGraphics
         private Pen penForPartner = new Pen(Color.Black, 1);
         private Pen penForPhantom = new Pen(Color.Blue, 1);
         #endregion  ------------------------------------- Pens
-
-        private PictureBox pictureBox1 = new PictureBox();
-        private List<SdLine> sdLines = new List<SdLine>();
-
-        // For printing
-        private String sdPrintingId = "";
-        private int SPACE_BETWEEN_CALL_AND_FORMATION = 15;
         // The id text from the Sd text file
 
         struct SdLine
@@ -732,6 +732,21 @@ namespace SdGraphics
             }
         }
 
+        private void setViewTypeName()
+        {
+            if (radioButtonDancerView.Checked) {
+                if (radioButtonBeau.Checked) {
+                    this.ViewTypeName = String.Format("Dancer View Couple nr {0}, Beau", numericUpDownNoseUp.Value);
+                }
+                else {
+                    this.ViewTypeName = String.Format("Dancer View Couple nr {0}, Belle", numericUpDownNoseUp.Value);
+                }
+            }
+            else {
+                this.ViewTypeName = String.Format("Caller View");
+            }
+        }
+
         private Boolean skip(ref String line, ref String sdId, ref Boolean warning, ref Boolean emptyLine)
         {
             Boolean skip = false;
@@ -798,7 +813,7 @@ namespace SdGraphics
         {
             
             return writeText(String.Format("Sd file={0}     View={1}          Page {2}",
-                Path.GetFileName(fileName),mus.ViewTypeName, pageNumber),
+                Path.GetFileName(fileName),this.ViewTypeName, pageNumber),
                 pageBitmap, y, 0, false);
         }
 
@@ -952,6 +967,11 @@ namespace SdGraphics
             this.Close();
         }
 
+        private void numericUpDownNoseUp_ValueChanged(object sender, EventArgs e)
+        {
+            this.setViewTypeName();
+        }
+
         private void numericUpDownScale_ValueChanged(object sender, EventArgs e)
         {
             this.createTip();
@@ -965,18 +985,22 @@ namespace SdGraphics
             this.printImage();
         }
 
+        private void radioButtonBeau_CheckedChanged(object sender, EventArgs e)
+        {
+            this.setViewTypeName();
+
+        }
+
         private void radioButtonDancerView_CheckedChanged(object sender, EventArgs e)
         {
+            this.setViewTypeName();
             if (radioButtonDancerView.Checked)
             {
-               mus.ViewTypeName = "Dancer View";
-                
                 groupBoxFocusDancer.Visible = true;
                 this.dancerView = true;
             }
             else
             {
-               mus.ViewTypeName = "Caller View";
                 groupBoxFocusDancer.Visible = false;
                 this.dancerView = false;
             }

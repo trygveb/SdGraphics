@@ -69,11 +69,11 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxFocusDancer = new System.Windows.Forms.GroupBox();
+            this.checkBoxShowPartner = new System.Windows.Forms.CheckBox();
             this.radioButtonBelle = new System.Windows.Forms.RadioButton();
             this.label13 = new System.Windows.Forms.Label();
             this.numericUpDownNoseUp = new System.Windows.Forms.NumericUpDown();
             this.radioButtonBeau = new System.Windows.Forms.RadioButton();
-            this.checkBoxShowPartner = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancersSize)).BeginInit();
@@ -641,7 +641,7 @@
             // opeSdFileToolStripMenuItem
             // 
             this.opeSdFileToolStripMenuItem.Name = "opeSdFileToolStripMenuItem";
-            this.opeSdFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.opeSdFileToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.opeSdFileToolStripMenuItem.Text = "&Open Sd file";
             this.opeSdFileToolStripMenuItem.Click += new System.EventHandler(this.openSdFileToolStripMenuItem_Click);
             // 
@@ -649,14 +649,14 @@
             // 
             this.printToolStripMenuItem.Enabled = false;
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.printToolStripMenuItem.Text = "&Print";
             this.printToolStripMenuItem.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -704,6 +704,16 @@
             this.groupBoxFocusDancer.Text = "Focus dancer";
             this.groupBoxFocusDancer.Visible = false;
             // 
+            // checkBoxShowPartner
+            // 
+            this.checkBoxShowPartner.AutoSize = true;
+            this.checkBoxShowPartner.Location = new System.Drawing.Point(12, 119);
+            this.checkBoxShowPartner.Name = "checkBoxShowPartner";
+            this.checkBoxShowPartner.Size = new System.Drawing.Size(123, 24);
+            this.checkBoxShowPartner.TabIndex = 42;
+            this.checkBoxShowPartner.Text = "Show partner";
+            this.checkBoxShowPartner.UseVisualStyleBackColor = true;
+            // 
             // radioButtonBelle
             // 
             this.radioButtonBelle.AutoSize = true;
@@ -746,6 +756,7 @@
             0,
             0,
             0});
+            this.numericUpDownNoseUp.ValueChanged += new System.EventHandler(this.numericUpDownNoseUp_ValueChanged);
             // 
             // radioButtonBeau
             // 
@@ -758,16 +769,7 @@
             this.radioButtonBeau.TabStop = true;
             this.radioButtonBeau.Text = "Beau";
             this.radioButtonBeau.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxShowPartner
-            // 
-            this.checkBoxShowPartner.AutoSize = true;
-            this.checkBoxShowPartner.Location = new System.Drawing.Point(12, 119);
-            this.checkBoxShowPartner.Name = "checkBoxShowPartner";
-            this.checkBoxShowPartner.Size = new System.Drawing.Size(123, 24);
-            this.checkBoxShowPartner.TabIndex = 42;
-            this.checkBoxShowPartner.Text = "Show partner";
-            this.checkBoxShowPartner.UseVisualStyleBackColor = true;
+            this.radioButtonBeau.CheckedChanged += new System.EventHandler(this.radioButtonBeau_CheckedChanged);
             // 
             // Form1
             // 

@@ -81,11 +81,5 @@ public class MyUserSettings : ApplicationSettingsBase
         set { this["Copyrightname"] = (string)value; }
     }
 
-    [UserScopedSetting()]
-    [DefaultSettingValue("NN")]
-    public string ViewTypeName
-    {
-        get { return ((string)this["ViewTypeName"]); }
-        set { this["ViewTypeName"] = (string)value; }
-    }
-}
+ 
+ }

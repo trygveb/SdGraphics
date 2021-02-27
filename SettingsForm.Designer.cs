@@ -319,6 +319,7 @@ namespace SdGraphics
             0,
             0,
             0});
+            this.numericUpDownBlankSpace.ValueChanged += new System.EventHandler(this.numericUpDownBlankSpace_ValueChanged);
             // 
             // label8
             // 
