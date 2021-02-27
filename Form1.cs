@@ -429,11 +429,11 @@ namespace SdGraphics
             }
 
             this.sdPrintingId = this.createSdLines(lines);
-            int lineHeight = (int)numericUpDownLineHeight.Value;
+            int lineHeight = mus.LineHeight;
             Bitmap pageBitmap = new Bitmap(pageSize.Width, pageSize.Height);
             //List<String[]> buffer = new List<string[]>();
             List<SdLine> sdLineList = new List<SdLine>();
-            int y = (int)numericUpDownMarginTop.Value;
+            int y = mus.Margintop;
 
             Boolean skipNext = false;
             int pageNumber = 1;
@@ -457,8 +457,8 @@ namespace SdGraphics
                     {
                         y = checkBufferAndWriteCall(ref pageBitmap, sdLineList, y, sdLine,
                              ref pageNumber,
-                             (int)numericUpDownMarginTop.Value, (int)numericUpDownMaxLineLength.Value,
-                             checkBoxBreakLines.Checked, (int)numericUpDownColumns.Value, checkBoxShowPartner.Checked);
+                             mus.Margintop, mus.MaxLineLenght, mus.Breaklines,
+                             (int)numericUpDownColumns.Value, checkBoxShowPartner.Checked);
                     }
                     lastCall = sdLine.text;
                 }
@@ -690,7 +690,7 @@ namespace SdGraphics
             this.numericUpDownScale.ValueChanged += new System.EventHandler(this.numericUpDownScale_ValueChanged);
 
             this.mus = new MyUserSettings();
-            
+            this.mus.Reload();
             //mus.Save();
 
         }
@@ -805,7 +805,7 @@ namespace SdGraphics
 
         private void writeCopyright(Bitmap pageBitmap, int lineHeight)
         {
-            this.writeText(String.Format("Copyright \u00a9 {0} {1}", textBoxCopyrightName.Text, numericUpDownCopyrightYear.Value),
+            this.writeText(String.Format("Copyright \u00a9 {0} {1}", mus.Copyrightname, mus.Copyrightyear),
                 pageBitmap, pageSize.Height - lineHeight, pageSize.Width / 2 - 150,  false);
         }
 
@@ -919,6 +919,11 @@ namespace SdGraphics
             this.Close();
         }
 
+        private void buttonExit_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private void buttonForward_Click(object sender, EventArgs e)
         {
             this.nextPage();
@@ -996,12 +1001,12 @@ namespace SdGraphics
             this.setViewTypeName();
             if (radioButtonDancerView.Checked)
             {
-                groupBoxFocusDancer.Visible = true;
+                groupBoxFocusDancer.Enabled = true;
                 this.dancerView = true;
             }
             else
             {
-                groupBoxFocusDancer.Visible = false;
+                groupBoxFocusDancer.Enabled = false;
                 this.dancerView = false;
             }
         }

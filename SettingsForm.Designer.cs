@@ -33,7 +33,7 @@ namespace SdGraphics
             this.label12 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDownLineHeight = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownDancersSize = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownDancerSize = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDownCopyrightYear = new System.Windows.Forms.NumericUpDown();
@@ -54,7 +54,7 @@ namespace SdGraphics
             this.buttonOk = new System.Windows.Forms.Button();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancersSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancerSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCopyrightYear)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMarginTop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMarginBottom)).BeginInit();
@@ -68,7 +68,7 @@ namespace SdGraphics
             this.panelSettings.Controls.Add(this.label12);
             this.panelSettings.Controls.Add(this.label2);
             this.panelSettings.Controls.Add(this.numericUpDownLineHeight);
-            this.panelSettings.Controls.Add(this.numericUpDownDancersSize);
+            this.panelSettings.Controls.Add(this.numericUpDownDancerSize);
             this.panelSettings.Controls.Add(this.label7);
             this.panelSettings.Controls.Add(this.label9);
             this.panelSettings.Controls.Add(this.numericUpDownCopyrightYear);
@@ -137,29 +137,30 @@ namespace SdGraphics
             0});
             this.numericUpDownLineHeight.ValueChanged += new System.EventHandler(this.numericUpDownLineHeight_ValueChanged);
             // 
-            // numericUpDownDancersSize
+            // numericUpDownDancerSize
             // 
-            this.numericUpDownDancersSize.Location = new System.Drawing.Point(301, 44);
-            this.numericUpDownDancersSize.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.numericUpDownDancersSize.Maximum = new decimal(new int[] {
+            this.numericUpDownDancerSize.Location = new System.Drawing.Point(301, 44);
+            this.numericUpDownDancerSize.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownDancerSize.Maximum = new decimal(new int[] {
             30,
             0,
             0,
             0});
-            this.numericUpDownDancersSize.Minimum = new decimal(new int[] {
+            this.numericUpDownDancerSize.Minimum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numericUpDownDancersSize.Name = "numericUpDownDancersSize";
-            this.numericUpDownDancersSize.Size = new System.Drawing.Size(68, 20);
-            this.numericUpDownDancersSize.TabIndex = 11;
-            this.numericUpDownDancersSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDownDancersSize.Value = new decimal(new int[] {
+            this.numericUpDownDancerSize.Name = "numericUpDownDancerSize";
+            this.numericUpDownDancerSize.Size = new System.Drawing.Size(68, 20);
+            this.numericUpDownDancerSize.TabIndex = 11;
+            this.numericUpDownDancerSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownDancerSize.Value = new decimal(new int[] {
             18,
             0,
             0,
             0});
+            this.numericUpDownDancerSize.ValueChanged += new System.EventHandler(this.numericUpDownDancerSize_ValueChanged);
             // 
             // label7
             // 
@@ -206,6 +207,7 @@ namespace SdGraphics
             0,
             0,
             0});
+            this.numericUpDownCopyrightYear.ValueChanged += new System.EventHandler(this.numericUpDownCopyrightYear_ValueChanged);
             // 
             // numericUpDownMarginTop
             // 
@@ -235,6 +237,7 @@ namespace SdGraphics
             0,
             0,
             0});
+            this.numericUpDownMarginTop.ValueChanged += new System.EventHandler(this.numericUpDownMarginTop_ValueChanged);
             // 
             // label3
             // 
@@ -255,6 +258,7 @@ namespace SdGraphics
             this.textBoxCopyrightName.Size = new System.Drawing.Size(210, 20);
             this.textBoxCopyrightName.TabIndex = 16;
             this.textBoxCopyrightName.Text = "Thomas Bernhed";
+            this.textBoxCopyrightName.TextChanged += new System.EventHandler(this.textBoxCopyrightName_TextChanged);
             // 
             // label4
             // 
@@ -295,6 +299,7 @@ namespace SdGraphics
             0,
             0,
             0});
+            this.numericUpDownMarginBottom.ValueChanged += new System.EventHandler(this.numericUpDownMarginBottom_ValueChanged);
             // 
             // numericUpDownBlankSpace
             // 
@@ -366,6 +371,7 @@ namespace SdGraphics
             this.checkBoxBreakLines.TabIndex = 35;
             this.checkBoxBreakLines.Text = "Break lines";
             this.checkBoxBreakLines.UseVisualStyleBackColor = true;
+            this.checkBoxBreakLines.CheckedChanged += new System.EventHandler(this.checkBoxBreakLines_CheckedChanged);
             // 
             // label10
             // 
@@ -406,6 +412,7 @@ namespace SdGraphics
             0,
             0,
             0});
+            this.numericUpDownNoseSize.ValueChanged += new System.EventHandler(this.numericUpDownNoseSize_ValueChanged);
             // 
             // numericUpDownMaxLineLength
             // 
@@ -435,6 +442,7 @@ namespace SdGraphics
             0,
             0,
             0});
+            this.numericUpDownMaxLineLength.ValueChanged += new System.EventHandler(this.numericUpDownMaxLineLength_ValueChanged);
             // 
             // buttonCancel
             // 
@@ -469,7 +477,7 @@ namespace SdGraphics
             this.panelSettings.ResumeLayout(false);
             this.panelSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancersSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancerSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCopyrightYear)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMarginTop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMarginBottom)).EndInit();
@@ -486,7 +494,7 @@ namespace SdGraphics
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericUpDownLineHeight;
-        private System.Windows.Forms.NumericUpDown numericUpDownDancersSize;
+        private System.Windows.Forms.NumericUpDown numericUpDownDancerSize;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown numericUpDownCopyrightYear;
