@@ -52,6 +52,10 @@ namespace SdGraphics
             this.numericUpDownMaxLineLength = new System.Windows.Forms.NumericUpDown();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
+            this.textBoxHtmlBaseFolder = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.buttonChangeFolder = new System.Windows.Forms.Button();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancerSize)).BeginInit();
@@ -69,13 +73,9 @@ namespace SdGraphics
             this.panelSettings.Controls.Add(this.label2);
             this.panelSettings.Controls.Add(this.numericUpDownLineHeight);
             this.panelSettings.Controls.Add(this.numericUpDownDancerSize);
-            this.panelSettings.Controls.Add(this.label7);
             this.panelSettings.Controls.Add(this.label9);
-            this.panelSettings.Controls.Add(this.numericUpDownCopyrightYear);
             this.panelSettings.Controls.Add(this.numericUpDownMarginTop);
             this.panelSettings.Controls.Add(this.label3);
-            this.panelSettings.Controls.Add(this.textBoxCopyrightName);
-            this.panelSettings.Controls.Add(this.label4);
             this.panelSettings.Controls.Add(this.numericUpDownMarginBottom);
             this.panelSettings.Controls.Add(this.numericUpDownBlankSpace);
             this.panelSettings.Controls.Add(this.label8);
@@ -87,7 +87,7 @@ namespace SdGraphics
             this.panelSettings.Controls.Add(this.numericUpDownMaxLineLength);
             this.panelSettings.Location = new System.Drawing.Point(44, 12);
             this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Size = new System.Drawing.Size(377, 270);
+            this.panelSettings.Size = new System.Drawing.Size(377, 203);
             this.panelSettings.TabIndex = 45;
             // 
             // label12
@@ -97,9 +97,9 @@ namespace SdGraphics
             this.label12.Location = new System.Drawing.Point(4, 5);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(76, 24);
+            this.label12.Size = new System.Drawing.Size(104, 24);
             this.label12.TabIndex = 36;
-            this.label12.Text = "Settings";
+            this.label12.Text = "Apperance";
             // 
             // label2
             // 
@@ -166,7 +166,7 @@ namespace SdGraphics
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(2, 232);
+            this.label7.Location = new System.Drawing.Point(65, 363);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(110, 20);
@@ -186,7 +186,7 @@ namespace SdGraphics
             // 
             // numericUpDownCopyrightYear
             // 
-            this.numericUpDownCopyrightYear.Location = new System.Drawing.Point(121, 226);
+            this.numericUpDownCopyrightYear.Location = new System.Drawing.Point(184, 357);
             this.numericUpDownCopyrightYear.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownCopyrightYear.Maximum = new decimal(new int[] {
             2050,
@@ -252,7 +252,7 @@ namespace SdGraphics
             // 
             // textBoxCopyrightName
             // 
-            this.textBoxCopyrightName.Location = new System.Drawing.Point(121, 191);
+            this.textBoxCopyrightName.Location = new System.Drawing.Point(184, 322);
             this.textBoxCopyrightName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxCopyrightName.Name = "textBoxCopyrightName";
             this.textBoxCopyrightName.Size = new System.Drawing.Size(210, 20);
@@ -264,7 +264,7 @@ namespace SdGraphics
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(2, 195);
+            this.label4.Location = new System.Drawing.Point(65, 326);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(120, 20);
@@ -446,9 +446,10 @@ namespace SdGraphics
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(44, 320);
+            this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCancel.Location = new System.Drawing.Point(32, 438);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(75, 32);
             this.buttonCancel.TabIndex = 46;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -456,22 +457,60 @@ namespace SdGraphics
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(300, 320);
+            this.buttonOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonOk.Location = new System.Drawing.Point(288, 438);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(75, 23);
+            this.buttonOk.Size = new System.Drawing.Size(75, 32);
             this.buttonOk.TabIndex = 47;
             this.buttonOk.Text = "Save";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
+            // textBoxHtmlBaseFolder
+            // 
+            this.textBoxHtmlBaseFolder.Location = new System.Drawing.Point(184, 237);
+            this.textBoxHtmlBaseFolder.Name = "textBoxHtmlBaseFolder";
+            this.textBoxHtmlBaseFolder.ReadOnly = true;
+            this.textBoxHtmlBaseFolder.Size = new System.Drawing.Size(251, 20);
+            this.textBoxHtmlBaseFolder.TabIndex = 48;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(46, 237);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(135, 20);
+            this.label1.TabIndex = 49;
+            this.label1.Text = "HTML base folder";
+            // 
+            // buttonChangeFolder
+            // 
+            this.buttonChangeFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonChangeFolder.Location = new System.Drawing.Point(184, 263);
+            this.buttonChangeFolder.Name = "buttonChangeFolder";
+            this.buttonChangeFolder.Size = new System.Drawing.Size(229, 28);
+            this.buttonChangeFolder.TabIndex = 50;
+            this.buttonChangeFolder.Text = "Change HTML base folder";
+            this.buttonChangeFolder.UseVisualStyleBackColor = true;
+            this.buttonChangeFolder.Click += new System.EventHandler(this.buttonChangeFolder_Click);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 395);
+            this.ClientSize = new System.Drawing.Size(475, 511);
+            this.Controls.Add(this.buttonChangeFolder);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBoxHtmlBaseFolder);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.panelSettings);
+            this.Controls.Add(this.textBoxCopyrightName);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.numericUpDownCopyrightYear);
             this.Name = "SettingsForm";
             this.Text = "Settings";
             this.panelSettings.ResumeLayout(false);
@@ -485,6 +524,7 @@ namespace SdGraphics
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNoseSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLineLength)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -513,5 +553,9 @@ namespace SdGraphics
         private System.Windows.Forms.NumericUpDown numericUpDownMaxLineLength;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOk;
+        private System.Windows.Forms.TextBox textBoxHtmlBaseFolder;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.Button buttonChangeFolder;
     }
 }

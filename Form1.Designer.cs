@@ -54,6 +54,7 @@
             this.numericUpDownNoseUp = new System.Windows.Forms.NumericUpDown();
             this.radioButtonBeau = new System.Windows.Forms.RadioButton();
             this.buttonExit = new System.Windows.Forms.Button();
+            this.checkBoxCreateHTML = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).BeginInit();
             this.groupBoxView.SuspendLayout();
@@ -65,7 +66,7 @@
             // buttonReadFile
             // 
             this.buttonReadFile.Enabled = false;
-            this.buttonReadFile.Location = new System.Drawing.Point(27, 282);
+            this.buttonReadFile.Location = new System.Drawing.Point(27, 396);
             this.buttonReadFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonReadFile.Name = "buttonReadFile";
             this.buttonReadFile.Size = new System.Drawing.Size(143, 35);
@@ -373,7 +374,7 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(206, 331);
+            this.buttonExit.Location = new System.Drawing.Point(246, 394);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(95, 37);
             this.buttonExit.TabIndex = 48;
@@ -381,11 +382,22 @@
             this.buttonExit.UseVisualStyleBackColor = true;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click_1);
             // 
+            // checkBoxCreateHTML
+            // 
+            this.checkBoxCreateHTML.AutoSize = true;
+            this.checkBoxCreateHTML.Location = new System.Drawing.Point(18, 270);
+            this.checkBoxCreateHTML.Name = "checkBoxCreateHTML";
+            this.checkBoxCreateHTML.Size = new System.Drawing.Size(173, 24);
+            this.checkBoxCreateHTML.TabIndex = 50;
+            this.checkBoxCreateHTML.Text = "Create HTML output";
+            this.checkBoxCreateHTML.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(435, 389);
+            this.ClientSize = new System.Drawing.Size(435, 445);
+            this.Controls.Add(this.checkBoxCreateHTML);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.groupBoxFocusDancer);
@@ -445,6 +457,7 @@
         private System.Windows.Forms.RadioButton radioButtonBeau;
         private System.Windows.Forms.CheckBox checkBoxShowPartner;
         private System.Windows.Forms.Button buttonExit;
+        private System.Windows.Forms.CheckBox checkBoxCreateHTML;
     }
 }
 

@@ -33,6 +33,7 @@ namespace SdGraphics
             numericUpDownMaxLineLength.Value = (decimal)parent.mus.MaxLineLenght;
             numericUpDownNoseSize.Value = (decimal)parent.mus.NoseSize;
             textBoxCopyrightName.Text = parent.mus.Copyrightname;
+            textBoxHtmlBaseFolder.Text = parent.mus.HtmlBaseFolder;
 
         }
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -94,6 +95,16 @@ namespace SdGraphics
         private void checkBoxBreakLines_CheckedChanged(object sender, EventArgs e)
         {
             this.parent.mus.Breaklines = checkBoxBreakLines.Checked;
+        }
+
+        private void buttonChangeFolder_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderDlg = new FolderBrowserDialog();
+            DialogResult result = folderDlg.ShowDialog();
+            if (result == DialogResult.OK) {
+                textBoxHtmlBaseFolder.Text = folderDlg.SelectedPath;
+                Environment.SpecialFolder root = folderDlg.RootFolder;
+            }
         }
     }
 }

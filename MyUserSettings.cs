@@ -81,5 +81,12 @@ public class MyUserSettings : ApplicationSettingsBase
         set { this["Copyrightname"] = (string)value; }
     }
 
- 
- }
+    [UserScopedSetting()]
+    [DefaultSettingValue(@"C:\Sd")]
+    public string HtmlBaseFolder
+    {
+        get { return ((string)this["HtmlBaseFolder"]); }
+        set { this["HtmlBaseFolder"] = (string)value; }
+    }
+
+}
