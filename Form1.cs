@@ -8,7 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Threading.Tasks;
 using System.Configuration;
+using System.Drawing.Imaging;
 
 namespace SdGraphics
 {
@@ -35,6 +37,9 @@ namespace SdGraphics
         private List<Bitmap> bitmapList = new List<Bitmap>();
         private int currentIndex = -1;
         private Boolean dancerView = false;
+
+        private EncoderParameters myEncoderParameters;
+
         // Index in bitmapList
         private String fileName;
 
@@ -45,6 +50,8 @@ namespace SdGraphics
         private int marginLeftFormations = 30;
         // The window with the graphics
         private int marginLeftText = 40;
+
+        System.Drawing.Imaging.Encoder myEncoder;
 
         // Each bitmap in this list corresponds to a (A4) page
         private int pageIndex = 0;
@@ -168,8 +175,8 @@ namespace SdGraphics
             return bitMapSize;
         }
 
-        private int checkBufferAndWriteCall(ref Bitmap pageBitmap, List<SdLine> sdLineList, int y, SdLine sdLine, ref int pageNumber,
-             int marginTop, int maxTextLineLength, Boolean lineBreak, int noOfColumns,
+        private int checkBufferAndWriteCall(ref Bitmap pageBitmap, List<SdLine> sdLineList, int y, int i, SdLine sdLine,
+            ref int pageNumber, int marginTop, int maxTextLineLength, Boolean lineBreak, int noOfColumns,
             bool showCaller)
         {
             // The line contains a call 
@@ -179,7 +186,7 @@ namespace SdGraphics
                 int height1 = calculateBitMapSize(sdLineList, 0).Height;
                 int h2 = y + height1;
                 y += SPACE_BETWEEN_CALL_AND_FORMATION;
-                int height = createAndCopyFormationBitmap(ref pageBitmap, checkBoxBorder.Checked, sdLineList, y, sdLine, this.currentXoffset);
+                int height = createAndCopyFormationBitmap(ref pageBitmap, checkBoxBorder.Checked, sdLineList, y,  i, sdLine, this.currentXoffset);
                 y += height;
             }
             if (matchSdId(sdLine.text)) {
@@ -222,12 +229,24 @@ namespace SdGraphics
                     y += mus.LineHeight;
                     y = writeText(String.Format("{0}) {1}", sdLine.callNumber, sdLine.text), pageBitmap, y, this.currentXoffset, lineBreak);
                     y += mus.LineHeight / 2;
+                    //if (checkBoxCreateHTML.Checked) {
+                    //    writeHtmlCall(sdLine);
+                    //}
                 }
 
             }
             return y;
         }
 
+        //private void writeHtmlCall(SdLine sdLine)
+        //{
+        //    String callFileName = String.Format(@"{0}\Call\{1}.txt", mus.HtmlBaseFolder, sdLine.callNumber);
+        //    string[] lines = {
+        //        sdLine.text
+        //    };
+
+        //    File.WriteAllLines(callFileName, lines);
+        //}
 
         private String cleanUp(string line)
         {
@@ -248,7 +267,7 @@ namespace SdGraphics
             }
         }
 
-        private int createAndCopyFormationBitmap(ref Bitmap bmp, Boolean drawBorder, List<SdLine> sdLineList, int y, SdLine sdLine, int xOffset = 0)
+        private int createAndCopyFormationBitmap(ref Bitmap bmp, Boolean drawBorder, List<SdLine> sdLineList, int y, int i, SdLine sdLine, int xOffset = 0)
         {
             int height = 0;
 
@@ -262,10 +281,25 @@ namespace SdGraphics
                 height = bmp1.Height;
 
                 if (checkBoxCreateHTML.Checked) {
-                    String pictureFileName = String.Format("formation_{0}", sdLine.callNumber);
-                    MemoryStream stream = new MemoryStream();
-                    bmp1.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                    bmp1.Save(String.Format(@"{0}\Img\{1}.jpg",mus.HtmlBaseFolder, pictureFileName));
+                    String pictureFileName = String.Format("frm_{0:D3}", sdLine.callNumber);
+                    //MemoryStream stream = new MemoryStream();
+                    ImageCodecInfo myImageCodecInfo = GetEncoderInfo("image/jpeg");
+                    myEncoder = System.Drawing.Imaging.Encoder.Quality;
+
+                    myEncoderParameters = new EncoderParameters(1);
+
+                    EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 75L);
+                    myEncoderParameters.Param[0] = myEncoderParameter;
+                    String fileName = String.Format(@"{0}\Img\{1}.jpg", mus.HtmlBaseFolder, pictureFileName);
+
+
+                    bmp1.Save(fileName, myImageCodecInfo, myEncoderParameters);
+
+                    CompactExifLib.ExifData exifData = new CompactExifLib.ExifData(fileName);
+                    exifData.SetTagValue(CompactExifLib.ExifTag.UserComment, sdLine.text, CompactExifLib.StrCoding.Utf8);
+                    exifData.Save();
+                    //bmp1.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    //bmp1.Save(String.Format(@"{0}\Img\{1}.jpg",mus.HtmlBaseFolder, pictureFileName));
                 }
             }
 
@@ -411,16 +445,23 @@ namespace SdGraphics
                 SdLine sdLine = sdLines[i];
                 if (sdLine.noOfDancers == 0) {
                     if (lastCall != AT_HOME) {
-                        y = checkBufferAndWriteCall(ref pageBitmap, sdLineList, y, sdLine,
+                        y = checkBufferAndWriteCall(ref pageBitmap, sdLineList, y, i, sdLine,
                              ref pageNumber,
                              mus.Margintop, mus.MaxLineLenght, mus.Breaklines,
                              (int)numericUpDownColumns.Value, checkBoxShowPartner.Checked);
                     }
                     lastCall = sdLine.text;
                 }
-                else if (lastCall != TWO_COUPLES_ONLY) {
+                else if (lastCall != TWO_COUPLES_ONLY || i < 3) {
                     sdLineList.Add(sdLine);
+                    //if (sdLine.callNumber == 0) {
+                    //    lastCall = sdLine.text;
+                    //}
                 }
+                //else if (lastCall != TWO_COUPLES_ONLY ) {
+                //    sdLineList.Add(sdLine);
+                //}
+
             }
             // this.writeText("Copyright \u00a9 Bronc Wise 2012", lineHeight, pageBitmap, pageSize.Height - lineHeight, pageSize.Width / 2 - 100);
 
@@ -553,6 +594,17 @@ namespace SdGraphics
             Size bitMapSize = calculateBitMapSize(sdLineList, maxWidth);
 
             Bitmap bmp1 = new Bitmap(bitMapSize.Width, bitMapSize.Height);
+
+            using (Graphics g = Graphics.FromImage(bmp1)) {
+                SolidBrush whiteBrush = new SolidBrush(Color.White);
+
+                // Create rectangle.
+                Rectangle rect = new Rectangle(0, 0, bitMapSize.Width, bitMapSize.Height);
+
+                // Fill rectangle to screen.
+                g.FillRectangle(whiteBrush, rect);
+            }
+
             int numberOfLinesInFormation = sdLineList.Count;
             RotateFlipType rft = RotateFlipType.RotateNoneFlipNone;
             for (int lineNumberInFormation = 0; lineNumberInFormation < numberOfLinesInFormation; lineNumberInFormation++) {
@@ -605,6 +657,18 @@ namespace SdGraphics
         {
             int length = line.Length;
             return length;
+        }
+
+        private static ImageCodecInfo GetEncoderInfo(String mimeType)
+        {
+            int j;
+            ImageCodecInfo[] encoders;
+            encoders = ImageCodecInfo.GetImageEncoders();
+            for (j = 0; j < encoders.Length; ++j) {
+                if (encoders[j].MimeType == mimeType)
+                    return encoders[j];
+            }
+            return null;
         }
 
         private void init()
