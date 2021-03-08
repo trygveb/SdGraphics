@@ -37,7 +37,7 @@ namespace SdGraphics
         private List<Bitmap> bitmapList = new List<Bitmap>();
         private int currentIndex = -1;
         private Boolean dancerView = false;
-
+        private int formationNumber = 0;
         private EncoderParameters myEncoderParameters;
 
         // Index in bitmapList
@@ -281,7 +281,8 @@ namespace SdGraphics
                 height = bmp1.Height;
 
                 if (checkBoxCreateHTML.Checked) {
-                    String pictureFileName = String.Format("frm_{0:D3}", sdLine.callNumber);
+                    String pictureFileName = String.Format("frm_{0:D3}", this.formationNumber);
+                    this.formationNumber++;
                     //MemoryStream stream = new MemoryStream();
                     ImageCodecInfo myImageCodecInfo = GetEncoderInfo("image/jpeg");
                     myEncoder = System.Drawing.Imaging.Encoder.Quality;
@@ -397,7 +398,7 @@ namespace SdGraphics
 
         private void createTip()
         {
-
+            this.formationNumber = 0;
             if (this.graphicsForm == null) {
                 this.graphicsForm = new GraphicsForm(ref pictureBox1, this);
                 this.graphicsForm.FormClosing += fManage_FormOneClosing;

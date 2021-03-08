@@ -47,11 +47,11 @@
             document.getElementById('img2').style.display = "block";
         } else {
             document.getElementById('img2').style.display = "none";
-            document.getElementById("call1").innerHTML = calls[i1 + 1];
-            var blob1 = new Blob([formations[i1 + 1]], { 'type': 'image/jpg' });
+            document.getElementById("call1").innerHTML = calls[i1];
+            var blob1 = new Blob([formations[i1]], { 'type': 'image/jpg' });
             var url1 = URL.createObjectURL(blob1);
             document.getElementById('img1').src = url1;
-            var blob2 = new Blob([formations[i1 + 2]], { 'type': 'image/jpg' });
+            var blob2 = new Blob([formations[i1 + 1]], { 'type': 'image/jpg' });
             var url2 = URL.createObjectURL(blob2);
             document.getElementById('img2').src = url2;
             i1++;
