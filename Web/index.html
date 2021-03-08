@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>SdGraphics tip</title>
+    <script src="https://cdn.jsdelivr.net/npm/exif-js" ></script>
+     <script src="dist/jszip.js"></script>
+</head>
+<body>
+    <label for="zipfile">Select a (zip) file:</label>
+    <input type=file id=zipfile>
+    <br />
+    <button onclick="myFunction()">Next</button>
+    <br /><br />
+    <img id="img1" />
+    <br>
+    <p id="call1"></p>
+    <br />
+    <img id="img2" />
+</body>
+
+<script>
+    let formations=[];
+    let calls = [];
+    var i1 = 0;
+    zipfile.onchange = function () {
+        var zip = new JSZip();
+        zip.loadAsync(this.files[0] /* = file blob */)
+            .then(function (zip) {
+                zip.forEach(function (relativePath, zipEntry) {  // 2) print entries
+
+                    //console.log(zipEntry.name);
+                    zipEntry.async('uint8array').then(function (fileData) {
+                        var exif = EXIF.readFromBinaryFile(fileData.buffer);
+                        formations.push(fileData.buffer);
+                        var comment = exif.UserComment;
+                        calls.push(comment);
+                    })
+
+                })
+            }, function () { alert("Not a valid zip file") }
+         )
+    };
+    function myFunction() {
+        if (document.getElementById('img2').style.display == "none") {
+            document.getElementById('img2').style.display = "block";
+        } else {
+            document.getElementById('img2').style.display = "none";
+            document.getElementById("call1").innerHTML = calls[i1 + 1];
+            var blob1 = new Blob([formations[i1 + 1]], { 'type': 'image/jpg' });
+            var url1 = URL.createObjectURL(blob1);
+            document.getElementById('img1').src = url1;
+            var blob2 = new Blob([formations[i1 + 2]], { 'type': 'image/jpg' });
+            var url2 = URL.createObjectURL(blob2);
+            document.getElementById('img2').src = url2;
+            i1++;
+        }
+    }
+</script>
+</html>
