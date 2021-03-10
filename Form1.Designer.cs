@@ -385,6 +385,8 @@
             // checkBoxCreateHTML
             // 
             this.checkBoxCreateHTML.AutoSize = true;
+            this.checkBoxCreateHTML.Checked = true;
+            this.checkBoxCreateHTML.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxCreateHTML.Location = new System.Drawing.Point(18, 270);
             this.checkBoxCreateHTML.Name = "checkBoxCreateHTML";
             this.checkBoxCreateHTML.Size = new System.Drawing.Size(173, 24);

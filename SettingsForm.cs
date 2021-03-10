@@ -103,6 +103,7 @@ namespace SdGraphics
             DialogResult result = folderDlg.ShowDialog();
             if (result == DialogResult.OK) {
                 textBoxHtmlBaseFolder.Text = folderDlg.SelectedPath;
+                this.parent.mus.HtmlBaseFolder = textBoxHtmlBaseFolder.Text;
                 Environment.SpecialFolder root = folderDlg.RootFolder;
             }
         }

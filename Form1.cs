@@ -430,7 +430,6 @@ namespace SdGraphics
             List<SdLine> sdLineList = new List<SdLine>();
             int y = mus.Margintop;
 
-            Boolean skipNext = false;
             int pageNumber = 1;
             this.currentXoffset = 0;// MARGIN_LEFT;
             this.writePageHeader(pageBitmap, y, 1, lineHeight);
@@ -439,22 +438,18 @@ namespace SdGraphics
             //int callNumber = 0;
             String lastCall = "";
             for (int i = 0; i < sdLines.Count; i++) {
-                if (skipNext) {
-                    skipNext = false;
-                    continue;
-                }
                 SdLine sdLine = sdLines[i];
                 if (sdLine.noOfDancers == 0) {
-                    if (lastCall != AT_HOME) {
+                    //if (lastCall != AT_HOME) {
                         y = checkBufferAndWriteCall(ref pageBitmap, sdLineList, y, i, sdLine,
                              ref pageNumber,
                              mus.Margintop, mus.MaxLineLenght, mus.Breaklines,
                              (int)numericUpDownColumns.Value, checkBoxShowPartner.Checked);
-                    }
+                    //}
                     lastCall = sdLine.text;
-                }
-                else if (lastCall != TWO_COUPLES_ONLY || i < 3) {
-                    sdLineList.Add(sdLine);
+                } else  {
+                //else if (lastCall != TWO_COUPLES_ONLY || i < 3) {
+                        sdLineList.Add(sdLine);
                     //if (sdLine.callNumber == 0) {
                     //    lastCall = sdLine.text;
                     //}
