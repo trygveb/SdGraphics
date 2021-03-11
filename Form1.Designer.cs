@@ -389,9 +389,9 @@
             this.checkBoxCreateHTML.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxCreateHTML.Location = new System.Drawing.Point(18, 270);
             this.checkBoxCreateHTML.Name = "checkBoxCreateHTML";
-            this.checkBoxCreateHTML.Size = new System.Drawing.Size(173, 24);
+            this.checkBoxCreateHTML.Size = new System.Drawing.Size(124, 24);
             this.checkBoxCreateHTML.TabIndex = 50;
-            this.checkBoxCreateHTML.Text = "Create HTML output";
+            this.checkBoxCreateHTML.Text = "Create zip file";
             this.checkBoxCreateHTML.UseVisualStyleBackColor = true;
             // 
             // Form1
