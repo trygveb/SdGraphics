@@ -3,11 +3,9 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>SdGraphics tip</title>
-    <!--<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>-->
-    <script>
+    <title>SdGraphics</title>
+    <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
 
-    </script>
     <!--<script src="dist/jszip.js"></script>-->
     <script>
         /*!
@@ -46,19 +44,23 @@
     </script>
 </head>
 <body>
-    <div style="background-color: #555555;height:400px; max-width: 400px;margin-left:10px;padding:10px; color:white">
+    <div style="background-color: #555555;height:400px; max-width: 400px;margin-left:10px;padding:10px; color:white;position:relative;">
         <label for="zipfile">Select a (zip) file:</label>
         <input type=file id=zipfile>
-        <br />
-        <button onclick="showPrevious()">Prev</button>
-        <button onclick="showNext()">Next</button>
+
         <br /><br />
-        <img id="img1" style="display: block; margin-left: 20px;"/>
+        <img id="img1" style="display: block; margin-left: 20px;" />
         <br>
         <p id="call1"></p>
         <br />
-        <img id="img2" style="display: block; margin-left: 20px;"/>
+        <img id="img2" style="display: block; margin-left: 20px;" />
         <br />
+        <br />
+        <button id="button_prev" style="position:absolute; left: 10px; bottom:10px;display:none" onclick="showPrevious()">Prev</button>
+        <button id="button_next"style="position:absolute; left: 80px; bottom:10px;" onclick="showNext()">Start</button>
+        <span id="copyrightSpan" style="position:absolute; left: 150px; bottom:10px;display:none" >
+        Copyright &copy; <span id="copyrightText"></span>
+        </span>
     </div>
 </body>
 
@@ -67,17 +69,19 @@
     let calls = [];
     let i1 = 0;
     let atHome = false;
+    let copyright = "Unknown";
     zipfile.onchange = function () {
         var zip = new JSZip();
         zip.loadAsync(this.files[0] /* = file blob */)
             .then(function (zip) {
-                zip.forEach(function (relativePath, zipEntry) {  // 2) print entries
-
-                    //console.log(zipEntry.name);
+                zip.forEach(function (relativePath, zipEntry) { 
                     zipEntry.async('uint8array').then(function (fileData) {
                         var exif = EXIF.readFromBinaryFile(fileData.buffer);
                         formations.push(fileData.buffer);
                         var comment = exif.UserComment;
+                        if (typeof exif.Copyright !== 'undefined') {
+                            copyright = exif.Copyright;
+                        }
                         calls.push(comment);
                     })
 
@@ -106,8 +110,13 @@
     }
 
     function showNext() {
+        document.getElementById('copyrightText').innerText =copyright;
+        document.getElementById('copyrightSpan').style.display = "block";
+        document.getElementById('button_prev').style.display = "block";
+        document.getElementById('button_next').innerText = "Next";
         if (atHome) {
             displayCall(i1);
+            i1 += 1;
         }
         else if (document.getElementById('img2').style.display == "none") {
             document.getElementById('img2').style.display = "block";

@@ -83,10 +83,10 @@ public class MyUserSettings : ApplicationSettingsBase
 
     [UserScopedSetting()]
     [DefaultSettingValue(@"C:\Sd")]
-    public string HtmlBaseFolder
+    public string BaseFolder
     {
-        get { return ((string)this["HtmlBaseFolder"]); }
-        set { this["HtmlBaseFolder"] = (string)value; }
+        get { return ((string)this["BaseFolder"]); }
+        set { this["BaseFolder"] = (string)value; }
     }
 
 }

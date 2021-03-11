@@ -52,7 +52,7 @@ namespace SdGraphics
             this.numericUpDownMaxLineLength = new System.Windows.Forms.NumericUpDown();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
-            this.textBoxHtmlBaseFolder = new System.Windows.Forms.TextBox();
+            this.textBoxBaseFolder = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.buttonChangeFolder = new System.Windows.Forms.Button();
@@ -466,13 +466,13 @@ namespace SdGraphics
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
-            // textBoxHtmlBaseFolder
+            // textBoxBaseFolder
             // 
-            this.textBoxHtmlBaseFolder.Location = new System.Drawing.Point(184, 237);
-            this.textBoxHtmlBaseFolder.Name = "textBoxHtmlBaseFolder";
-            this.textBoxHtmlBaseFolder.ReadOnly = true;
-            this.textBoxHtmlBaseFolder.Size = new System.Drawing.Size(251, 20);
-            this.textBoxHtmlBaseFolder.TabIndex = 48;
+            this.textBoxBaseFolder.Location = new System.Drawing.Point(184, 237);
+            this.textBoxBaseFolder.Name = "textBoxBaseFolder";
+            this.textBoxBaseFolder.ReadOnly = true;
+            this.textBoxBaseFolder.Size = new System.Drawing.Size(251, 20);
+            this.textBoxBaseFolder.TabIndex = 48;
             // 
             // label1
             // 
@@ -503,7 +503,7 @@ namespace SdGraphics
             this.ClientSize = new System.Drawing.Size(475, 511);
             this.Controls.Add(this.buttonChangeFolder);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxHtmlBaseFolder);
+            this.Controls.Add(this.textBoxBaseFolder);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.panelSettings);
@@ -553,7 +553,7 @@ namespace SdGraphics
         private System.Windows.Forms.NumericUpDown numericUpDownMaxLineLength;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.TextBox textBoxHtmlBaseFolder;
+        private System.Windows.Forms.TextBox textBoxBaseFolder;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Button buttonChangeFolder;
