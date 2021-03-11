@@ -288,10 +288,8 @@ namespace SdGraphics
                     bmp1.Save(tempFileName, myImageCodecInfo, myEncoderParameters);
                     CompactExifLib.ExifData exifData = new CompactExifLib.ExifData(tempFileName);
                     exifData.SetTagValue(CompactExifLib.ExifTag.UserComment, sdLine.text, CompactExifLib.StrCoding.Utf8);
-                    if (formationNumber==1) {
-                        exifData.SetTagValue(CompactExifLib.ExifTag.Copyright,
+                    exifData.SetTagValue(CompactExifLib.ExifTag.Copyright,
                             String.Format("{0} {1}", mus.Copyrightname, mus.Copyrightyear), CompactExifLib.StrCoding.Utf8);
-                    }
                     exifData.Save();
 
                     using (var zipArchive = ZipFile.Open(this.zipFileName, ZipArchiveMode.Update)) {

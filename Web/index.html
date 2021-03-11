@@ -98,7 +98,7 @@
 
     function displayCall(j1) {
         document.getElementById('img2').style.display = "none";
-        document.getElementById("call1").innerHTML = j1 + ") " + calls[j1];
+        document.getElementById("call1").innerHTML = (j1+1) + ") " + calls[j1];
         document.getElementById('img1').src = getUrl(j1);
         if (calls[j1].includes("at home")) {
             atHome = true;
