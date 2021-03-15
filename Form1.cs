@@ -81,7 +81,9 @@ namespace SdGraphics
         private Pen penForCaller = new Pen(Color.DarkGreen, 1);
         private Pen penForFocusDancer = new Pen(Color.Red, 2);
         private Pen penForPartner = new Pen(Color.Black, 1);
-        private Pen penForPhantom = new Pen(Color.Blue, 1);
+        //private Pen penForPhantom = new Pen(Color.Blue, 1);
+        private Pen penForPhantom = new Pen(new SolidBrush(Color.FromArgb(51, 51, 255)), 1)
+        { DashPattern = new[] { 0.5f, 0.5f } };
         #endregion  ------------------------------------- Pens
         // The id text from the Sd text file
 
