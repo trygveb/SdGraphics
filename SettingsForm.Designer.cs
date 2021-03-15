@@ -34,13 +34,9 @@ namespace SdGraphics
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDownLineHeight = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownDancerSize = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDownCopyrightYear = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownMarginTop = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBoxCopyrightName = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.numericUpDownMarginBottom = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownBlankSpace = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
@@ -50,21 +46,28 @@ namespace SdGraphics
             this.label10 = new System.Windows.Forms.Label();
             this.numericUpDownNoseSize = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownMaxLineLength = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.numericUpDownCopyrightYear = new System.Windows.Forms.NumericUpDown();
+            this.textBoxCopyrightName = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
-            this.textBoxBaseFolder = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.buttonChangeFolder = new System.Windows.Forms.Button();
+            this.panelPens = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxPens = new System.Windows.Forms.ComboBox();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.buttonPenColor = new System.Windows.Forms.Button();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancerSize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCopyrightYear)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMarginTop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMarginBottom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBlankSpace)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNoseSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLineLength)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCopyrightYear)).BeginInit();
+            this.panelPens.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSettings
@@ -85,7 +88,7 @@ namespace SdGraphics
             this.panelSettings.Controls.Add(this.label10);
             this.panelSettings.Controls.Add(this.numericUpDownNoseSize);
             this.panelSettings.Controls.Add(this.numericUpDownMaxLineLength);
-            this.panelSettings.Location = new System.Drawing.Point(44, 12);
+            this.panelSettings.Location = new System.Drawing.Point(54, 12);
             this.panelSettings.Name = "panelSettings";
             this.panelSettings.Size = new System.Drawing.Size(377, 203);
             this.panelSettings.TabIndex = 45;
@@ -97,9 +100,9 @@ namespace SdGraphics
             this.label12.Location = new System.Drawing.Point(4, 5);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(104, 24);
+            this.label12.Size = new System.Drawing.Size(65, 24);
             this.label12.TabIndex = 36;
-            this.label12.Text = "Apperance";
+            this.label12.Text = "Layout";
             // 
             // label2
             // 
@@ -114,6 +117,7 @@ namespace SdGraphics
             // 
             // numericUpDownLineHeight
             // 
+            this.numericUpDownLineHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownLineHeight.Location = new System.Drawing.Point(121, 44);
             this.numericUpDownLineHeight.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownLineHeight.Maximum = new decimal(new int[] {
@@ -127,7 +131,7 @@ namespace SdGraphics
             0,
             0});
             this.numericUpDownLineHeight.Name = "numericUpDownLineHeight";
-            this.numericUpDownLineHeight.Size = new System.Drawing.Size(68, 20);
+            this.numericUpDownLineHeight.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownLineHeight.TabIndex = 13;
             this.numericUpDownLineHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownLineHeight.Value = new decimal(new int[] {
@@ -139,6 +143,7 @@ namespace SdGraphics
             // 
             // numericUpDownDancerSize
             // 
+            this.numericUpDownDancerSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownDancerSize.Location = new System.Drawing.Point(301, 44);
             this.numericUpDownDancerSize.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownDancerSize.Maximum = new decimal(new int[] {
@@ -152,7 +157,7 @@ namespace SdGraphics
             0,
             0});
             this.numericUpDownDancerSize.Name = "numericUpDownDancerSize";
-            this.numericUpDownDancerSize.Size = new System.Drawing.Size(68, 20);
+            this.numericUpDownDancerSize.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownDancerSize.TabIndex = 11;
             this.numericUpDownDancerSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownDancerSize.Value = new decimal(new int[] {
@@ -161,17 +166,6 @@ namespace SdGraphics
             0,
             0});
             this.numericUpDownDancerSize.ValueChanged += new System.EventHandler(this.numericUpDownDancerSize_ValueChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(65, 363);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(110, 20);
-            this.label7.TabIndex = 23;
-            this.label7.Text = "Copyright year";
             // 
             // label9
             // 
@@ -184,33 +178,9 @@ namespace SdGraphics
             this.label9.TabIndex = 31;
             this.label9.Text = "Margin bottom";
             // 
-            // numericUpDownCopyrightYear
-            // 
-            this.numericUpDownCopyrightYear.Location = new System.Drawing.Point(184, 357);
-            this.numericUpDownCopyrightYear.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.numericUpDownCopyrightYear.Maximum = new decimal(new int[] {
-            2050,
-            0,
-            0,
-            0});
-            this.numericUpDownCopyrightYear.Minimum = new decimal(new int[] {
-            2010,
-            0,
-            0,
-            0});
-            this.numericUpDownCopyrightYear.Name = "numericUpDownCopyrightYear";
-            this.numericUpDownCopyrightYear.Size = new System.Drawing.Size(69, 20);
-            this.numericUpDownCopyrightYear.TabIndex = 22;
-            this.numericUpDownCopyrightYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDownCopyrightYear.Value = new decimal(new int[] {
-            2021,
-            0,
-            0,
-            0});
-            this.numericUpDownCopyrightYear.ValueChanged += new System.EventHandler(this.numericUpDownCopyrightYear_ValueChanged);
-            // 
             // numericUpDownMarginTop
             // 
+            this.numericUpDownMarginTop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownMarginTop.Increment = new decimal(new int[] {
             5,
             0,
@@ -229,7 +199,7 @@ namespace SdGraphics
             0,
             0});
             this.numericUpDownMarginTop.Name = "numericUpDownMarginTop";
-            this.numericUpDownMarginTop.Size = new System.Drawing.Size(68, 20);
+            this.numericUpDownMarginTop.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownMarginTop.TabIndex = 30;
             this.numericUpDownMarginTop.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownMarginTop.Value = new decimal(new int[] {
@@ -250,29 +220,9 @@ namespace SdGraphics
             this.label3.TabIndex = 14;
             this.label3.Text = "Line height";
             // 
-            // textBoxCopyrightName
-            // 
-            this.textBoxCopyrightName.Location = new System.Drawing.Point(184, 322);
-            this.textBoxCopyrightName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.textBoxCopyrightName.Name = "textBoxCopyrightName";
-            this.textBoxCopyrightName.Size = new System.Drawing.Size(210, 20);
-            this.textBoxCopyrightName.TabIndex = 16;
-            this.textBoxCopyrightName.Text = "Thomas Bernhed";
-            this.textBoxCopyrightName.TextChanged += new System.EventHandler(this.textBoxCopyrightName_TextChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(65, 326);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(120, 20);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "Copyright name";
-            // 
             // numericUpDownMarginBottom
             // 
+            this.numericUpDownMarginBottom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownMarginBottom.Increment = new decimal(new int[] {
             5,
             0,
@@ -291,7 +241,7 @@ namespace SdGraphics
             0,
             0});
             this.numericUpDownMarginBottom.Name = "numericUpDownMarginBottom";
-            this.numericUpDownMarginBottom.Size = new System.Drawing.Size(68, 20);
+            this.numericUpDownMarginBottom.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownMarginBottom.TabIndex = 32;
             this.numericUpDownMarginBottom.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownMarginBottom.Value = new decimal(new int[] {
@@ -303,6 +253,7 @@ namespace SdGraphics
             // 
             // numericUpDownBlankSpace
             // 
+            this.numericUpDownBlankSpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownBlankSpace.Location = new System.Drawing.Point(121, 80);
             this.numericUpDownBlankSpace.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownBlankSpace.Maximum = new decimal(new int[] {
@@ -316,7 +267,7 @@ namespace SdGraphics
             0,
             0});
             this.numericUpDownBlankSpace.Name = "numericUpDownBlankSpace";
-            this.numericUpDownBlankSpace.Size = new System.Drawing.Size(68, 20);
+            this.numericUpDownBlankSpace.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownBlankSpace.TabIndex = 18;
             this.numericUpDownBlankSpace.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownBlankSpace.Value = new decimal(new int[] {
@@ -364,10 +315,11 @@ namespace SdGraphics
             this.checkBoxBreakLines.AutoSize = true;
             this.checkBoxBreakLines.Checked = true;
             this.checkBoxBreakLines.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxBreakLines.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxBreakLines.Location = new System.Drawing.Point(207, 157);
             this.checkBoxBreakLines.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBoxBreakLines.Name = "checkBoxBreakLines";
-            this.checkBoxBreakLines.Size = new System.Drawing.Size(78, 17);
+            this.checkBoxBreakLines.Size = new System.Drawing.Size(106, 24);
             this.checkBoxBreakLines.TabIndex = 35;
             this.checkBoxBreakLines.Text = "Break lines";
             this.checkBoxBreakLines.UseVisualStyleBackColor = true;
@@ -386,6 +338,7 @@ namespace SdGraphics
             // 
             // numericUpDownNoseSize
             // 
+            this.numericUpDownNoseSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownNoseSize.Increment = new decimal(new int[] {
             2,
             0,
@@ -404,7 +357,7 @@ namespace SdGraphics
             0,
             0});
             this.numericUpDownNoseSize.Name = "numericUpDownNoseSize";
-            this.numericUpDownNoseSize.Size = new System.Drawing.Size(68, 20);
+            this.numericUpDownNoseSize.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownNoseSize.TabIndex = 20;
             this.numericUpDownNoseSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownNoseSize.Value = new decimal(new int[] {
@@ -444,6 +397,63 @@ namespace SdGraphics
             0});
             this.numericUpDownMaxLineLength.ValueChanged += new System.EventHandler(this.numericUpDownMaxLineLength_ValueChanged);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(65, 363);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(110, 20);
+            this.label7.TabIndex = 23;
+            this.label7.Text = "Copyright year";
+            // 
+            // numericUpDownCopyrightYear
+            // 
+            this.numericUpDownCopyrightYear.Location = new System.Drawing.Point(184, 357);
+            this.numericUpDownCopyrightYear.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numericUpDownCopyrightYear.Maximum = new decimal(new int[] {
+            2050,
+            0,
+            0,
+            0});
+            this.numericUpDownCopyrightYear.Minimum = new decimal(new int[] {
+            2010,
+            0,
+            0,
+            0});
+            this.numericUpDownCopyrightYear.Name = "numericUpDownCopyrightYear";
+            this.numericUpDownCopyrightYear.Size = new System.Drawing.Size(69, 20);
+            this.numericUpDownCopyrightYear.TabIndex = 22;
+            this.numericUpDownCopyrightYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownCopyrightYear.Value = new decimal(new int[] {
+            2021,
+            0,
+            0,
+            0});
+            this.numericUpDownCopyrightYear.ValueChanged += new System.EventHandler(this.numericUpDownCopyrightYear_ValueChanged);
+            // 
+            // textBoxCopyrightName
+            // 
+            this.textBoxCopyrightName.Location = new System.Drawing.Point(184, 322);
+            this.textBoxCopyrightName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxCopyrightName.Name = "textBoxCopyrightName";
+            this.textBoxCopyrightName.Size = new System.Drawing.Size(210, 20);
+            this.textBoxCopyrightName.TabIndex = 16;
+            this.textBoxCopyrightName.Text = "Thomas Bernhed";
+            this.textBoxCopyrightName.TextChanged += new System.EventHandler(this.textBoxCopyrightName_TextChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(65, 326);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(120, 20);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Copyright name";
+            // 
             // buttonCancel
             // 
             this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -466,44 +476,53 @@ namespace SdGraphics
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
-            // textBoxBaseFolder
+            // panelPens
             // 
-            this.textBoxBaseFolder.Location = new System.Drawing.Point(184, 237);
-            this.textBoxBaseFolder.Name = "textBoxBaseFolder";
-            this.textBoxBaseFolder.ReadOnly = true;
-            this.textBoxBaseFolder.Size = new System.Drawing.Size(251, 20);
-            this.textBoxBaseFolder.TabIndex = 48;
+            this.panelPens.Controls.Add(this.buttonPenColor);
+            this.panelPens.Controls.Add(this.comboBoxPens);
+            this.panelPens.Controls.Add(this.label1);
+            this.panelPens.Location = new System.Drawing.Point(479, 35);
+            this.panelPens.Name = "panelPens";
+            this.panelPens.Size = new System.Drawing.Size(347, 244);
+            this.panelPens.TabIndex = 48;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(46, 237);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(4, 15);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(135, 20);
-            this.label1.TabIndex = 49;
-            this.label1.Text = "HTML base folder";
+            this.label1.Size = new System.Drawing.Size(53, 24);
+            this.label1.TabIndex = 37;
+            this.label1.Text = "Pens";
             // 
-            // buttonChangeFolder
+            // comboBoxPens
             // 
-            this.buttonChangeFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonChangeFolder.Location = new System.Drawing.Point(184, 263);
-            this.buttonChangeFolder.Name = "buttonChangeFolder";
-            this.buttonChangeFolder.Size = new System.Drawing.Size(229, 28);
-            this.buttonChangeFolder.TabIndex = 50;
-            this.buttonChangeFolder.Text = "Change HTML base folder";
-            this.buttonChangeFolder.UseVisualStyleBackColor = true;
-            this.buttonChangeFolder.Click += new System.EventHandler(this.buttonChangeFolder_Click);
+            this.comboBoxPens.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxPens.FormattingEnabled = true;
+            this.comboBoxPens.Location = new System.Drawing.Point(30, 57);
+            this.comboBoxPens.Name = "comboBoxPens";
+            this.comboBoxPens.Size = new System.Drawing.Size(183, 28);
+            this.comboBoxPens.TabIndex = 38;
+            // 
+            // buttonPenColor
+            // 
+            this.buttonPenColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonPenColor.Location = new System.Drawing.Point(30, 107);
+            this.buttonPenColor.Name = "buttonPenColor";
+            this.buttonPenColor.Size = new System.Drawing.Size(79, 30);
+            this.buttonPenColor.TabIndex = 39;
+            this.buttonPenColor.Text = "Color";
+            this.buttonPenColor.UseVisualStyleBackColor = true;
+            this.buttonPenColor.Click += new System.EventHandler(this.buttonPenColor_Click);
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 511);
-            this.Controls.Add(this.buttonChangeFolder);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxBaseFolder);
+            this.ClientSize = new System.Drawing.Size(861, 511);
+            this.Controls.Add(this.panelPens);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.panelSettings);
@@ -517,12 +536,14 @@ namespace SdGraphics
             this.panelSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancerSize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCopyrightYear)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMarginTop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMarginBottom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBlankSpace)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNoseSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLineLength)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCopyrightYear)).EndInit();
+            this.panelPens.ResumeLayout(false);
+            this.panelPens.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -553,9 +574,11 @@ namespace SdGraphics
         private System.Windows.Forms.NumericUpDown numericUpDownMaxLineLength;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.TextBox textBoxBaseFolder;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.Button buttonChangeFolder;
+        private System.Windows.Forms.Panel panelPens;
+        private System.Windows.Forms.ComboBox comboBoxPens;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Button buttonPenColor;
     }
 }

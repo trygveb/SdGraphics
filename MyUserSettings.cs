@@ -81,12 +81,11 @@ public class MyUserSettings : ApplicationSettingsBase
         set { this["Copyrightname"] = (string)value; }
     }
 
+
     [UserScopedSetting()]
     [DefaultSettingValue(@"C:\Sd")]
-    public string BaseFolder
-    {
-        get { return ((string)this["BaseFolder"]); }
-        set { this["BaseFolder"] = (string)value; }
+    public string PhantomPenColor {
+        get { return ((string)this["PhantomPenColor"]); }
+        set { this["PhantomPenColor"] = (string)value; }
     }
-
 }

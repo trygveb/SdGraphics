@@ -33,8 +33,10 @@ namespace SdGraphics
             numericUpDownMaxLineLength.Value = (decimal)parent.mus.MaxLineLenght;
             numericUpDownNoseSize.Value = (decimal)parent.mus.NoseSize;
             textBoxCopyrightName.Text = parent.mus.Copyrightname;
-            textBoxBaseFolder.Text = parent.mus.BaseFolder;
-
+            foreach (Form1.SdPen sdPen in parent.MySdPens) {
+                comboBoxPens.Items.Add(sdPen.name);
+            }
+            comboBoxPens.Text = parent.MySdPens[0].name;
         }
         private void buttonCancel_Click(object sender, EventArgs e)
         {
@@ -97,14 +99,12 @@ namespace SdGraphics
             this.parent.mus.Breaklines = checkBoxBreakLines.Checked;
         }
 
-        private void buttonChangeFolder_Click(object sender, EventArgs e)
+
+
+        private void buttonPenColor_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog folderDlg = new FolderBrowserDialog();
-            DialogResult result = folderDlg.ShowDialog();
-            if (result == DialogResult.OK) {
-                textBoxBaseFolder.Text = folderDlg.SelectedPath;
-                this.parent.mus.BaseFolder = textBoxBaseFolder.Text;
-                Environment.SpecialFolder root = folderDlg.RootFolder;
+            if (colorDialog1.ShowDialog() == DialogResult.OK) {
+                buttonPenColor.BackColor = colorDialog1.Color;
             }
         }
     }

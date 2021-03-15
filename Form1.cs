@@ -76,16 +76,41 @@ namespace SdGraphics
         private Brush brushForDancers = new SolidBrush(System.Drawing.Color.Black);
         private Brush brushForNoses = new SolidBrush(System.Drawing.Color.Red);
         #endregion  ------------------------------------- Brushes
+
         #region ----------------------------------------- Pens
+        public struct SdPen
+        {
+            public String name;
+            public String hexColor;
+            public SdPen(String name, String hexColor) {
+                this.name = name;
+                this.hexColor = hexColor;
+            }
+
+        }
+        private SdPen[] mySdPens = {
+            new SdPen("PhantomPen", "#1111FF"),
+            new SdPen("CallerPen", "#00FF00"),
+            new SdPen("DancerPen", "#FFFFFF"),
+            new SdPen("DancerNosePen", "#FF0000"),
+            new SdPen("CalleNosePen", "#FF0000")
+        };
+
+        private String[] myPenNames = {
+            "PhantomPen", "DancerPen","DanserNosePen","CallerPen", "CalleNosePen"
+        };
+
+        public SdPen[] MySdPens {
+            get { return mySdPens; }
+            set { mySdPens = value; }
+        }
         private Pen penForBorder = new Pen(Color.Red, 2);
         private Pen penForCaller = new Pen(Color.DarkGreen, 1);
         private Pen penForFocusDancer = new Pen(Color.Red, 2);
         private Pen penForPartner = new Pen(Color.Black, 1);
         //private Pen penForPhantom = new Pen(Color.Blue, 1);
-        private Pen penForPhantom = new Pen(new SolidBrush(Color.FromArgb(51, 51, 255)), 1)
-        { DashPattern = new[] { 0.5f, 0.5f } };
+        private Pen penForPhantom = new Pen(new SolidBrush(Color.FromArgb(51, 51, 255)), 1) { DashPattern = new[] { 0.5f, 0.5f } };
         #endregion  ------------------------------------- Pens
-        // The id text from the Sd text file
 
         struct SdLine
         {
