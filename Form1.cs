@@ -80,27 +80,27 @@ namespace SdGraphics
         #region ----------------------------------------- Pens
         public struct SdPen
         {
-            public String name;
-            public String hexColor;
+            public String Name;
+            public String HexColor;
             public SdPen(String name, String hexColor) {
-                this.name = name;
-                this.hexColor = hexColor;
+                this.Name = name;
+                this.HexColor = hexColor;
             }
 
         }
-        private SdPen[] mySdPens = {
-            new SdPen("PhantomPen", "#1111FF"),
-            new SdPen("CallerPen", "#00FF00"),
-            new SdPen("DancerPen", "#FFFFFF"),
-            new SdPen("DancerNosePen", "#FF0000"),
-            new SdPen("CalleNosePen", "#FF0000")
+        private List<SdPen> mySdPens = new List<SdPen>{
+            new SdPen("PhantomPen", "#1111FF;1;dotted"),
+            new SdPen("CallerPen", "#00FF00;1;solid"),
+            new SdPen("DancerPen", "#FFFFFF;1;solid"),
+            new SdPen("DancerNosePen", "#FF0000;1;solid"),
+            new SdPen("CalleNosePen", "#FF0000;1;solid")
         };
 
         private String[] myPenNames = {
             "PhantomPen", "DancerPen","DanserNosePen","CallerPen", "CalleNosePen"
         };
 
-        public SdPen[] MySdPens {
+        public List<SdPen> MySdPens {
             get { return mySdPens; }
             set { mySdPens = value; }
         }
@@ -679,7 +679,7 @@ namespace SdGraphics
 
             this.mus = new MyUserSettings();
             this.mus.Reload();
-            //mus.Save();
+            //this.mus.Reset();
 
         }
 

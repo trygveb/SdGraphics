@@ -54,10 +54,11 @@ namespace SdGraphics
             this.buttonOk = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.panelPens = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxPens = new System.Windows.Forms.ComboBox();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.buttonPenColor = new System.Windows.Forms.Button();
+            this.comboBoxPens = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.textBoxColor = new System.Windows.Forms.TextBox();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancerSize)).BeginInit();
@@ -72,6 +73,7 @@ namespace SdGraphics
             // 
             // panelSettings
             // 
+            this.panelSettings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelSettings.Controls.Add(this.label12);
             this.panelSettings.Controls.Add(this.label2);
             this.panelSettings.Controls.Add(this.numericUpDownLineHeight);
@@ -478,6 +480,8 @@ namespace SdGraphics
             // 
             // panelPens
             // 
+            this.panelPens.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelPens.Controls.Add(this.textBoxColor);
             this.panelPens.Controls.Add(this.buttonPenColor);
             this.panelPens.Controls.Add(this.comboBoxPens);
             this.panelPens.Controls.Add(this.label1);
@@ -485,6 +489,27 @@ namespace SdGraphics
             this.panelPens.Name = "panelPens";
             this.panelPens.Size = new System.Drawing.Size(347, 244);
             this.panelPens.TabIndex = 48;
+            // 
+            // buttonPenColor
+            // 
+            this.buttonPenColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonPenColor.Location = new System.Drawing.Point(30, 107);
+            this.buttonPenColor.Name = "buttonPenColor";
+            this.buttonPenColor.Size = new System.Drawing.Size(79, 30);
+            this.buttonPenColor.TabIndex = 39;
+            this.buttonPenColor.Text = "Color";
+            this.buttonPenColor.UseVisualStyleBackColor = true;
+            this.buttonPenColor.Click += new System.EventHandler(this.buttonPenColor_Click);
+            // 
+            // comboBoxPens
+            // 
+            this.comboBoxPens.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxPens.FormattingEnabled = true;
+            this.comboBoxPens.Location = new System.Drawing.Point(30, 57);
+            this.comboBoxPens.Name = "comboBoxPens";
+            this.comboBoxPens.Size = new System.Drawing.Size(183, 28);
+            this.comboBoxPens.TabIndex = 38;
+            this.comboBoxPens.SelectedIndexChanged += new System.EventHandler(this.comboBoxPens_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -497,25 +522,13 @@ namespace SdGraphics
             this.label1.TabIndex = 37;
             this.label1.Text = "Pens";
             // 
-            // comboBoxPens
+            // textBoxColor
             // 
-            this.comboBoxPens.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxPens.FormattingEnabled = true;
-            this.comboBoxPens.Location = new System.Drawing.Point(30, 57);
-            this.comboBoxPens.Name = "comboBoxPens";
-            this.comboBoxPens.Size = new System.Drawing.Size(183, 28);
-            this.comboBoxPens.TabIndex = 38;
-            // 
-            // buttonPenColor
-            // 
-            this.buttonPenColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonPenColor.Location = new System.Drawing.Point(30, 107);
-            this.buttonPenColor.Name = "buttonPenColor";
-            this.buttonPenColor.Size = new System.Drawing.Size(79, 30);
-            this.buttonPenColor.TabIndex = 39;
-            this.buttonPenColor.Text = "Color";
-            this.buttonPenColor.UseVisualStyleBackColor = true;
-            this.buttonPenColor.Click += new System.EventHandler(this.buttonPenColor_Click);
+            this.textBoxColor.Location = new System.Drawing.Point(133, 114);
+            this.textBoxColor.Name = "textBoxColor";
+            this.textBoxColor.ReadOnly = true;
+            this.textBoxColor.Size = new System.Drawing.Size(80, 20);
+            this.textBoxColor.TabIndex = 40;
             // 
             // SettingsForm
             // 
@@ -580,5 +593,6 @@ namespace SdGraphics
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Button buttonPenColor;
+        private System.Windows.Forms.TextBox textBoxColor;
     }
 }

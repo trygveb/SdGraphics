@@ -83,9 +83,40 @@ public class MyUserSettings : ApplicationSettingsBase
 
 
     [UserScopedSetting()]
-    [DefaultSettingValue(@"C:\Sd")]
-    public string PhantomPenColor {
-        get { return ((string)this["PhantomPenColor"]); }
-        set { this["PhantomPenColor"] = (string)value; }
+    [DefaultSettingValue("#0000FF;1;dotted")]
+    public string PhantomPen {
+        get { return ((string)this["PhantomPen"]); }
+        set { this["PhantomPen"] = (string)value; }
     }
+
+    [UserScopedSetting()]
+    [DefaultSettingValue("#00FF00;1;solid")]
+    public string CallerPen {
+        get { return ((string)this["CallerPen"]); }
+        set { this["CallerPen"] = (string)value; }
+    }
+
+    [UserScopedSetting()]
+    [DefaultSettingValue("#000000;1;solid")]
+    public string DancerPen {
+        get { return ((string)this["DancerPen"]); }
+        set { this["DancerPen"] = (string)value; }
+    }
+
+    [UserScopedSetting()]
+    [DefaultSettingValue("#FF0000;1;solid")]
+    public string DancerNosePen {
+        get { return ((string)this["DancerNosePen"]); }
+        set { this["DancerNosePen"] = (string)value; }
+    }
+
+    [UserScopedSetting()]
+    [DefaultSettingValue("#FF0000;1;solid")]
+    public string CalleNosePen {
+        get { return ((string)this["CalleNosePen"]); }
+        set { this["CalleNosePen"] = (string)value; }
+    }
+    /*
+     *   CalleNosePen
+     */
 }
