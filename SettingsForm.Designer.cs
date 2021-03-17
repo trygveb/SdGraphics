@@ -54,11 +54,18 @@ namespace SdGraphics
             this.buttonOk = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.panelPens = new System.Windows.Forms.Panel();
+            this.textBoxColor = new System.Windows.Forms.TextBox();
             this.buttonPenColor = new System.Windows.Forms.Button();
             this.comboBoxPens = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.textBoxColor = new System.Windows.Forms.TextBox();
+            this.numericUpDownThickness = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.groupBoxLineStyle = new System.Windows.Forms.GroupBox();
+            this.radioButtonSolid = new System.Windows.Forms.RadioButton();
+            this.radioButtonDotted = new System.Windows.Forms.RadioButton();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancerSize)).BeginInit();
@@ -69,6 +76,8 @@ namespace SdGraphics
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxLineLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCopyrightYear)).BeginInit();
             this.panelPens.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThickness)).BeginInit();
+            this.groupBoxLineStyle.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSettings
@@ -481,23 +490,36 @@ namespace SdGraphics
             // panelPens
             // 
             this.panelPens.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelPens.Controls.Add(this.groupBoxLineStyle);
+            this.panelPens.Controls.Add(this.label14);
+            this.panelPens.Controls.Add(this.label13);
+            this.panelPens.Controls.Add(this.label11);
+            this.panelPens.Controls.Add(this.numericUpDownThickness);
             this.panelPens.Controls.Add(this.textBoxColor);
             this.panelPens.Controls.Add(this.buttonPenColor);
             this.panelPens.Controls.Add(this.comboBoxPens);
             this.panelPens.Controls.Add(this.label1);
-            this.panelPens.Location = new System.Drawing.Point(479, 35);
+            this.panelPens.Location = new System.Drawing.Point(476, 12);
             this.panelPens.Name = "panelPens";
-            this.panelPens.Size = new System.Drawing.Size(347, 244);
+            this.panelPens.Size = new System.Drawing.Size(347, 307);
             this.panelPens.TabIndex = 48;
+            // 
+            // textBoxColor
+            // 
+            this.textBoxColor.Location = new System.Drawing.Point(87, 96);
+            this.textBoxColor.Name = "textBoxColor";
+            this.textBoxColor.ReadOnly = true;
+            this.textBoxColor.Size = new System.Drawing.Size(80, 20);
+            this.textBoxColor.TabIndex = 40;
             // 
             // buttonPenColor
             // 
             this.buttonPenColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonPenColor.Location = new System.Drawing.Point(30, 107);
+            this.buttonPenColor.Location = new System.Drawing.Point(183, 94);
             this.buttonPenColor.Name = "buttonPenColor";
-            this.buttonPenColor.Size = new System.Drawing.Size(79, 30);
+            this.buttonPenColor.Size = new System.Drawing.Size(91, 30);
             this.buttonPenColor.TabIndex = 39;
-            this.buttonPenColor.Text = "Color";
+            this.buttonPenColor.Text = "Change";
             this.buttonPenColor.UseVisualStyleBackColor = true;
             this.buttonPenColor.Click += new System.EventHandler(this.buttonPenColor_Click);
             // 
@@ -505,7 +527,7 @@ namespace SdGraphics
             // 
             this.comboBoxPens.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxPens.FormattingEnabled = true;
-            this.comboBoxPens.Location = new System.Drawing.Point(30, 57);
+            this.comboBoxPens.Location = new System.Drawing.Point(91, 49);
             this.comboBoxPens.Name = "comboBoxPens";
             this.comboBoxPens.Size = new System.Drawing.Size(183, 28);
             this.comboBoxPens.TabIndex = 38;
@@ -522,13 +544,97 @@ namespace SdGraphics
             this.label1.TabIndex = 37;
             this.label1.Text = "Pens";
             // 
-            // textBoxColor
+            // numericUpDownThickness
             // 
-            this.textBoxColor.Location = new System.Drawing.Point(133, 114);
-            this.textBoxColor.Name = "textBoxColor";
-            this.textBoxColor.ReadOnly = true;
-            this.textBoxColor.Size = new System.Drawing.Size(80, 20);
-            this.textBoxColor.TabIndex = 40;
+            this.numericUpDownThickness.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownThickness.Location = new System.Drawing.Point(126, 136);
+            this.numericUpDownThickness.Maximum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.numericUpDownThickness.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownThickness.Name = "numericUpDownThickness";
+            this.numericUpDownThickness.Size = new System.Drawing.Size(41, 26);
+            this.numericUpDownThickness.TabIndex = 41;
+            this.numericUpDownThickness.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownThickness.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownThickness.ValueChanged += new System.EventHandler(this.numericUpDownThickness_ValueChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(26, 138);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(80, 20);
+            this.label11.TabIndex = 42;
+            this.label11.Text = "Thickness";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(26, 94);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(46, 20);
+            this.label13.TabIndex = 43;
+            this.label13.Text = "Color";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(26, 52);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(37, 20);
+            this.label14.TabIndex = 44;
+            this.label14.Text = "Pen";
+            // 
+            // groupBoxLineStyle
+            // 
+            this.groupBoxLineStyle.Controls.Add(this.radioButtonDotted);
+            this.groupBoxLineStyle.Controls.Add(this.radioButtonSolid);
+            this.groupBoxLineStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxLineStyle.Location = new System.Drawing.Point(30, 185);
+            this.groupBoxLineStyle.Name = "groupBoxLineStyle";
+            this.groupBoxLineStyle.Size = new System.Drawing.Size(189, 90);
+            this.groupBoxLineStyle.TabIndex = 45;
+            this.groupBoxLineStyle.TabStop = false;
+            this.groupBoxLineStyle.Text = "Line Style";
+            // 
+            // radioButtonSolod
+            // 
+            this.radioButtonSolid.AutoSize = true;
+            this.radioButtonSolid.Checked = true;
+            this.radioButtonSolid.Location = new System.Drawing.Point(16, 41);
+            this.radioButtonSolid.Name = "radioButtonSolod";
+            this.radioButtonSolid.Size = new System.Drawing.Size(62, 24);
+            this.radioButtonSolid.TabIndex = 0;
+            this.radioButtonSolid.TabStop = true;
+            this.radioButtonSolid.Tag = "solid";
+            this.radioButtonSolid.Text = "Solid";
+            this.radioButtonSolid.UseVisualStyleBackColor = true;
+            this.radioButtonSolid.CheckedChanged += new System.EventHandler(this.radioButtonSolid_CheckedChanged);
+            // 
+            // radioButtonDotted
+            // 
+            this.radioButtonDotted.AutoSize = true;
+            this.radioButtonDotted.Location = new System.Drawing.Point(97, 41);
+            this.radioButtonDotted.Name = "radioButtonDotted";
+            this.radioButtonDotted.Size = new System.Drawing.Size(76, 24);
+            this.radioButtonDotted.TabIndex = 1;
+            this.radioButtonDotted.Tag = "dotted";
+            this.radioButtonDotted.Text = "Dotted";
+            this.radioButtonDotted.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -557,6 +663,9 @@ namespace SdGraphics
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCopyrightYear)).EndInit();
             this.panelPens.ResumeLayout(false);
             this.panelPens.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThickness)).EndInit();
+            this.groupBoxLineStyle.ResumeLayout(false);
+            this.groupBoxLineStyle.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -594,5 +703,12 @@ namespace SdGraphics
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Button buttonPenColor;
         private System.Windows.Forms.TextBox textBoxColor;
+        private System.Windows.Forms.GroupBox groupBoxLineStyle;
+        private System.Windows.Forms.RadioButton radioButtonDotted;
+        private System.Windows.Forms.RadioButton radioButtonSolid;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown numericUpDownThickness;
     }
 }

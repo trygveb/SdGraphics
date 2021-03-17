@@ -37,24 +37,16 @@ namespace SdGraphics
         private List<Bitmap> bitmapList = new List<Bitmap>();
         private int currentIndex = -1;
         private Boolean dancerView = false;
-        private int formationNumber = 0;
-        private EncoderParameters myEncoderParameters;
-
         private String fileName;
-
         private Font fontForCalls = new Font("Helvetica", 10, FontStyle.Bold);
+        private int formationNumber = 0;
         private Form graphicsForm;
-
-        private MemoryStream zipMemoryStream = new MemoryStream();
-        private ZipArchive zipArchive;
-        private String zipFileName;
-
         private int marginLeftFormations = 30;
         // The window with the graphics
         private int marginLeftText = 40;
 
         System.Drawing.Imaging.Encoder myEncoder;
-
+        private EncoderParameters myEncoderParameters;
         // Each bitmap in this list corresponds to a (A4) page
         private int pageIndex = 0;
 
@@ -69,6 +61,9 @@ namespace SdGraphics
 
         private int SPACE_BETWEEN_CALL_AND_FORMATION = 15;
         private String ViewTypeName = "Caller view";
+        private ZipArchive zipArchive;
+        private String zipFileName;
+        private MemoryStream zipMemoryStream = new MemoryStream();
         // Used by the printing function
         #region ----------------------------------------- Brushes
         private Brush brushForCallerNose = new SolidBrush(System.Drawing.Color.DarkGreen);
@@ -78,16 +73,10 @@ namespace SdGraphics
         #endregion  ------------------------------------- Brushes
 
         #region ----------------------------------------- Pens
-        public struct SdPen
-        {
-            public String Name;
-            public String HexColor;
-            public SdPen(String name, String hexColor) {
-                this.Name = name;
-                this.HexColor = hexColor;
-            }
+        private String[] myPenNames = {
+            "PhantomPen", "DancerPen","DanserNosePen","CallerPen", "CalleNosePen"
+        };
 
-        }
         private List<SdPen> mySdPens = new List<SdPen>{
             new SdPen("PhantomPen", "#1111FF;1;dotted"),
             new SdPen("CallerPen", "#00FF00;1;solid"),
@@ -96,20 +85,38 @@ namespace SdGraphics
             new SdPen("CalleNosePen", "#FF0000;1;solid")
         };
 
-        private String[] myPenNames = {
-            "PhantomPen", "DancerPen","DanserNosePen","CallerPen", "CalleNosePen"
-        };
+        private Pen penForBorder = new Pen(Color.Red, 2);
+
+        private Pen penForCaller = new Pen(Color.DarkGreen, 1);
+
+        private Pen penForFocusDancer = new Pen(Color.Red, 2);
+
+        private Pen penForPartner = new Pen(Color.Black, 1);
+
+        //private Pen penForPhantom = new Pen(Color.Blue, 1);
+        private Pen penForPhantom = new Pen(new SolidBrush(Color.FromArgb(51, 51, 255)), 1) { DashPattern = new[] { 0.5f, 0.5f } };
 
         public List<SdPen> MySdPens {
             get { return mySdPens; }
             set { mySdPens = value; }
         }
-        private Pen penForBorder = new Pen(Color.Red, 2);
-        private Pen penForCaller = new Pen(Color.DarkGreen, 1);
-        private Pen penForFocusDancer = new Pen(Color.Red, 2);
-        private Pen penForPartner = new Pen(Color.Black, 1);
-        //private Pen penForPhantom = new Pen(Color.Blue, 1);
-        private Pen penForPhantom = new Pen(new SolidBrush(Color.FromArgb(51, 51, 255)), 1) { DashPattern = new[] { 0.5f, 0.5f } };
+
+        public struct SdPen
+        {
+            public String HexColor;
+            public String Name;
+            public SdPen(String name, String hexColor)
+            {
+                this.Name = name;
+                this.HexColor = hexColor;
+            }
+            //public Pen MyPen {
+            //    get {
+            //        return new Pen(System.Drawing.Color.FromArgb(
+            //            Convert.ToByte(this.HexColor.Substring(1,2),0,0)), 1);
+            //    }
+            //}
+        }
         #endregion  ------------------------------------- Pens
 
         struct SdLine
@@ -182,11 +189,23 @@ namespace SdGraphics
             printDocument.PrintPage -= docPrintPage;
         }
 
+        private static ImageCodecInfo GetEncoderInfo(String mimeType)
+        {
+            int j;
+            ImageCodecInfo[] encoders;
+            encoders = ImageCodecInfo.GetImageEncoders();
+            for (j = 0; j < encoders.Length; ++j) {
+                if (encoders[j].MimeType == mimeType)
+                    return encoders[j];
+            }
+            return null;
+        }
+
         Size calculateBitMapSize(List<SdLine> sdLineList, int maxWidth)
         {
             int bitmapMargin = 2 * mus.NoseSize;
             // Make reservation for noses and (bitmap)margin
-            int bitMapWidth = maxWidth + 2*mus.NoseSize+ bitmapMargin;
+            int bitMapWidth = maxWidth + 2 * mus.NoseSize + bitmapMargin;
 
             int h = Math.Max(mus.NoseSize * 2 + mus.DancerSize, mus.NoseSize * 2 + mus.LineHeight);
             int numberOfLinesInFormation = sdLineList.Count;
@@ -205,8 +224,40 @@ namespace SdGraphics
             return bitMapSize;
         }
 
+        private List<int> calculateNumberOfLeadingSpaces(String line, ref List<String> atoms, ref String trimmedLine)
+        {
+            List<int> numberOfLeadingSpaces = new List<int>();
+            trimmedLine = Regex.Replace(line, @"\s+", " ").Trim();//Remove extra whitespace
+            Dictionary<int, string> dancers = findDancers(trimmedLine);
+            if (dancers.Count > 0) {
+                atoms = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                int j = 0;
+                numberOfLeadingSpaces.Add(0);
+                Boolean lastCharWasSpace = false;
+                for (int i = 0; i < line.Length; i++) {
+                    char c = line[i];
+                    if (c == ' ') {
+                        numberOfLeadingSpaces[j]++;
+                        lastCharWasSpace = true;
+                    } else {
+                        if (lastCharWasSpace) {
+                            numberOfLeadingSpaces.Add(0);
+                            j++;
+                        }
+                        lastCharWasSpace = false;
+                    }
+                }
+            }
+            if (atoms.Count > 0 && numberOfLeadingSpaces.Count <= atoms.Count) {
+                return numberOfLeadingSpaces;
+            } else {
+                return numberOfLeadingSpaces;
+            }
+
+        }
+
         private int checkBufferAndWriteCall(ref Bitmap pageBitmap, List<SdLine> sdLineList, int y, int i, SdLine sdLine,
-            ref int pageNumber, int marginTop, int maxTextLineLength, Boolean lineBreak, int noOfColumns,
+                    ref int pageNumber, int marginTop, int maxTextLineLength, Boolean lineBreak, int noOfColumns,
             bool showCaller)
         {
             // The line contains a call 
@@ -269,9 +320,9 @@ namespace SdGraphics
         private String cleanUp(string line)
         {
             String line1 = Regex.Replace(line, @"\{.*\}", ""); //Remove text within curly brackets
-            //string pattern = @"([<>^V])       (\d)";
-            //string replacement = "$1 " + SPACE_CHAR +" $2";
-            //string line2 = Regex.Replace(line1, pattern, replacement);
+                                                               //string pattern = @"([<>^V])       (\d)";
+                                                               //string replacement = "$1 " + SPACE_CHAR +" $2";
+                                                               //string line2 = Regex.Replace(line1, pattern, replacement);
             String line2 = line1.TrimEnd();
             //String line3 = Regex.Replace(line2, @"\s+", " ").Trim();//Remove extra whitespace
 
@@ -567,7 +618,7 @@ namespace SdGraphics
 
         private Bitmap drawFormation(List<SdLine> sdLineList, Boolean drawBorder, bool showPartner, int noseUpDancer)
         {
-            int y = 2*mus.NoseSize + mus.DancerSize / 2;
+            int y = 2 * mus.NoseSize + mus.DancerSize / 2;
             int maxNumberOfPositions = 0;
             //foreach (String[] dancers in buffer) {
             //    if (dancers.Length > maxNumberOfPositions) {
@@ -659,21 +710,10 @@ namespace SdGraphics
             int length = line.Length;
             return length;
         }
-
-        private static ImageCodecInfo GetEncoderInfo(String mimeType)
-        {
-            int j;
-            ImageCodecInfo[] encoders;
-            encoders = ImageCodecInfo.GetImageEncoders();
-            for (j = 0; j < encoders.Length; ++j) {
-                if (encoders[j].MimeType == mimeType)
-                    return encoders[j];
-            }
-            return null;
-        }
-
         private void init()
         {
+            SdGraphicsPen pen = new SdGraphicsPen("Test", "#FF00FF", 1);
+            String x = pen.ToString();
             //numericUpDownScale.Value = (decimal) 0.7;
             this.numericUpDownScale.ValueChanged += new System.EventHandler(this.numericUpDownScale_ValueChanged);
 
@@ -830,38 +870,6 @@ namespace SdGraphics
                 }
             }
             return y;
-        }
-
-        private List<int> calculateNumberOfLeadingSpaces(String line, ref List<String> atoms, ref String trimmedLine)
-        {
-            List<int> numberOfLeadingSpaces = new List<int>();
-            trimmedLine = Regex.Replace(line, @"\s+", " ").Trim();//Remove extra whitespace
-            Dictionary<int, string> dancers = findDancers(trimmedLine);
-            if (dancers.Count > 0) {
-                atoms = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-                int j = 0;
-                numberOfLeadingSpaces.Add(0);
-                Boolean lastCharWasSpace = false;
-                for (int i = 0; i < line.Length; i++) {
-                    char c = line[i];
-                    if (c == ' ') {
-                        numberOfLeadingSpaces[j]++;
-                        lastCharWasSpace = true;
-                    } else {
-                        if (lastCharWasSpace) {
-                            numberOfLeadingSpaces.Add(0);
-                            j++;
-                        }
-                        lastCharWasSpace = false;
-                    }
-                }
-            }
-            if (atoms.Count > 0 && numberOfLeadingSpaces.Count <= atoms.Count) {
-                return numberOfLeadingSpaces;
-            } else {
-                return numberOfLeadingSpaces;
-            }
-
         }
         #endregion  ------------------------------------- Methods
 

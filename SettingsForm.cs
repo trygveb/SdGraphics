@@ -115,11 +115,19 @@ namespace SdGraphics
         {
             Form1.SdPen pen = parent.MySdPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
             String hexColor = getUserSettingsPen(pen).Substring(0, 7);
+            String thickness = getUserSettingsPen(pen).Substring(8, 1);
             textBoxColor.BackColor = ColorTranslator.FromHtml(hexColor);
-         }
+            numericUpDownThickness.Value = Convert.ToDecimal(thickness);
+            String lineStyle= getUserSettingsPen(pen).Substring(10);
+            if (lineStyle.Equals("dotted")) {
+                radioButtonDotted.Checked = true;
+            } else {
+                radioButtonSolid.Checked = true;
+            }
+        }
         private void setColorForPen(Form1.SdPen pen, Color color)
         {
-            
+
             //#AABBCC;1;dotted
             switch (pen.Name) {
                 case "PhantomPen":
@@ -142,12 +150,79 @@ namespace SdGraphics
             }
 
         }
+        private void setLineStyleForPen(Form1.SdPen pen, String style)
+        {
+
+            //#AABBCC;1;dotted
+            switch (pen.Name) {
+                case "PhantomPen":
+                    parent.mus.PhantomPen = replaceLineStyle(parent.mus.PhantomPen, style);
+                    break;
+                case "CallerPen":
+                    parent.mus.CallerPen = replaceLineStyle(parent.mus.CallerPen, style);
+                    break;
+                case "DancerPen":
+                    parent.mus.DancerPen = replaceLineStyle(parent.mus.DancerPen, style);
+                    break;
+                case "DancerNosePen":
+                    parent.mus.DancerNosePen = replaceLineStyle(parent.mus.DancerNosePen, style);
+                    break;
+                case "CalleNosePen":
+                    parent.mus.CalleNosePen = replaceLineStyle(parent.mus.CalleNosePen, style);
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        private void setThicknessForPen(Form1.SdPen pen, String thickness)
+        {
+
+            //#AABBCC;1;dotted
+            switch (pen.Name) {
+                case "PhantomPen":
+                    parent.mus.PhantomPen = replaceThickness(parent.mus.PhantomPen, thickness);
+                    break;
+                case "CallerPen":
+                    parent.mus.CallerPen = replaceThickness(parent.mus.CallerPen, thickness);
+                    break;
+                case "DancerPen":
+                    parent.mus.DancerPen = replaceThickness(parent.mus.DancerPen, thickness);
+                    break;
+                case "DancerNosePen":
+                    parent.mus.DancerNosePen = replaceThickness(parent.mus.DancerNosePen, thickness);
+                    break;
+                case "CalleNosePen":
+                    parent.mus.CalleNosePen = replaceThickness(parent.mus.CalleNosePen, thickness);
+                    break;
+                default:
+                    break;
+            }
+
+        }
         private String replaceColor(String pen, Color color)
         {
-            String x= String.Format("{0};{1};{2}",
+            String x = String.Format("{0};{1};{2}",
                 this.toHex(color),
                 pen.Substring(8, 1),
                 pen.Substring(10));
+            return x;
+        }
+        private String replaceLineStyle(String pen, String lineStyle)
+        {
+            String x = String.Format("{0};{1};{2}",
+               pen.Substring(0, 7),
+               pen.Substring(8, 1),
+               lineStyle);
+            return x;
+        }
+        private String replaceThickness(String pen, String thickness)
+        {
+            String x = String.Format("{0};{1};{2}",
+               pen.Substring(0, 7),
+               thickness,
+               pen.Substring(10));
             return x;
         }
         private String toHex(Color color)
@@ -156,12 +231,17 @@ namespace SdGraphics
                 color.G.ToString("x2"), color.B.ToString("x2"));
             return retVal;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pen"></param>
+        /// <returns>The (serialized) string representation of a pen</returns>
         private String getUserSettingsPen(Form1.SdPen pen)
         {
             String retVal = "";
             switch (pen.Name) {
                 case "PhantomPen":
-                    retVal= parent.mus.PhantomPen;
+                    retVal = parent.mus.PhantomPen;
                     break;
                 case "CallerPen":
                     retVal = parent.mus.CallerPen;
@@ -176,10 +256,25 @@ namespace SdGraphics
                     retVal = parent.mus.CalleNosePen;
                     break;
                 default:
-                    retVal= "";
+                    retVal = "";
                     break;
             }
             return retVal;
+        }
+
+        private void numericUpDownThickness_ValueChanged(object sender, EventArgs e)
+        {
+            Form1.SdPen pen = parent.MySdPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
+            setThicknessForPen(pen, numericUpDownThickness.Value.ToString());
+
+        }
+
+        private void radioButtonSolid_CheckedChanged(object sender, EventArgs e)
+        {
+            Form1.SdPen pen = parent.MySdPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
+            String style = radioButtonDotted.Checked ? (String) radioButtonDotted.Tag : (String) radioButtonSolid.Tag;
+            setLineStyleForPen(pen, style);
+
         }
     }
 }
