@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 namespace SdGraphics
 {
-    class SdGraphicsPen
+    public class SdGraphicsPen
     {
         #region  ---------------------------------------- Attributes
         private Pen myPen;
@@ -33,7 +33,14 @@ namespace SdGraphics
             this.Pen = new Pen(color, width);
             this.Pen.DashStyle = dashStyle;
         }
-
+        public String getHexColor()
+        {
+            return this.toHex(this.Pen.Color);
+        }
+        public void setColor(Color color)
+        {
+            this.Pen.Color = color;
+        }
         public override string ToString()
         {
             String x = String.Format("{0};{1};{2};{3}",

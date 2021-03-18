@@ -73,9 +73,6 @@ namespace SdGraphics
         #endregion  ------------------------------------- Brushes
 
         #region ----------------------------------------- Pens
-        private String[] myPenNames = {
-            "PhantomPen", "DancerPen","DanserNosePen","CallerPen", "CalleNosePen"
-        };
 
         private List<SdPen> mySdPens = new List<SdPen>{
             new SdPen("PhantomPen", "#1111FF;1;dotted"),
@@ -84,6 +81,13 @@ namespace SdGraphics
             new SdPen("DancerNosePen", "#FF0000;1;solid"),
             new SdPen("CalleNosePen", "#FF0000;1;solid")
         };
+        private List<SdGraphicsPen> mySdGraphicPens = new List<SdGraphicsPen> {
+            new SdGraphicsPen("PhantomPen","#1111FF",1,DashStyle.Dash),
+            new SdGraphicsPen("CallerPen","#00FF00",1,DashStyle.Solid),
+            new SdGraphicsPen("DancerPen","#FFFFFF",1,DashStyle.Solid),
+            new SdGraphicsPen("DancerNosePen","#FF0000",1,DashStyle.Solid),
+            new SdGraphicsPen("CalleNosePen","#FF0000",1,DashStyle.Solid),
+            };
 
         private Pen penForBorder = new Pen(Color.Red, 2);
 
@@ -99,6 +103,10 @@ namespace SdGraphics
         public List<SdPen> MySdPens {
             get { return mySdPens; }
             set { mySdPens = value; }
+        }
+        public List<SdGraphicsPen> MySdGraphicPens {
+            get { return mySdGraphicPens; }
+            set { mySdGraphicPens = value; }
         }
 
         public struct SdPen

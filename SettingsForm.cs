@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,10 +34,10 @@ namespace SdGraphics
             numericUpDownMaxLineLength.Value = (decimal)parent.mus.MaxLineLenght;
             numericUpDownNoseSize.Value = (decimal)parent.mus.NoseSize;
             textBoxCopyrightName.Text = parent.mus.Copyrightname;
-            foreach (Form1.SdPen sdPen in parent.MySdPens) {
-                comboBoxPens.Items.Add(sdPen.Name);
+            foreach (SdGraphicsPen sdGraphicPen in parent.MySdGraphicPens) {
+                comboBoxPens.Items.Add(sdGraphicPen.Name);
             }
-            comboBoxPens.SelectedItem = parent.MySdPens[0].Name;
+            comboBoxPens.SelectedItem = parent.MySdGraphicPens[0].Name;
         }
         private void buttonCancel_Click(object sender, EventArgs e)
         {
@@ -106,50 +107,52 @@ namespace SdGraphics
             if (colorDialog1.ShowDialog() == DialogResult.OK) {
                 textBoxColor.BackColor = colorDialog1.Color;
 
-                Form1.SdPen pen = parent.MySdPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
-                setColorForPen(pen, colorDialog1.Color);
+                SdGraphicsPen pen = parent.MySdGraphicPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
+                pen.setColor(colorDialog1.Color);
             }
         }
 
         private void comboBoxPens_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Form1.SdPen pen = parent.MySdPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
-            String hexColor = getUserSettingsPen(pen).Substring(0, 7);
-            String thickness = getUserSettingsPen(pen).Substring(8, 1);
-            textBoxColor.BackColor = ColorTranslator.FromHtml(hexColor);
-            numericUpDownThickness.Value = Convert.ToDecimal(thickness);
-            String lineStyle= getUserSettingsPen(pen).Substring(10);
-            if (lineStyle.Equals("dotted")) {
-                radioButtonDotted.Checked = true;
+//            Form1.SdPen pen = parent.MySdPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
+            SdGraphicsPen sdGraphicsPen = parent.MySdGraphicPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
+            String hexColor = sdGraphicsPen.getHexColor();
+            //            String hexColor = getUserSettingsPen(pen).Substring(0, 7);
+            // String thickness = getUserSettingsPen(pen).Substring(8, 1);
+            //textBoxColor.BackColor = ColorTranslator.FromHtml(hexColor);
+            textBoxColor.BackColor = sdGraphicsPen.Pen.Color;
+            numericUpDownThickness.Value = (Decimal) sdGraphicsPen.Pen.Width;
+            if (sdGraphicsPen.Pen.DashStyle.Equals(DashStyle.Dash)) {
+                radioButtonDashed.Checked = true;
             } else {
                 radioButtonSolid.Checked = true;
             }
         }
-        private void setColorForPen(Form1.SdPen pen, Color color)
-        {
+        //private void setColorForPen(Form1.SdPen pen, Color color)
+        //{
 
-            //#AABBCC;1;dotted
-            switch (pen.Name) {
-                case "PhantomPen":
-                    parent.mus.PhantomPen = replaceColor(parent.mus.PhantomPen, color);
-                    break;
-                case "CallerPen":
-                    parent.mus.CallerPen = replaceColor(parent.mus.CallerPen, color);
-                    break;
-                case "DancerPen":
-                    parent.mus.DancerPen = replaceColor(parent.mus.DancerPen, color);
-                    break;
-                case "DancerNosePen":
-                    parent.mus.DancerNosePen = replaceColor(parent.mus.DancerNosePen, color);
-                    break;
-                case "CalleNosePen":
-                    parent.mus.CalleNosePen = replaceColor(parent.mus.CalleNosePen, color);
-                    break;
-                default:
-                    break;
-            }
+        //    //#AABBCC;1;dotted
+        //    switch (pen.Name) {
+        //        case "PhantomPen":
+        //            parent.mus.PhantomPen = replaceColor(parent.mus.PhantomPen, color);
+        //            break;
+        //        case "CallerPen":
+        //            parent.mus.CallerPen = replaceColor(parent.mus.CallerPen, color);
+        //            break;
+        //        case "DancerPen":
+        //            parent.mus.DancerPen = replaceColor(parent.mus.DancerPen, color);
+        //            break;
+        //        case "DancerNosePen":
+        //            parent.mus.DancerNosePen = replaceColor(parent.mus.DancerNosePen, color);
+        //            break;
+        //        case "CalleNosePen":
+        //            parent.mus.CalleNosePen = replaceColor(parent.mus.CalleNosePen, color);
+        //            break;
+        //        default:
+        //            break;
+        //    }
 
-        }
+        //}
         private void setLineStyleForPen(Form1.SdPen pen, String style)
         {
 
@@ -272,7 +275,7 @@ namespace SdGraphics
         private void radioButtonSolid_CheckedChanged(object sender, EventArgs e)
         {
             Form1.SdPen pen = parent.MySdPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
-            String style = radioButtonDotted.Checked ? (String) radioButtonDotted.Tag : (String) radioButtonSolid.Tag;
+            String style = radioButtonDashed.Checked ? (String) radioButtonDashed.Tag : (String) radioButtonSolid.Tag;
             setLineStyleForPen(pen, style);
 
         }
