@@ -47,9 +47,10 @@
 </head>
 <body>
     <div style="background-color: #555555;height:500px; width:auto;max-width:400px;margin-left:10px;padding:10px; color:white;position:relative;">
-        <label id="zipLabel" for="zipfile">Select a zip file:</label>
-        <input type=file id=zipfile>
-        <label id="zipFileName" ></label>
+        <label id="zip_label" for="zip_file">Select a zip file:</label>
+        <input type="file" id="zip_file" accept=".zip">
+        <label id="zip_file_name"></label>
+        <button id="new_file" style="display: none;float: right;" onclick="newFile()">New file</button>
         <br /><br />
         <img id="img1" style="display: block; margin-left: 20px;" />
         <br>
@@ -58,11 +59,14 @@
         <img id="img2" style="display: block; margin-left: 20px;" />
         <br />
         <br />
-        <button id="button_prev5" style="position:absolute; left: 10px; bottom:25px;display:none" onclick="showPrevious5()">-5</button>
-        <button id="button_prev" style="position:absolute; left: 60px; bottom:25px;display:none" onclick="showPrevious()">Prev</button>
-        <button id="button_next" style="position:absolute; left: 130px; bottom:25px;" onclick="showNext()">Start</button>
-        <button id="button_next5" style="position:absolute; left: 200px; bottom:25px;display:none" onclick="showNext5()">+5</button>
-        <span id="copyrightSpan" style="position:absolute; left: 10px; bottom:5px;display:none">
+        <button id="button_prev_seq" style="position: absolute;left: 10px;bottom: 25px;display: none" onclick="showPreviousSeq()">Prev</button>
+        <button id="button_prev5" style="position:absolute; left: 60px; bottom:25px;display:none" onclick="showPrevious5()">-5</button>
+        <button id="button_prev" style="position:absolute; left: 95px; bottom:25px;display:none" onclick="showPrevious()"><=</button>
+        <button id="button_next" style="position:absolute; left: 140px; bottom:25px;display:none" onclick="showNext()">Start</button>
+        <button id="button_next5" style="position:absolute; left: 181px; bottom:25px;display:none" onclick="showNext5()">+5</button>
+        <button id="button_next_seq" style="position:absolute; left: 221px; bottom:25px;display:none" onclick="showNextSeq()">Next</button>
+        <button id="debug" style="position:absolute; left: 290px; bottom:25px;display:none" onclick="console.log('-----------------------')">Debug</button>
+        <span id="copyright_span" style="position:absolute; left: 10px; bottom:5px;display:none">
             Copyright &copy; <span id="copyrightText"></span>
         </span>
     </div>
@@ -76,7 +80,7 @@
     let atHome = false;
     let copyright = "Unknown";
     let status = "start";
-    zipfile.onchange = function () {
+    zip_file.onchange = function () {
         var zip = new JSZip();
         zip.loadAsync(this.files[0] /* = file blob */)
             .then(function (zip) {
@@ -90,10 +94,12 @@
                         }
                         calls.push(comment);
                     }).then(function () {
-                        document.getElementById('zipfile').style.display = "none";
-                        var zipFile = document.getElementById('zipfile');
-                        document.getElementById('zipFileName').innerText = zipFile.files.item(0).name;
-                        document.getElementById('zipLabel').innerText = 'SdGraphics zip file= ';
+                        document.getElementById('zip_file').style.display = "none";
+                        document.getElementById('new_file').style.display = "inline";
+                        document.getElementById('button_next').style.display = "inline";
+                        var zipFile = document.getElementById('zip_file');
+                        document.getElementById('zip_file_name').innerText = zipFile.files.item(0).name;
+                        document.getElementById('zip_label').innerText = 'SdGraphics ';
                     })
 
                 })
@@ -122,34 +128,48 @@
 
     }
 
+    function newFile() {
+        location.reload();
+    }
+
     function showNext() {
         
         console.log('showNext callNumber=' + callNumber + ', status=' + status + ', atHome=' + atHome);
         if (status === "start") {
             document.getElementById('copyrightText').innerText = copyright;
-            document.getElementById('copyrightSpan').style.display = "block";
-            document.getElementById('button_next').innerText = "Next";
+            document.getElementById('copyright_span').style.display = "block";
+            document.getElementById('button_next').innerText = "=>";
             document.getElementById('img2').style.display = "none";
             status = "first";
             console.log('showNext status=' + status);
         }
-         if (callNumber===0 || atHome) {
-            displayCall();
-            callNumber += 1;
-        }
-         //else if (document.getElementById('img2').style.display == "none") {
-         else if (status === "second") {
-             document.getElementById('img2').style.display = "block";
-             status = "first";
-             console.log('showNext status=' + status);
-             displayCall();
-             callNumber += 1;
-             
+        // if (callNumber===0 || atHome) {
+        //     displayCall();
+        //     status = "second";
+        //     if (atHome) {
+        //         callNumber += 1;
+        //     }
+        //}
+        // //else if (document.getElementById('img2').style.display == "none") {
+        // else
+        if (status === "second") {
+            status = "first";
+            console.log('showNext status=' + status);
+            if (atHome) {
+                callNumber += 1;
+                showNext();
+            } else {
+                document.getElementById('img2').style.display = "block";
+                displayCall();
+                callNumber += 1;
+            }
          } else {
              document.getElementById('img2').style.display = "none";
-             document.getElementById('button_next5').style.display = "none";
-             status = "second";
-             console.log('showNext status=' + status);
+            document.getElementById('button_next5').style.display = "none";
+            if (atHome) {
+                atHome = false;
+            } 
+            status = "second";             
             displayCall();
             
         }
@@ -164,9 +184,12 @@
 
     function fixButtons() {
         fixButton("prev", callNumber > 1);
+        fixButton("prev_seq", callNumber > 5);
         fixButton("prev5", callNumber > 5);
         fixButton("next5", (callNumber < calls.length - 5) );
         fixButton("next", callNumber < calls.length);
+        fixButton("next_seq", callNumber < calls.length);
+        
     }
     function fixButton(buttonId, display) {
         button = document.getElementById('button_' + buttonId);
