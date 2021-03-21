@@ -107,12 +107,6 @@
          )
     };
 
-    function getUrl(j1) {
-        var blob = new Blob([formations[j1]], { 'type': 'image/jpg' });
-        var url = URL.createObjectURL(blob);
-        return url;
-    }
-
     function displayCall() {
         console.log('displayCall callNumber=' + callNumber);
 
@@ -128,6 +122,31 @@
 
     }
 
+    function fixButton(buttonId, display) {
+        button = document.getElementById('button_' + buttonId);
+        if (display) {
+            button.style.display = "block";
+        } else {
+            button.style.display = "none";
+        }
+    }
+
+    function fixButtons() {
+        fixButton("prev", callNumber > 1);
+        fixButton("prev_seq", callNumber > 5);
+        fixButton("prev5", callNumber > 5);
+        fixButton("next5", (callNumber < calls.length - 5));
+        fixButton("next", callNumber < calls.length);
+        fixButton("next_seq", callNumber < calls.length);
+
+    }
+
+    function getUrl(j1) {
+        var blob = new Blob([formations[j1]], { 'type': 'image/jpg' });
+        var url = URL.createObjectURL(blob);
+        return url;
+    }
+
     function newFile() {
         location.reload();
     }
@@ -135,6 +154,9 @@
     function showNext() {
         
         console.log('showNext callNumber=' + callNumber + ', status=' + status + ', atHome=' + atHome);
+        if (callNumber >= calls.length) {
+            return;
+        }
         if (status === "start") {
             document.getElementById('copyrightText').innerText = copyright;
             document.getElementById('copyright_span').style.display = "block";
@@ -143,15 +165,6 @@
             status = "first";
             console.log('showNext status=' + status);
         }
-        // if (callNumber===0 || atHome) {
-        //     displayCall();
-        //     status = "second";
-        //     if (atHome) {
-        //         callNumber += 1;
-        //     }
-        //}
-        // //else if (document.getElementById('img2').style.display == "none") {
-        // else
         if (status === "second") {
             status = "first";
             console.log('showNext status=' + status);
@@ -175,6 +188,7 @@
         }
         fixButtons();
     }
+
     function showNext5() {
         status = "first";
         console.log('showNext5 status=' + status);
@@ -182,23 +196,16 @@
         showNext();
     }
 
-    function fixButtons() {
-        fixButton("prev", callNumber > 1);
-        fixButton("prev_seq", callNumber > 5);
-        fixButton("prev5", callNumber > 5);
-        fixButton("next5", (callNumber < calls.length - 5) );
-        fixButton("next", callNumber < calls.length);
-        fixButton("next_seq", callNumber < calls.length);
-        
-    }
-    function fixButton(buttonId, display) {
-        button = document.getElementById('button_' + buttonId);
-        if (display) {
-            button.style.display = "block";
-        } else {
-            button.style.display = "none";
+    function showNextSeq() {
+        for (i1 = callNumber; i1 < calls.length; i1++) {
+            callNumber = i1;
+            if (calls[i1].includes("at home")) {
+                break;
+            }
         }
+        showNext();
     }
+
     function showPrevious() {
         console.log('showPrev callNumber='+callNumber);
         callNumber -= 2;  // back 2 as callNumber is already incremented
@@ -210,7 +217,17 @@
         console.log('showPrev callNumber=' + callNumber);
 
     }
+
     function showPrevious5() {
+        status = "first";
+        console.log('showPrevious5 status=' + status);
+        callNumber -= 5;
+        if (callNumber < 0) {
+            callNumber = 0;
+        }
+
+        showNext();
+
     }
 </script>
 </html>
