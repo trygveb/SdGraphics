@@ -59,14 +59,17 @@
         <img id="img2" style="display: block; margin-left: 20px;" />
         <br />
         <br />
-        <button id="button_prev_seq" style="position: absolute;left: 10px;bottom: 25px;display: none" onclick="showPreviousSeq()">Prev</button>
-        <button id="button_prev5" style="position:absolute; left: 60px; bottom:25px;display:none" onclick="showPrevious5()">-5</button>
-        <button id="button_prev" style="position:absolute; left: 95px; bottom:25px;display:none" onclick="showPrevious()"><=</button>
-        <button id="button_next" style="position:absolute; left: 140px; bottom:25px;display:none" onclick="showNext()">Start</button>
-        <button id="button_next5" style="position:absolute; left: 181px; bottom:25px;display:none" onclick="showNext5()">+5</button>
-        <button id="button_next_seq" style="position:absolute; left: 221px; bottom:25px;display:none" onclick="showNextSeq()">Next</button>
-        <button id="debug" style="position:absolute; left: 290px; bottom:25px;display:none" onclick="console.log('-----------------------')">Debug</button>
-        <span id="copyright_span" style="position:absolute; left: 10px; bottom:5px;display:none">
+        <div style="width:100%; position:absolute; bottom:25px">
+            <div style="width:100%; display:inline-flex; justify-content: space-between;">
+                <button id="button_prev5" disabled onclick="showPrevious5()">-5</button>
+                <div style="display:inline-flex; justify-content: center;">
+                    <button id="button_prev" disabled style="margin-right:10px;align-self: center;" onclick="showPrevious()">Prev</button>
+                    <button id="button_next" style="margin-left:10px; center;" onclick="showNext()">Start</button>
+                </div>
+                <button id="button_next5" disabled style="margin-right:15px;" onclick="showNext5()">+5</button>
+            </div>
+        </div>
+        <span id="copyright_span" style="font-size:small;position:absolute; left: 10px; bottom:5px;display:none">
             Copyright &copy; <span id="copyrightText"></span>
         </span>
     </div>
@@ -96,7 +99,7 @@
                     }).then(function () {
                         document.getElementById('zip_file').style.display = "none";
                         document.getElementById('new_file').style.display = "inline";
-                        document.getElementById('button_next').style.display = "inline";
+                        //document.getElementById('button_next').style.display = "inline";
                         var zipFile = document.getElementById('zip_file');
                         document.getElementById('zip_file_name').innerText = zipFile.files.item(0).name;
                         document.getElementById('zip_label').innerText = 'SdGraphics ';
@@ -122,22 +125,20 @@
 
     }
 
-    function fixButton(buttonId, display) {
+    function fixButton(buttonId, enable) {
         button = document.getElementById('button_' + buttonId);
-        if (display) {
-            button.style.display = "block";
+        if (enable) {
+            button.disabled = false;
         } else {
-            button.style.display = "none";
+            button.disabled = true;
         }
     }
 
     function fixButtons() {
         fixButton("prev", callNumber > 1);
-        fixButton("prev_seq", callNumber > 5);
         fixButton("prev5", callNumber > 5);
         fixButton("next5", (callNumber < calls.length - 5));
         fixButton("next", callNumber < calls.length);
-        fixButton("next_seq", callNumber < calls.length);
 
     }
 
@@ -160,7 +161,7 @@
         if (status === "start") {
             document.getElementById('copyrightText').innerText = copyright;
             document.getElementById('copyright_span').style.display = "block";
-            document.getElementById('button_next').innerText = "=>";
+            document.getElementById('button_next').innerText = "Next";
             document.getElementById('img2').style.display = "none";
             status = "first";
             console.log('showNext status=' + status);
@@ -178,7 +179,7 @@
             }
          } else {
              document.getElementById('img2').style.display = "none";
-            document.getElementById('button_next5').style.display = "none";
+            document.getElementById('button_next5').disabled = true;
             if (atHome) {
                 atHome = false;
             } 
