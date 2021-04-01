@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -720,6 +721,20 @@ namespace SdGraphics
         }
         private void init()
         {
+            var config = new ConfigurationBuilder()
+                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                 .AddJsonFile("appsettings.json").Build();
+
+
+            //var section1 = config.GetSection(nameof(Booleans));
+            var myBooleans = config.GetSection(nameof(Booleans)).Get<Booleans>();
+
+            Console.WriteLine(String.Format("Breaklines={0}",myBooleans.Breaklines));
+
+            //var section2 = config.GetSection(nameof(Sizes));
+            var mySizes = config.GetSection(nameof(Sizes)).Get<Sizes>();
+            Console.WriteLine(String.Format("BlankSpace={0}", mySizes.BlankSpace));
+
             SdGraphicsPen pen = new SdGraphicsPen("Test", "#FF00FF", 1);
             String x = pen.ToString();
             //numericUpDownScale.Value = (decimal) 0.7;
