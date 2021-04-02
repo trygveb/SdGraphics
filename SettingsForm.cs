@@ -24,16 +24,16 @@ namespace SdGraphics
 
         private void myInit()
         {
-            checkBoxBreakLines.Checked = parent.mus.Breaklines;
+            checkBoxBreakLines.Checked = parent.mus.BreakLines;
             numericUpDownBlankSpace.Value = (decimal)parent.mus.BlankSpace;
-            numericUpDownCopyrightYear.Value = (decimal)parent.mus.Copyrightyear;
+            numericUpDownCopyrightYear.Value = (decimal)parent.mus.CopyrightYear;
             numericUpDownDancerSize.Value = (decimal)parent.mus.DancerSize;
             numericUpDownLineHeight.Value = (decimal)this.parent.mus.LineHeight;
             numericUpDownMarginBottom.Value = (decimal)parent.mus.MarginBottom;
-            numericUpDownMarginTop.Value = (decimal)parent.mus.Margintop;
-            numericUpDownMaxLineLength.Value = (decimal)parent.mus.MaxLineLenght;
+            numericUpDownMarginTop.Value = (decimal)parent.mus.MarginTop;
+            numericUpDownMaxLineLength.Value = (decimal)parent.mus.MaxLineLength;
             numericUpDownNoseSize.Value = (decimal)parent.mus.NoseSize;
-            textBoxCopyrightName.Text = parent.mus.Copyrightname;
+            textBoxCopyrightName.Text = parent.mus.CopyrightName;
             foreach (SdGraphicsPen sdGraphicPen in parent.MySdGraphicPens) {
                 comboBoxPens.Items.Add(sdGraphicPen.Name);
             }
@@ -67,7 +67,7 @@ namespace SdGraphics
 
         private void numericUpDownMaxLineLength_ValueChanged(object sender, EventArgs e)
         {
-            this.parent.mus.MaxLineLenght = (int)numericUpDownMaxLineLength.Value;
+            this.parent.mus.MaxLineLength = (int)numericUpDownMaxLineLength.Value;
         }
 
         private void numericUpDownDancerSize_ValueChanged(object sender, EventArgs e)
@@ -82,22 +82,22 @@ namespace SdGraphics
 
         private void numericUpDownMarginTop_ValueChanged(object sender, EventArgs e)
         {
-            this.parent.mus.Margintop = (int)numericUpDownMarginTop.Value;
+            this.parent.mus.MarginTop = (int)numericUpDownMarginTop.Value;
         }
 
         private void numericUpDownCopyrightYear_ValueChanged(object sender, EventArgs e)
         {
-            this.parent.mus.Copyrightyear = (int)numericUpDownCopyrightYear.Value;
+            this.parent.mus.CopyrightYear = (int)numericUpDownCopyrightYear.Value;
         }
 
         private void textBoxCopyrightName_TextChanged(object sender, EventArgs e)
         {
-            this.parent.mus.Copyrightname = textBoxCopyrightName.Text;
+            this.parent.mus.CopyrightName = textBoxCopyrightName.Text;
         }
 
         private void checkBoxBreakLines_CheckedChanged(object sender, EventArgs e)
         {
-            this.parent.mus.Breaklines = checkBoxBreakLines.Checked;
+            this.parent.mus.BreakLines = checkBoxBreakLines.Checked;
         }
 
 

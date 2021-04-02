@@ -2,84 +2,104 @@
 
 public class MyUserSettings : ApplicationSettingsBase
 {
-    [UserScopedSetting()]
-    [DefaultSettingValue("6")]
-    public int BlankSpace
-    {
-        get { return ((int)this["BlankSpace"]); }
-        set { this["BlankSpace"] = (int)value; }
+    private bool breakLines;
+
+    private int blankSpace;
+    private int copyrightYear;
+    private int dancerSize;
+    private int lineHeight;
+    private int marginBottom;
+    private int margintop;
+    private int maxLineLength;
+    private int noseSize;
+
+    private string copyrightName;
+
+
+
+    public int BlankSpace {
+        get { return blankSpace; }
+        set { blankSpace = value; }
+    }
+
+    public bool BreakLines {
+        get { return breakLines; }
+        set { breakLines = value; }
+    }
+    public string CopyrightName {
+        get { return copyrightName; }
+        set { copyrightName = value; }
+    }
+
+    public int CopyrightYear {
+        get { return copyrightYear; }
+        set { copyrightYear = value; }
+    }
+    public int DancerSize {
+        get { return dancerSize; }
+        set { dancerSize = value; }
+    }
+    public int LineHeight {
+        get { return lineHeight; }
+        set { lineHeight = value; }
+    }
+    public int MarginBottom {
+        get { return marginBottom; }
+        set { marginBottom = value; }
+    }
+    public int MarginTop {
+        get { return margintop; }
+        set { margintop = value; }
+    }
+
+    public int MaxLineLength {
+        get { return maxLineLength; }
+        set { maxLineLength = value; }
+    }
+
+    public int NoseSize {
+        get { return noseSize; }
+        set { noseSize = value; }
     }
 
     [UserScopedSetting()]
-    [DefaultSettingValue("18")]
-    public int DancerSize
+    [DefaultSettingValue("6;18;26;50;15;40;6;2021;t;Caller")]
+    //BlankSpace;DancerSize;LineHeight;MarginBottom;Margintop;MaxLineLenght;NoseSize
+    public string Scalars
     {
-        get { return ((int)this["DancerSize"]); }
-        set { this["DancerSize"] = (int)value; }
+        get { return ((string)this["Scalars"]); }
+        set { this["Scalars"] = (string)value; }
+    }
+  
+
+ 
+    public new void Reload()
+    {
+//      base.Reset();
+        base.Reload();
+        char[] sep = new char[] { ';' };
+        string[] scalarsSplit = Scalars.Split(sep);
+        BlankSpace = System.Int32.Parse(scalarsSplit[0]);
+        DancerSize = System.Int32.Parse(scalarsSplit[1]);
+        LineHeight = System.Int32.Parse(scalarsSplit[2]);
+        MarginBottom = System.Int32.Parse(scalarsSplit[3]);
+        MarginTop = System.Int32.Parse(scalarsSplit[4]);
+        MaxLineLength = System.Int32.Parse(scalarsSplit[5]);
+        NoseSize = System.Int32.Parse(scalarsSplit[6]);
+        CopyrightYear= System.Int32.Parse(scalarsSplit[7]);
+        BreakLines = scalarsSplit[8] == "t";
+        CopyrightName = scalarsSplit[9];
+
     }
 
-    [UserScopedSetting()]
-    [DefaultSettingValue("26")]
-    public int LineHeight
+    public new void Save()
     {
-        get { return ((int)this["LineHeight"]); }
-        set { this["LineHeight"] = (int)value; }
-    }
-    [UserScopedSetting()]
-    [DefaultSettingValue("50")]
-    public int MarginBottom
-    {
-        get { return ((int)this["MarginBottom"]); }
-        set { this["MarginBottom"] = (int)value; }
+        Scalars = string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9}",
+            BlankSpace, DancerSize, LineHeight, MarginBottom, MarginTop, MaxLineLength, NoseSize,
+            CopyrightYear, BreakLines, CopyrightName);
+        base.Save();
     }
 
-    [UserScopedSetting()]
-    [DefaultSettingValue("40")]
-    public int MaxLineLenght
-    {
-        get { return ((int)this["MaxLineLenght"]); }
-        set { this["MaxLineLenght"] = (int)value; }
-    }
-
-    [UserScopedSetting()]
-    [DefaultSettingValue("6")]
-    public int NoseSize
-    {
-        get { return ((int)this["NoseSize"]); }
-        set { this["NoseSize"] = (int)value; }
-    }
-
-    [UserScopedSetting()]
-    [DefaultSettingValue("15")]
-    public int Margintop
-    {
-        get { return ((int)this["Margintop"]); }
-        set { this["Margintop"] = (int)value; }
-    }
-
-    [UserScopedSetting()]
-    [DefaultSettingValue("true")]
-    public bool Breaklines
-    {
-        get { return ((bool)this["Breaklines"]); }
-        set { this["Breaklines"] = (bool)value; }
-    }
-
-    [UserScopedSetting()]
-    [DefaultSettingValue("2021")]
-    public int Copyrightyear
-    {
-        get { return ((int)this["Copyrightyear"]); }
-        set { this["Copyrightyear"] = (int)value; }
-    }
-
-    [UserScopedSetting()]
-    [DefaultSettingValue("NN")]
-    public string Copyrightname
-    {
-        get { return ((string)this["Copyrightname"]); }
-        set { this["Copyrightname"] = (string)value; }
-    }
 
 
     [UserScopedSetting()]

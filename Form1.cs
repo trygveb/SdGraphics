@@ -1,4 +1,5 @@
-﻿using System;
+﻿//using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -375,7 +376,7 @@ namespace SdGraphics
                     CompactExifLib.ExifData exifData = new CompactExifLib.ExifData(tempFileName);
                     exifData.SetTagValue(CompactExifLib.ExifTag.UserComment, sdLine.text, CompactExifLib.StrCoding.Utf8);
                     exifData.SetTagValue(CompactExifLib.ExifTag.Copyright,
-                            String.Format("{0} {1}", mus.Copyrightname, mus.Copyrightyear), CompactExifLib.StrCoding.Utf8);
+                            String.Format("{0} {1}", mus.CopyrightName, mus.CopyrightYear), CompactExifLib.StrCoding.Utf8);
                     exifData.Save();
 
                     using (var zipArchive = ZipFile.Open(this.zipFileName, ZipArchiveMode.Update)) {
@@ -500,7 +501,7 @@ namespace SdGraphics
             Bitmap pageBitmap = new Bitmap(pageSize.Width, pageSize.Height);
             //List<String[]> buffer = new List<string[]>();
             List<SdLine> sdLineList = new List<SdLine>();
-            int y = mus.Margintop;
+            int y = mus.MarginTop;
 
             int pageNumber = 1;
             this.currentXoffset = 0;// MARGIN_LEFT;
@@ -515,7 +516,7 @@ namespace SdGraphics
                     //if (lastCall != AT_HOME) {
                     y = checkBufferAndWriteCall(ref pageBitmap, sdLineList, y, i, sdLine,
                          ref pageNumber,
-                         mus.Margintop, mus.MaxLineLenght, mus.Breaklines,
+                         mus.MarginTop, mus.MaxLineLength, mus.BreakLines,
                          (int)numericUpDownColumns.Value, checkBoxShowPartner.Checked);
                     //}
                     lastCall = sdLine.text;
@@ -720,6 +721,22 @@ namespace SdGraphics
         }
         private void init()
         {
+            //var config = new ConfigurationBuilder()
+            //     .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            //     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+
+
+            //IConfigurationSection section1 = config.GetSection(nameof(Booleans));
+            //var xx= section1.Get<Booleans>();
+            //xx.Breaklines = false;
+            //var myBooleans = config.GetSection(nameof(Booleans)).Get<Booleans>();
+
+            //Console.WriteLine(String.Format("Breaklines={0}",myBooleans.Breaklines));
+
+            ////var section2 = config.GetSection(nameof(Sizes));
+            //var mySizes = config.GetSection(nameof(Sizes)).Get<Sizes>();
+            //Console.WriteLine(String.Format("BlankSpace={0}", mySizes.BlankSpace));
+
             SdGraphicsPen pen = new SdGraphicsPen("Test", "#FF00FF", 1);
             String x = pen.ToString();
             //numericUpDownScale.Value = (decimal) 0.7;
@@ -727,7 +744,6 @@ namespace SdGraphics
 
             this.mus = new MyUserSettings();
             this.mus.Reload();
-            //this.mus.Reset();
 
         }
 
@@ -845,7 +861,7 @@ namespace SdGraphics
 
         private void writeCopyright(Bitmap pageBitmap, int lineHeight)
         {
-            this.writeText(String.Format("Copyright \u00a9 {0} {1}", mus.Copyrightname, mus.Copyrightyear),
+            this.writeText(String.Format("Copyright \u00a9 {0} {1}", mus.CopyrightName, mus.CopyrightYear),
                 pageBitmap, pageSize.Height - lineHeight, pageSize.Width / 2 - 150, false);
         }
 
@@ -865,9 +881,9 @@ namespace SdGraphics
                 g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
                 g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
-                int breakIndex = line.LastIndexOf(' ', Math.Min(line.Length - 1, mus.MaxLineLenght));
+                int breakIndex = line.LastIndexOf(' ', Math.Min(line.Length - 1, mus.MaxLineLength));
 
-                if (breakIndex > 0 && line.Length > mus.MaxLineLenght && lineBreak) {
+                if (breakIndex > 0 && line.Length > mus.MaxLineLength && lineBreak) {
                     String line1 = line.Substring(0, breakIndex);
                     String line2 = "  " + line.Substring(breakIndex, line.Length - breakIndex);
                     g.DrawString(line1, this.fontForCalls, brushForCalls, x, y);
