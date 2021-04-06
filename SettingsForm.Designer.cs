@@ -61,11 +61,23 @@ namespace SdGraphics
             this.label13 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.numericUpDownThickness = new System.Windows.Forms.NumericUpDown();
-            this.textBoxColor = new System.Windows.Forms.TextBox();
+            this.textBoxPenColor = new System.Windows.Forms.TextBox();
             this.buttonPenColor = new System.Windows.Forms.Button();
             this.comboBoxPens = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.panelBrushes = new System.Windows.Forms.Panel();
+            this.groupBoxFillStyle = new System.Windows.Forms.GroupBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButtonSolidBrush = new System.Windows.Forms.RadioButton();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBoxBrushColor = new System.Windows.Forms.TextBox();
+            this.buttonBrushColor = new System.Windows.Forms.Button();
+            this.comboBoxBrushes = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label17 = new System.Windows.Forms.Label();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancerSize)).BeginInit();
@@ -78,6 +90,9 @@ namespace SdGraphics
             this.panelPens.SuspendLayout();
             this.groupBoxLineStyle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThickness)).BeginInit();
+            this.panelBrushes.SuspendLayout();
+            this.groupBoxFillStyle.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSettings
@@ -99,7 +114,7 @@ namespace SdGraphics
             this.panelSettings.Controls.Add(this.label10);
             this.panelSettings.Controls.Add(this.numericUpDownNoseSize);
             this.panelSettings.Controls.Add(this.numericUpDownMaxLineLength);
-            this.panelSettings.Location = new System.Drawing.Point(54, 12);
+            this.panelSettings.Location = new System.Drawing.Point(363, 12);
             this.panelSettings.Name = "panelSettings";
             this.panelSettings.Size = new System.Drawing.Size(377, 203);
             this.panelSettings.TabIndex = 45;
@@ -380,6 +395,7 @@ namespace SdGraphics
             // 
             // numericUpDownMaxLineLength
             // 
+            this.numericUpDownMaxLineLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownMaxLineLength.Increment = new decimal(new int[] {
             5,
             0,
@@ -398,7 +414,7 @@ namespace SdGraphics
             0,
             0});
             this.numericUpDownMaxLineLength.Name = "numericUpDownMaxLineLength";
-            this.numericUpDownMaxLineLength.Size = new System.Drawing.Size(68, 20);
+            this.numericUpDownMaxLineLength.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownMaxLineLength.TabIndex = 34;
             this.numericUpDownMaxLineLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownMaxLineLength.Value = new decimal(new int[] {
@@ -412,16 +428,17 @@ namespace SdGraphics
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(65, 363);
+            this.label7.Location = new System.Drawing.Point(10, 80);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(110, 20);
+            this.label7.Size = new System.Drawing.Size(43, 20);
             this.label7.TabIndex = 23;
-            this.label7.Text = "Copyright year";
+            this.label7.Text = "Year";
             // 
             // numericUpDownCopyrightYear
             // 
-            this.numericUpDownCopyrightYear.Location = new System.Drawing.Point(184, 357);
+            this.numericUpDownCopyrightYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownCopyrightYear.Location = new System.Drawing.Point(80, 74);
             this.numericUpDownCopyrightYear.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownCopyrightYear.Maximum = new decimal(new int[] {
             2050,
@@ -434,7 +451,7 @@ namespace SdGraphics
             0,
             0});
             this.numericUpDownCopyrightYear.Name = "numericUpDownCopyrightYear";
-            this.numericUpDownCopyrightYear.Size = new System.Drawing.Size(69, 20);
+            this.numericUpDownCopyrightYear.Size = new System.Drawing.Size(69, 26);
             this.numericUpDownCopyrightYear.TabIndex = 22;
             this.numericUpDownCopyrightYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownCopyrightYear.Value = new decimal(new int[] {
@@ -446,10 +463,11 @@ namespace SdGraphics
             // 
             // textBoxCopyrightName
             // 
-            this.textBoxCopyrightName.Location = new System.Drawing.Point(184, 322);
+            this.textBoxCopyrightName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxCopyrightName.Location = new System.Drawing.Point(80, 39);
             this.textBoxCopyrightName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxCopyrightName.Name = "textBoxCopyrightName";
-            this.textBoxCopyrightName.Size = new System.Drawing.Size(210, 20);
+            this.textBoxCopyrightName.Size = new System.Drawing.Size(234, 26);
             this.textBoxCopyrightName.TabIndex = 16;
             this.textBoxCopyrightName.Text = "Thomas Bernhed";
             this.textBoxCopyrightName.TextChanged += new System.EventHandler(this.textBoxCopyrightName_TextChanged);
@@ -458,17 +476,17 @@ namespace SdGraphics
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(65, 326);
+            this.label4.Location = new System.Drawing.Point(10, 43);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(120, 20);
+            this.label4.Size = new System.Drawing.Size(51, 20);
             this.label4.TabIndex = 15;
-            this.label4.Text = "Copyright name";
+            this.label4.Text = "Name";
             // 
             // buttonCancel
             // 
             this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.Location = new System.Drawing.Point(32, 438);
+            this.buttonCancel.Location = new System.Drawing.Point(485, 443);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 32);
             this.buttonCancel.TabIndex = 46;
@@ -479,7 +497,7 @@ namespace SdGraphics
             // buttonOk
             // 
             this.buttonOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOk.Location = new System.Drawing.Point(288, 438);
+            this.buttonOk.Location = new System.Drawing.Point(623, 443);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 32);
             this.buttonOk.TabIndex = 47;
@@ -495,13 +513,13 @@ namespace SdGraphics
             this.panelPens.Controls.Add(this.label13);
             this.panelPens.Controls.Add(this.label11);
             this.panelPens.Controls.Add(this.numericUpDownThickness);
-            this.panelPens.Controls.Add(this.textBoxColor);
+            this.panelPens.Controls.Add(this.textBoxPenColor);
             this.panelPens.Controls.Add(this.buttonPenColor);
             this.panelPens.Controls.Add(this.comboBoxPens);
             this.panelPens.Controls.Add(this.label1);
-            this.panelPens.Location = new System.Drawing.Point(476, 12);
+            this.panelPens.Location = new System.Drawing.Point(15, 12);
             this.panelPens.Name = "panelPens";
-            this.panelPens.Size = new System.Drawing.Size(347, 307);
+            this.panelPens.Size = new System.Drawing.Size(329, 248);
             this.panelPens.TabIndex = 48;
             // 
             // groupBoxLineStyle
@@ -509,9 +527,9 @@ namespace SdGraphics
             this.groupBoxLineStyle.Controls.Add(this.radioButtonDashed);
             this.groupBoxLineStyle.Controls.Add(this.radioButtonSolid);
             this.groupBoxLineStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxLineStyle.Location = new System.Drawing.Point(30, 185);
+            this.groupBoxLineStyle.Location = new System.Drawing.Point(30, 167);
             this.groupBoxLineStyle.Name = "groupBoxLineStyle";
-            this.groupBoxLineStyle.Size = new System.Drawing.Size(189, 90);
+            this.groupBoxLineStyle.Size = new System.Drawing.Size(189, 75);
             this.groupBoxLineStyle.TabIndex = 45;
             this.groupBoxLineStyle.TabStop = false;
             this.groupBoxLineStyle.Text = "Line Style";
@@ -523,7 +541,7 @@ namespace SdGraphics
             this.radioButtonDashed.Name = "radioButtonDashed";
             this.radioButtonDashed.Size = new System.Drawing.Size(83, 24);
             this.radioButtonDashed.TabIndex = 1;
-            this.radioButtonDashed.Tag = "dashed";
+            this.radioButtonDashed.Tag = "";
             this.radioButtonDashed.Text = "Dashed";
             this.radioButtonDashed.UseVisualStyleBackColor = true;
             // 
@@ -536,7 +554,7 @@ namespace SdGraphics
             this.radioButtonSolid.Size = new System.Drawing.Size(62, 24);
             this.radioButtonSolid.TabIndex = 0;
             this.radioButtonSolid.TabStop = true;
-            this.radioButtonSolid.Tag = "solid";
+            this.radioButtonSolid.Tag = "";
             this.radioButtonSolid.Text = "Solid";
             this.radioButtonSolid.UseVisualStyleBackColor = true;
             this.radioButtonSolid.CheckedChanged += new System.EventHandler(this.radioButtonSolid_CheckedChanged);
@@ -545,7 +563,7 @@ namespace SdGraphics
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(26, 52);
+            this.label14.Location = new System.Drawing.Point(26, 37);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(37, 20);
             this.label14.TabIndex = 44;
@@ -555,7 +573,7 @@ namespace SdGraphics
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(26, 94);
+            this.label13.Location = new System.Drawing.Point(26, 79);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(46, 20);
             this.label13.TabIndex = 43;
@@ -565,7 +583,7 @@ namespace SdGraphics
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(26, 138);
+            this.label11.Location = new System.Drawing.Point(26, 123);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(80, 20);
             this.label11.TabIndex = 42;
@@ -574,7 +592,7 @@ namespace SdGraphics
             // numericUpDownThickness
             // 
             this.numericUpDownThickness.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownThickness.Location = new System.Drawing.Point(126, 136);
+            this.numericUpDownThickness.Location = new System.Drawing.Point(126, 121);
             this.numericUpDownThickness.Maximum = new decimal(new int[] {
             9,
             0,
@@ -596,18 +614,18 @@ namespace SdGraphics
             0});
             this.numericUpDownThickness.ValueChanged += new System.EventHandler(this.numericUpDownThickness_ValueChanged);
             // 
-            // textBoxColor
+            // textBoxPenColor
             // 
-            this.textBoxColor.Location = new System.Drawing.Point(87, 96);
-            this.textBoxColor.Name = "textBoxColor";
-            this.textBoxColor.ReadOnly = true;
-            this.textBoxColor.Size = new System.Drawing.Size(80, 20);
-            this.textBoxColor.TabIndex = 40;
+            this.textBoxPenColor.Location = new System.Drawing.Point(87, 81);
+            this.textBoxPenColor.Name = "textBoxPenColor";
+            this.textBoxPenColor.ReadOnly = true;
+            this.textBoxPenColor.Size = new System.Drawing.Size(80, 20);
+            this.textBoxPenColor.TabIndex = 40;
             // 
             // buttonPenColor
             // 
             this.buttonPenColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonPenColor.Location = new System.Drawing.Point(183, 94);
+            this.buttonPenColor.Location = new System.Drawing.Point(183, 79);
             this.buttonPenColor.Name = "buttonPenColor";
             this.buttonPenColor.Size = new System.Drawing.Size(91, 30);
             this.buttonPenColor.TabIndex = 39;
@@ -619,7 +637,7 @@ namespace SdGraphics
             // 
             this.comboBoxPens.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxPens.FormattingEnabled = true;
-            this.comboBoxPens.Location = new System.Drawing.Point(91, 49);
+            this.comboBoxPens.Location = new System.Drawing.Point(91, 34);
             this.comboBoxPens.Name = "comboBoxPens";
             this.comboBoxPens.Size = new System.Drawing.Size(183, 28);
             this.comboBoxPens.TabIndex = 38;
@@ -629,26 +647,158 @@ namespace SdGraphics
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(4, 15);
+            this.label1.Location = new System.Drawing.Point(4, 0);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 24);
             this.label1.TabIndex = 37;
             this.label1.Text = "Pens";
             // 
+            // panelBrushes
+            // 
+            this.panelBrushes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBrushes.Controls.Add(this.groupBoxFillStyle);
+            this.panelBrushes.Controls.Add(this.label15);
+            this.panelBrushes.Controls.Add(this.label16);
+            this.panelBrushes.Controls.Add(this.textBoxBrushColor);
+            this.panelBrushes.Controls.Add(this.buttonBrushColor);
+            this.panelBrushes.Controls.Add(this.comboBoxBrushes);
+            this.panelBrushes.Controls.Add(this.label18);
+            this.panelBrushes.Location = new System.Drawing.Point(15, 278);
+            this.panelBrushes.Name = "panelBrushes";
+            this.panelBrushes.Size = new System.Drawing.Size(329, 217);
+            this.panelBrushes.TabIndex = 49;
+            // 
+            // groupBoxFillStyle
+            // 
+            this.groupBoxFillStyle.Controls.Add(this.radioButton1);
+            this.groupBoxFillStyle.Controls.Add(this.radioButtonSolidBrush);
+            this.groupBoxFillStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxFillStyle.Location = new System.Drawing.Point(8, 131);
+            this.groupBoxFillStyle.Name = "groupBoxFillStyle";
+            this.groupBoxFillStyle.Size = new System.Drawing.Size(309, 74);
+            this.groupBoxFillStyle.TabIndex = 45;
+            this.groupBoxFillStyle.TabStop = false;
+            this.groupBoxFillStyle.Text = "Fill Style";
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Enabled = false;
+            this.radioButton1.Location = new System.Drawing.Point(97, 41);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(212, 24);
+            this.radioButton1.TabIndex = 1;
+            this.radioButton1.Tag = "";
+            this.radioButton1.Text = "Other brushes not allowed";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonSolidBrush
+            // 
+            this.radioButtonSolidBrush.AutoSize = true;
+            this.radioButtonSolidBrush.Checked = true;
+            this.radioButtonSolidBrush.Location = new System.Drawing.Point(16, 41);
+            this.radioButtonSolidBrush.Name = "radioButtonSolidBrush";
+            this.radioButtonSolidBrush.Size = new System.Drawing.Size(62, 24);
+            this.radioButtonSolidBrush.TabIndex = 0;
+            this.radioButtonSolidBrush.TabStop = true;
+            this.radioButtonSolidBrush.Tag = "";
+            this.radioButtonSolidBrush.Text = "Solid";
+            this.radioButtonSolidBrush.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(26, 37);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(51, 20);
+            this.label15.TabIndex = 44;
+            this.label15.Text = "Brush";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(26, 86);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(46, 20);
+            this.label16.TabIndex = 43;
+            this.label16.Text = "Color";
+            // 
+            // textBoxBrushColor
+            // 
+            this.textBoxBrushColor.Location = new System.Drawing.Point(87, 88);
+            this.textBoxBrushColor.Name = "textBoxBrushColor";
+            this.textBoxBrushColor.ReadOnly = true;
+            this.textBoxBrushColor.Size = new System.Drawing.Size(80, 20);
+            this.textBoxBrushColor.TabIndex = 40;
+            // 
+            // buttonBrushColor
+            // 
+            this.buttonBrushColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBrushColor.Location = new System.Drawing.Point(183, 86);
+            this.buttonBrushColor.Name = "buttonBrushColor";
+            this.buttonBrushColor.Size = new System.Drawing.Size(91, 30);
+            this.buttonBrushColor.TabIndex = 39;
+            this.buttonBrushColor.Text = "Change";
+            this.buttonBrushColor.UseVisualStyleBackColor = true;
+            this.buttonBrushColor.Click += new System.EventHandler(this.buttonBrushColor_Click);
+            // 
+            // comboBoxBrushes
+            // 
+            this.comboBoxBrushes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxBrushes.FormattingEnabled = true;
+            this.comboBoxBrushes.Location = new System.Drawing.Point(91, 34);
+            this.comboBoxBrushes.Name = "comboBoxBrushes";
+            this.comboBoxBrushes.Size = new System.Drawing.Size(183, 28);
+            this.comboBoxBrushes.TabIndex = 38;
+            this.comboBoxBrushes.SelectedIndexChanged += new System.EventHandler(this.comboBoxBrushes_SelectedIndexChanged);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(4, 0);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(79, 24);
+            this.label18.TabIndex = 37;
+            this.label18.Text = "Brushes";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label17);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.numericUpDownCopyrightYear);
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.textBoxCopyrightName);
+            this.panel1.Location = new System.Drawing.Point(363, 278);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(377, 114);
+            this.panel1.TabIndex = 50;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(6, 5);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(90, 24);
+            this.label17.TabIndex = 51;
+            this.label17.Text = "Copyright";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(861, 511);
+            this.ClientSize = new System.Drawing.Size(754, 508);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelBrushes);
             this.Controls.Add(this.panelPens);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.panelSettings);
-            this.Controls.Add(this.textBoxCopyrightName);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.numericUpDownCopyrightYear);
             this.Name = "SettingsForm";
             this.Text = "Settings";
             this.panelSettings.ResumeLayout(false);
@@ -666,8 +816,13 @@ namespace SdGraphics
             this.groupBoxLineStyle.ResumeLayout(false);
             this.groupBoxLineStyle.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThickness)).EndInit();
+            this.panelBrushes.ResumeLayout(false);
+            this.panelBrushes.PerformLayout();
+            this.groupBoxFillStyle.ResumeLayout(false);
+            this.groupBoxFillStyle.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -702,7 +857,7 @@ namespace SdGraphics
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Button buttonPenColor;
-        private System.Windows.Forms.TextBox textBoxColor;
+        private System.Windows.Forms.TextBox textBoxPenColor;
         private System.Windows.Forms.GroupBox groupBoxLineStyle;
         private System.Windows.Forms.RadioButton radioButtonDashed;
         private System.Windows.Forms.RadioButton radioButtonSolid;
@@ -710,5 +865,17 @@ namespace SdGraphics
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.NumericUpDown numericUpDownThickness;
+        private System.Windows.Forms.Panel panelBrushes;
+        private System.Windows.Forms.GroupBox groupBoxFillStyle;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButtonSolidBrush;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox textBoxBrushColor;
+        private System.Windows.Forms.Button buttonBrushColor;
+        private System.Windows.Forms.ComboBox comboBoxBrushes;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label17;
     }
 }

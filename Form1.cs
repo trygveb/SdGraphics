@@ -30,7 +30,7 @@ namespace SdGraphics
         // currentXoffset should be zero for the left column and typically pageSize.Width/2 for the right column
         public int currentXoffset = 0;
 
-        public MyUserSettings mus = new MyUserSettings();
+        public UserSettings mus;// = new UserSettings();
 
         // This line i one of several criteria to detect end of a sequence
         private static String AT_HOME = "at home";
@@ -67,65 +67,50 @@ namespace SdGraphics
         private MemoryStream zipMemoryStream = new MemoryStream();
         // Used by the printing function
         #region ----------------------------------------- Brushes
-        private Brush brushForCallerNose = new SolidBrush(System.Drawing.Color.DarkGreen);
-        private Brush brushForCalls = new SolidBrush(System.Drawing.Color.Black);
-        private Brush brushForDancers = new SolidBrush(System.Drawing.Color.Black);
-        private Brush brushForNoses = new SolidBrush(System.Drawing.Color.Red);
+        //private Brush brushForCallerNose = new SolidBrush(System.Drawing.Color.DarkGreen);
+        //private Brush mus.BrushForCallText = new SolidBrush(System.Drawing.Color.Black);
+        //private Brush mus.BrushForDancerText = new SolidBrush(System.Drawing.Color.Black);
+        //private Brush mus.BrushForDancerNoses = new SolidBrush(System.Drawing.Color.Red);
         #endregion  ------------------------------------- Brushes
 
         #region ----------------------------------------- Pens
 
-        private List<SdPen> mySdPens = new List<SdPen>{
-            new SdPen("PhantomPen", "#1111FF;1;dotted"),
-            new SdPen("CallerPen", "#00FF00;1;solid"),
-            new SdPen("DancerPen", "#FFFFFF;1;solid"),
-            new SdPen("DancerNosePen", "#FF0000;1;solid"),
-            new SdPen("CalleNosePen", "#FF0000;1;solid")
-        };
-        private List<SdGraphicsPen> mySdGraphicPens = new List<SdGraphicsPen> {
-            new SdGraphicsPen("PhantomPen","#1111FF",1,DashStyle.Dash),
-            new SdGraphicsPen("CallerPen","#00FF00",1,DashStyle.Solid),
-            new SdGraphicsPen("DancerPen","#FFFFFF",1,DashStyle.Solid),
-            new SdGraphicsPen("DancerNosePen","#FF0000",1,DashStyle.Solid),
-            new SdGraphicsPen("CalleNosePen","#FF0000",1,DashStyle.Solid),
-            };
+        //private List<SdPen> mySdPens = new List<SdPen>{
+        //    new SdPen("PhantomPen", "#1111FF;1;dotted"),
+        //    new SdPen("CallerPen", "#00FF00;1;solid"),
+        //    new SdPen("DancerPen", "#FFFFFF;1;solid"),
+        //    new SdPen("DancerNosePen", "#FF0000;1;solid"),
+        //    new SdPen("CalleNosePen", "#FF0000;1;solid")
+        //};
 
         private Pen penForBorder = new Pen(Color.Red, 2);
-
-        private Pen penForCaller = new Pen(Color.DarkGreen, 1);
 
         private Pen penForFocusDancer = new Pen(Color.Red, 2);
 
         private Pen penForPartner = new Pen(Color.Black, 1);
 
-        //private Pen penForPhantom = new Pen(Color.Blue, 1);
-        private Pen penForPhantom = new Pen(new SolidBrush(Color.FromArgb(51, 51, 255)), 1) { DashPattern = new[] { 0.5f, 0.5f } };
 
-        public List<SdPen> MySdPens {
-            get { return mySdPens; }
-            set { mySdPens = value; }
-        }
-        public List<SdGraphicsPen> MySdGraphicPens {
-            get { return mySdGraphicPens; }
-            set { mySdGraphicPens = value; }
-        }
+        //public List<SdPen> MySdPens {
+        //    get { return mySdPens; }
+        //    set { mySdPens = value; }
+        //}
 
-        public struct SdPen
-        {
-            public String HexColor;
-            public String Name;
-            public SdPen(String name, String hexColor)
-            {
-                this.Name = name;
-                this.HexColor = hexColor;
-            }
-            //public Pen MyPen {
-            //    get {
-            //        return new Pen(System.Drawing.Color.FromArgb(
-            //            Convert.ToByte(this.HexColor.Substring(1,2),0,0)), 1);
-            //    }
-            //}
-        }
+        //public struct SdPen
+        //{
+        //    public String HexColor;
+        //    public String Name;
+        //    public SdPen(String name, String hexColor)
+        //    {
+        //        this.Name = name;
+        //        this.HexColor = hexColor;
+        //    }
+        //    //public Pen MyPen {
+        //    //    get {
+        //    //        return new Pen(System.Drawing.Color.FromArgb(
+        //    //            Convert.ToByte(this.HexColor.Substring(1,2),0,0)), 1);
+        //    //    }
+        //    //}
+        //}
         #endregion  ------------------------------------- Pens
 
         struct SdLine
@@ -554,16 +539,16 @@ namespace SdGraphics
             int x = Math.Max(0, xc - mus.DancerSize / 2);
             using (Graphics g = Graphics.FromImage(bmp)) {
 
-                g.DrawEllipse(penForCaller, x + 2, y + 2, (float)0.8 * mus.DancerSize, (float)0.8 * mus.DancerSize);
-                g.DrawRectangle(penForCaller, x, y, mus.DancerSize, mus.DancerSize);
-                g.FillEllipse(brushForCallerNose, x + mus.DancerSize / 2 - mus.NoseSize / 2, y - mus.NoseSize, mus.NoseSize, mus.NoseSize);
+                g.DrawEllipse(mus.penForCaller, x + 2, y + 2, (float)0.8 * mus.DancerSize, (float)0.8 * mus.DancerSize);
+                g.DrawRectangle(mus.penForCaller, x, y, mus.DancerSize, mus.DancerSize);
+                g.FillEllipse(mus.BrushForCallerNose, x + mus.DancerSize / 2 - mus.NoseSize / 2, y - mus.NoseSize, mus.NoseSize, mus.NoseSize);
             }
 
         }
 
         private int drawDancerOrSpace(ref Bitmap bmp, int xc, int yc, String dancer, bool showPartner, ref RotateFlipType rft)
         {
-            Pen pen = new Pen(System.Drawing.Color.Black, 1);
+           // Pen pen = new Pen(System.Drawing.Color.Black, 1);
             int x = Math.Max(0, xc - mus.DancerSize / 2);
             int y = yc - mus.DancerSize / 2;
             using (Graphics g = Graphics.FromImage(bmp)) {
@@ -571,13 +556,13 @@ namespace SdGraphics
 
                 if (dancer == ".") {
                     // the point is only 1 char, so we have to add an extra spcace before
-                    g.DrawEllipse(penForPhantom, x - mus.BlankSpace, yc - mus.DancerSize / 2, mus.DancerSize, mus.DancerSize);
+                    g.DrawEllipse(mus.penForPhantom, x - mus.BlankSpace, yc - mus.DancerSize / 2, mus.DancerSize, mus.DancerSize);
                     xc -= 2 * mus.BlankSpace;  // Subtle
                 } else {
                     if (dancer[1] == 'B') {
-                        g.DrawRectangle(pen, x, y, mus.DancerSize, mus.DancerSize);
+                        g.DrawRectangle(mus.penForDancer, x, y, mus.DancerSize, mus.DancerSize);
                     } else {
-                        g.DrawEllipse(pen, x, y, mus.DancerSize, mus.DancerSize);
+                        g.DrawEllipse(mus.penForDancer, x, y, mus.DancerSize, mus.DancerSize);
                     }
                     g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 
@@ -597,7 +582,7 @@ namespace SdGraphics
                             }
                         }
                     } else {
-                        g.DrawString(dancer[0].ToString(), fontForCalls, brushForDancers, x + 2, y + 2);
+                        g.DrawString(dancer[0].ToString(), fontForCalls, mus.BrushForDancerText, x + 2, y + 2);
                     }
 
 
@@ -605,19 +590,19 @@ namespace SdGraphics
                         if (isFocusDancer) {
                             rft = RotateFlipType.Rotate270FlipNone;
                         }
-                        g.FillEllipse(brushForNoses, x + mus.DancerSize, y + mus.DancerSize / 2 - mus.NoseSize / 2, mus.NoseSize, mus.NoseSize);
+                        g.FillEllipse(mus.BrushForDancerNoses, x + mus.DancerSize, y + mus.DancerSize / 2 - mus.NoseSize / 2, mus.NoseSize, mus.NoseSize);
                     } else if (dancer[2] == '<') {
                         if (isFocusDancer) {
                             rft = RotateFlipType.Rotate90FlipNone;
                         }
-                        g.FillEllipse(brushForNoses, x - mus.NoseSize, y + mus.DancerSize / 2 - mus.NoseSize / 2, mus.NoseSize, mus.NoseSize);
+                        g.FillEllipse(mus.BrushForDancerNoses, x - mus.NoseSize, y + mus.DancerSize / 2 - mus.NoseSize / 2, mus.NoseSize, mus.NoseSize);
                     } else if (dancer[2] == '^') {
-                        g.FillEllipse(brushForNoses, x + mus.DancerSize / 2 - mus.NoseSize / 2, y - mus.NoseSize, mus.NoseSize, mus.NoseSize);
+                        g.FillEllipse(mus.BrushForDancerNoses, x + mus.DancerSize / 2 - mus.NoseSize / 2, y - mus.NoseSize, mus.NoseSize, mus.NoseSize);
                     } else if (dancer[2] == 'V') {
                         if (isFocusDancer) {
                             rft = RotateFlipType.Rotate180FlipNone;
                         }
-                        g.FillEllipse(brushForNoses, x + mus.DancerSize / 2 - mus.NoseSize / 2, y + mus.DancerSize, mus.NoseSize, mus.NoseSize);
+                        g.FillEllipse(mus.BrushForDancerNoses, x + mus.DancerSize / 2 - mus.NoseSize / 2, y + mus.DancerSize, mus.NoseSize, mus.NoseSize);
                     }
                 }
             }
@@ -721,28 +706,12 @@ namespace SdGraphics
         }
         private void init()
         {
-            //var config = new ConfigurationBuilder()
-            //     .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            //     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
-
-
-            //IConfigurationSection section1 = config.GetSection(nameof(Booleans));
-            //var xx= section1.Get<Booleans>();
-            //xx.Breaklines = false;
-            //var myBooleans = config.GetSection(nameof(Booleans)).Get<Booleans>();
-
-            //Console.WriteLine(String.Format("Breaklines={0}",myBooleans.Breaklines));
-
-            ////var section2 = config.GetSection(nameof(Sizes));
-            //var mySizes = config.GetSection(nameof(Sizes)).Get<Sizes>();
-            //Console.WriteLine(String.Format("BlankSpace={0}", mySizes.BlankSpace));
 
             SdGraphicsPen pen = new SdGraphicsPen("Test", "#FF00FF", 1);
             String x = pen.ToString();
-            //numericUpDownScale.Value = (decimal) 0.7;
             this.numericUpDownScale.ValueChanged += new System.EventHandler(this.numericUpDownScale_ValueChanged);
 
-            this.mus = new MyUserSettings();
+            this.mus = new UserSettings();
             this.mus.Reload();
 
         }
@@ -886,11 +855,11 @@ namespace SdGraphics
                 if (breakIndex > 0 && line.Length > mus.MaxLineLength && lineBreak) {
                     String line1 = line.Substring(0, breakIndex);
                     String line2 = "  " + line.Substring(breakIndex, line.Length - breakIndex);
-                    g.DrawString(line1, this.fontForCalls, brushForCalls, x, y);
+                    g.DrawString(line1, this.fontForCalls, mus.BrushForCallText, x, y);
                     y += mus.LineHeight;
-                    g.DrawString(line2, this.fontForCalls, brushForCalls, x, y);
+                    g.DrawString(line2, this.fontForCalls, mus.BrushForCallText, x, y);
                 } else {
-                    g.DrawString(line, this.fontForCalls, brushForCalls, x, y);
+                    g.DrawString(line, this.fontForCalls, mus.BrushForCallText, x, y);
                 }
             }
             return y;
