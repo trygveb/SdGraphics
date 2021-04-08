@@ -15,6 +15,9 @@ using System.Drawing.Imaging;
 
 namespace SdGraphics
 {
+    /// <summary>
+    /// https://app.creately.com/diagram/start/dashboard
+    /// </summary>
 
     public partial class Form1 : Form
     {
@@ -459,17 +462,9 @@ namespace SdGraphics
         {
             this.formationNumber = 0;
             if (this.graphicsForm == null) {
-                this.graphicsForm = new GraphicsForm(ref pictureBox1, this);
-                this.graphicsForm.FormClosing += fManage_FormOneClosing;
-                this.graphicsForm.Show();
-                //PictureBox pictureBox1 = this.graphicsForm.getPictureBox();
+                createNewForm();
             }
-            PANEL_SCALE = (double)numericUpDownScale.Value;
-            pictureBox1.Height = (int)(PANEL_SCALE * pageSize.Height);
-            pictureBox1.Width = (int)(PANEL_SCALE * pageSize.Width);
-            int heightOfTitleBar = 40;
-            this.graphicsForm.Height = (int)(PANEL_SCALE * pageSize.Height) + pictureBox1.Location.Y + heightOfTitleBar;
-            this.graphicsForm.Width = (int)(PANEL_SCALE * pageSize.Width) + 35;
+            formatGraphicsForm();
             //DIAMOND_REDUCTION = (int)numericUpDownDiamondReduction.Value;
             //DIAMOND_WIDTH = (int)numericUpDownLineHeight.Value;
             this.bitmapList.Clear();
@@ -522,6 +517,23 @@ namespace SdGraphics
             this.bitmapList.Add(pageBitmap);  // The last bitmap (Could be a duplicate?)
             this.viewBitmap(0);
 
+        }
+
+        private void formatGraphicsForm()
+        {
+            PANEL_SCALE = (double)numericUpDownScale.Value;
+            pictureBox1.Height = (int)(PANEL_SCALE * pageSize.Height);
+            pictureBox1.Width = (int)(PANEL_SCALE * pageSize.Width);
+            int heightOfTitleBar = 40;
+            this.graphicsForm.Height = (int)(PANEL_SCALE * pageSize.Height) + pictureBox1.Location.Y + heightOfTitleBar;
+            this.graphicsForm.Width = (int)(PANEL_SCALE * pageSize.Width) + 35;
+        }
+
+        private void createNewForm()
+        {
+            this.graphicsForm = new GraphicsForm(ref pictureBox1, this);
+            this.graphicsForm.FormClosing += fManage_FormOneClosing;
+            this.graphicsForm.Show();
         }
 
         private void drawBorder(Bitmap bmp)

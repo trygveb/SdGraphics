@@ -801,6 +801,7 @@ namespace SdGraphics
             this.Controls.Add(this.panelSettings);
             this.Name = "SettingsForm";
             this.Text = "Settings";
+            this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.panelSettings.ResumeLayout(false);
             this.panelSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).EndInit();

@@ -4,10 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
-//using Newtonsoft.Json;
-
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 
 namespace SdGraphics
@@ -15,140 +12,124 @@ namespace SdGraphics
     public class UserSettings : ApplicationSettingsBase
     {
         #region -------------------------------------------------- Settings
+ 
         [UserScopedSetting()]
-        // Each Pen or Brush is defined by a semicolon separated string
-        // Each pen is defined by:   P; Name; hex color; width; dashStyle
-        // Each brush is defined by: B; Name; hex color; fillstyle
-        // Currently only brushes with fillStyle Solid is supported
         [DefaultSettingValue(
-            "P;PhantomPen;#0000FF;1;Dash&" +
-            "P;CallerPen;#00FF00;1;Solid&" +
-            "P;DancerPen;#000000;1;Solid&" +
-            "B;CallTextBrush;#000000;Solid&" +
-            "B;DancerTextBrush;#000000;Solid&" +
-            "B;DancerNoseBrush;#FF0000;Solid&" +
-            "B;CallerNoseBrush;#FF0000;Solid&"
-            )]
-        public String PensAndBrushes {
-            get { return ((String)this["PensAndBrushes"]); }
-            set { this["PensAndBrushes"] = (String)value; }
+            "{\"BlankSpace\":6,\"BreakLines\":true,\"CopyrightName\":\"Caller\",\"CopyrightYear\":2021,\"DancerSize\":18," +
+            "\"LineHeight\":26,\"MarginBottom\":50,\"MarginTop\":15,\"MaxLineLength\":40,\"NoseSize\":6}")]
+
+        public string JsonString {
+            get { return ((string)this["JsonString"]); }
+            set { this["JsonString"] = (string)value; }
         }
 
-        [UserScopedSetting()]
-        [DefaultSettingValue("6;18;26;50;15;40;6;2021;t;Caller")]
-        //BlankSpace;DancerSize;LineHeight;MarginBottom;Margintop;MaxLineLenght;NoseSize
-        public string Scalars {
-            get { return ((string)this["Scalars"]); }
-            set { this["Scalars"] = (string)value; }
-        }
         #endregion ----------------------------------------------- Settings
 
 
         #region -------------------------------------------------- Private attributes
+        private SettingsValues settingsValues;
 
-        private int blankSpace;
-        private bool breakLines;
-        private string copyrightName;
-        private int copyrightYear;
-        private int dancerSize;
-        private int lineHeight;
-        private int marginBottom;
-        private int margintop;
-        private int maxLineLength;
-        private List<SdGraphicsBrush> mySdGraphicBrushes = new List<SdGraphicsBrush>();
-        private List<SdGraphicsPen> mySdGraphicPens = new List<SdGraphicsPen>();
-        private int noseSize;
+        private Dictionary<string, SdGraphicsBrush> mySdGraphicBrushes = new Dictionary<string, SdGraphicsBrush>();
+        private Dictionary<string, SdGraphicsPen> mySdGraphicPens = new Dictionary<string,SdGraphicsPen>();
+        //private int noseSize;
         #endregion ----------------------------------------------- Private attributes
 
 
         #region -------------------------------------------------- Properties
 
         public int BlankSpace {
-            get { return blankSpace; }
-            set { blankSpace = value; }
+            get { return SettingsValues.BlankSpace; }
+            set { SettingsValues.BlankSpace = value; }
         }
 
         public bool BreakLines {
-            get { return breakLines; }
-            set { breakLines = value; }
+            get { return SettingsValues.BreakLines; }
+            set { SettingsValues.BreakLines = value; }
         }
 
         public Brush BrushForCallerNose {
-            get { return SdGraphicBrushes.Where(f => f.Name.Equals("CallerNoseBrush")).FirstOrDefault().Brush; }
+           get { return SdGraphicBrushes.Where(f => f.Key.Equals("CallerNoseBrush")).FirstOrDefault().Value.Brush; }
+          // get {return new SdGraphicBrush() }
         }
 
         public Brush BrushForCallText {
-            get { return SdGraphicBrushes.Where(f => f.Name.Equals("CallTextBrush")).FirstOrDefault().Brush; }
+            get { return SdGraphicBrushes.Where(f => f.Key.Equals("CallTextBrush")).FirstOrDefault().Value.Brush; }
         }
 
         public Brush BrushForDancerNoses {
-            get { return SdGraphicBrushes.Where(f => f.Name.Equals("DancerNoseBrush")).FirstOrDefault().Brush; }
+            get { return SdGraphicBrushes.Where(f => f.Key.Equals("DancerNoseBrush")).FirstOrDefault().Value.Brush; }
         }
 
         public Brush BrushForDancerText {
-            get { return SdGraphicBrushes.Where(f => f.Name.Equals("DancerTextBrush")).FirstOrDefault().Brush; }
+            get { return SdGraphicBrushes.Where(f => f.Key.Equals("DancerTextBrush")).FirstOrDefault().Value.Brush; }
         }
 
         public string CopyrightName {
-            get { return copyrightName; }
-            set { copyrightName = value; }
+            get { return SettingsValues.CopyrightName; }
+            set { SettingsValues.CopyrightName = value; }
         }
 
         public int CopyrightYear {
-            get { return copyrightYear; }
-            set { copyrightYear = value; }
+            get { return SettingsValues.CopyrightYear; }
+            set { SettingsValues.CopyrightYear = value; }
         }
 
         public int DancerSize {
-            get { return dancerSize; }
-            set { dancerSize = value; }
+            get { return SettingsValues.DancerSize; }
+            set { SettingsValues.DancerSize = value; }
         }
 
         public int LineHeight {
-            get { return lineHeight; }
-            set { lineHeight = value; }
+            get { return SettingsValues.LineHeight; }
+            set { SettingsValues.LineHeight = value; }
         }
 
         public int MarginBottom {
-            get { return marginBottom; }
-            set { marginBottom = value; }
+            get { return SettingsValues.MarginBottom; }
+            set { SettingsValues.MarginBottom = value; }
         }
 
         public int MarginTop {
-            get { return margintop; }
-            set { margintop = value; }
+            get { return SettingsValues.MarginTop; }
+            set { SettingsValues.MarginTop = value; }
         }
 
         public int MaxLineLength {
-            get { return maxLineLength; }
-            set { maxLineLength = value; }
+            get { return SettingsValues.MaxLineLength; }
+            set { SettingsValues.MaxLineLength = value; }
         }
 
         public int NoseSize {
-            get { return noseSize; }
-            set { noseSize = value; }
+            get { return SettingsValues.NoseSize; }
+            set { SettingsValues.NoseSize = value; }
         }
 
         public Pen penForCaller {
-            get { return SdGraphicPens.Where(f => f.Name.Equals("CallerPen")).FirstOrDefault().Pen; }
+
+            get { return SdGraphicPens.Where(f => f.Key.Equals("CallerPen")).FirstOrDefault().Value.Pen; }
         }
 
         public Pen penForDancer {
-            get { return SdGraphicPens.Where(f => f.Name.Equals("DancerPen")).FirstOrDefault().Pen; }
+            get { return SdGraphicPens.Where(f => f.Key.Equals("DancerPen")).FirstOrDefault().Value.Pen; }
         }
 
         public Pen penForPhantom {
-            get { return SdGraphicPens.Where(f => f.Name.Equals("PhantomPen")).FirstOrDefault().Pen; }
+            get { return SdGraphicPens.Where(f => f.Key.Equals("PhantomPen")).FirstOrDefault().Value.Pen; }
         }
 
-        public List<SdGraphicsBrush> SdGraphicBrushes {
+        public Dictionary<string, SdGraphicsBrush> SdGraphicBrushes {
             get { return mySdGraphicBrushes; }
             set { mySdGraphicBrushes = value; }
         }
 
-        public List<SdGraphicsPen> SdGraphicPens {
+        public Dictionary<string,SdGraphicsPen> SdGraphicPens {
             get { return mySdGraphicPens; }
             set { mySdGraphicPens = value; }
+        }
+        public SettingsValues SettingsValues {
+            get { return settingsValues; }
+            set { settingsValues = value; }
+
         }
         #endregion ----------------------------------------------- Properties
 
@@ -157,84 +138,42 @@ namespace SdGraphics
         public new void Reload()
         {
 #if DEBUG
-            // use only when settings are added or deleted, or defualt values changed
-            //base.Reset();  
+            // use only when settings are added or deleted, or default values changed
+            //base.Reset();
 #endif
             base.Reload();
-            char[] sep1 = new char[] { ';' };
-            string[] scalarsSplit = Scalars.Split(sep1);
+            SettingsValues = JsonConvert.DeserializeObject<SettingsValues>(JsonString);
 
-            BlankSpace = System.Int32.Parse(scalarsSplit[0]);
-            DancerSize = System.Int32.Parse(scalarsSplit[1]);
-            LineHeight = System.Int32.Parse(scalarsSplit[2]);
-            MarginBottom = System.Int32.Parse(scalarsSplit[3]);
-            MarginTop = System.Int32.Parse(scalarsSplit[4]);
-            MaxLineLength = System.Int32.Parse(scalarsSplit[5]);
-            NoseSize = System.Int32.Parse(scalarsSplit[6]);
-            CopyrightYear = System.Int32.Parse(scalarsSplit[7]);
-            BreakLines = scalarsSplit[8] == "t";
-            CopyrightName = scalarsSplit[9];
             mySdGraphicPens.Clear();
+            mySdGraphicBrushes.Clear();
 
-            char[] sep2 = new char[] { '&' };
-            string[] pensSplit2 = PensAndBrushes.Split(sep2);
-
-            foreach (string penSpec in pensSplit2) {
-                if (penSpec != null && penSpec.Length > 0) {
-                    string[] penAttributes = penSpec.Split(sep1);
-                    if (penAttributes.Length > 1) {
-                        string type = penAttributes[0];
-                        if (type.Equals("P")) {
-                            addPen(penAttributes.Skip(1).ToArray());  //Remove type
-                        } else if (type.Equals("B")) {
-                            addBrush(penAttributes.Skip(1).ToArray());  //Remove type
-                        }
-                    }
+            foreach (KeyValuePair<string, SettingsValues.PenValuesStruct> kvp in SettingsValues.PenValues) { 
+                    mySdGraphicPens.Add(kvp.Key,new SdGraphicsPen(kvp.Key, kvp.Value.Color, kvp.Value.Width,
+                         kvp.Value.DashStyle == "solid" ? DashStyle.Solid : DashStyle.Dash));
                 }
+            foreach (KeyValuePair<string, SettingsValues.BrushValuesStruct> kvp in SettingsValues.BrushValues) {
+                mySdGraphicBrushes.Add(kvp.Key, new SdGraphicsBrush(kvp.Key, kvp.Value.Color, kvp.Value.FillType));
             }
-            //string json = JsonConvert.SerializeObject(this);  (Newtonsoft, gives error)
-            //string json = JsonSerializer.Serialize(this, typeof(MyUserSettings)); (Gives error)
-            // string json = JsonSerializer.Serialize(mySdGraphicPens, typeof(List<SdGraphicsPen>)); (Gives error)
         }
 
         public new void Save()
         {
-            Scalars = string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9}",
-                BlankSpace, DancerSize, LineHeight, MarginBottom, MarginTop, MaxLineLength, NoseSize,
-                CopyrightYear, BreakLines, CopyrightName);
-            PensAndBrushes = "";
-            foreach (SdGraphicsPen sdGraphicPen in mySdGraphicPens) {
-                //"P;PhantomPen;#0000FF;1;dotted&" +
-                string pen = String.Format("P;{0};{1};{2};{3}&",
-                    sdGraphicPen.Name, sdGraphicPen.getHexColor(), sdGraphicPen.Pen.Width, sdGraphicPen.Pen.DashStyle.ToString());
-                PensAndBrushes += pen;
+            SettingsValues.PenValues.Clear();
+            foreach (KeyValuePair<string, SdGraphicsPen> kvp in mySdGraphicPens) {
+                SettingsValues.PenValues.Add(kvp.Key, new SettingsValues.PenValuesStruct(
+                    kvp.Key, kvp.Value.getHexColor(), (int) kvp.Value.Pen.Width, kvp.Value.Pen.DashStyle.ToString()));
             }
-            foreach (SdGraphicsBrush sdGraphicBrush in mySdGraphicBrushes) {
-                string pen = String.Format("B;{0};{1};{2}&",
-                    sdGraphicBrush.Name, sdGraphicBrush.getHexColor(), sdGraphicBrush.FillType);
-                PensAndBrushes += pen;
+            SettingsValues.BrushValues.Clear();
+            foreach (KeyValuePair<string, SdGraphicsBrush> kvp in mySdGraphicBrushes) {
+                SettingsValues.BrushValues.Add(kvp.Key, new SettingsValues.BrushValuesStruct(
+                    kvp.Key, kvp.Value.getHexColor(), kvp.Value.FillType));
             }
+
+            JsonString = JsonConvert.SerializeObject(SettingsValues);
             base.Save();
         }
 
-        private void addBrush(string[] brushAttributes)
-        {
-            mySdGraphicBrushes.Add(new SdGraphicsBrush(
-                brushAttributes[0], // name
-                brushAttributes[1],  // hex color
-                brushAttributes[2]  // fillType, only solid allowed
-                ));
-        }
-
-        private void addPen(string[] penAttributes)
-        {
-            mySdGraphicPens.Add(new SdGraphicsPen(
-                penAttributes[0], // name
-                penAttributes[1],  // hex color
-                System.Int32.Parse(penAttributes[2]), //width
-                penAttributes[3] == "solid" ? DashStyle.Solid : DashStyle.Dash));
-        }
-        #endregion ----------------------------------------------- Methods
+          #endregion ----------------------------------------------- Methods
 
     }
 }

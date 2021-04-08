@@ -99,6 +99,7 @@
     <Compile Include="GraphicsForm.Designer.cs">
       <DependentUpon>GraphicsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SettingsValues.cs" />
     <Compile Include="UserSettings.cs" />
     <Compile Include="PenOrBrush.cs" />
     <Compile Include="Program.cs" />

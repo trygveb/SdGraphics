@@ -1,5 +1,5 @@
 ﻿using System;
-//using System.Collections.Generic;
+using System.Collections.Generic;
 //using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -34,15 +34,15 @@ namespace SdGraphics
             numericUpDownMaxLineLength.Value = (decimal)parent.mus.MaxLineLength;
             numericUpDownNoseSize.Value = (decimal)parent.mus.NoseSize;
             textBoxCopyrightName.Text = parent.mus.CopyrightName;
-            foreach (SdGraphicsPen sdGraphicPen in parent.mus.SdGraphicPens) {
-                comboBoxPens.Items.Add(sdGraphicPen.Name);
+            foreach (KeyValuePair<string, SdGraphicsPen> kvp in parent.mus.SdGraphicPens) { 
+                comboBoxPens.Items.Add(kvp.Value.Name);
             }
-            comboBoxPens.SelectedItem = parent.mus.SdGraphicPens[0].Name;
+            comboBoxPens.SelectedItem = comboBoxPens.Items[0];// parent.mus.SdGraphicPens.First().Value.Name;
 
-            foreach (SdGraphicsBrush sdGraphicBrush in parent.mus.SdGraphicBrushes) {
-                comboBoxBrushes.Items.Add(sdGraphicBrush.Name);
+            foreach (KeyValuePair<string, SdGraphicsBrush> kvp in parent.mus.SdGraphicBrushes) {
+                comboBoxBrushes.Items.Add(kvp.Value.Name);
             }
-            comboBoxBrushes.SelectedItem = parent.mus.SdGraphicBrushes[0].Name;
+            comboBoxBrushes.SelectedItem = comboBoxBrushes.Items[0];
         }
         private void buttonCancel_Click(object sender, EventArgs e)
         {
@@ -111,14 +111,29 @@ namespace SdGraphics
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK) {
                 textBoxPenColor.BackColor = colorDialog1.Color;
-                SdGraphicsPen pen = parent.mus.SdGraphicPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
-                pen.setColor(colorDialog1.Color);
+                SdGraphicsPen sdGraphicsPen = getSelectedPen();
+                //  SdGraphicsPen pen = parent.mus.SdGraphicPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
+                sdGraphicsPen.setColor(colorDialog1.Color);
             }
+        }
+        private void comboBoxBrushes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SdGraphicsBrush sdGraphicsBrush= getSelectedBrush();
+            String hexColor = sdGraphicsBrush.getHexColor();
+            textBoxBrushColor.BackColor = sdGraphicsBrush.Brush.Color;
+            // Currently onlu solid bruses are allowed
+            if (sdGraphicsBrush.FillType.Equals("Solid")) {
+                radioButtonSolidBrush.Checked = true;
+            } else {
+                radioButtonSolidBrush.Checked = false;
+            }
+
         }
 
         private void comboBoxPens_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SdGraphicsPen sdGraphicsPen = parent.mus.SdGraphicPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
+            //SdGraphicsPen sdGraphicsPen = parent.mus.SdGraphicPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
+            SdGraphicsPen sdGraphicsPen = getSelectedPen();
             String hexColor = sdGraphicsPen.getHexColor();
             textBoxPenColor.BackColor = sdGraphicsPen.Pen.Color;
             numericUpDownThickness.Value = (Decimal) sdGraphicsPen.Pen.Width;
@@ -128,7 +143,19 @@ namespace SdGraphics
                 radioButtonSolid.Checked = true;
             }
         }
+        private SdGraphicsBrush getSelectedBrush()
+        {
+            string name = comboBoxBrushes.SelectedItem.ToString();
+            SdGraphicsBrush sdGraphicsBrush = parent.mus.SdGraphicBrushes.Where(f => f.Key.Equals(name)).FirstOrDefault().Value;
+            return sdGraphicsBrush;
+        }
 
+        private SdGraphicsPen getSelectedPen()
+        {
+            string name = comboBoxPens.SelectedItem.ToString();
+            SdGraphicsPen sdGraphicsPen = parent.mus.SdGraphicPens.Where(f => f.Key.Equals(name)).FirstOrDefault().Value;
+            return sdGraphicsPen;
+        }
         //}
         //private String replaceColor(String pen, Color color)
         //{
@@ -147,42 +174,35 @@ namespace SdGraphics
 
         private void numericUpDownThickness_ValueChanged(object sender, EventArgs e)
         {
-            SdGraphicsPen pen = parent.mus.SdGraphicPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
-//            Form1.SdPen pen = parent.MySdPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
-            pen.Pen.Width= (float)numericUpDownThickness.Value;
+            SdGraphicsPen sdGraphicsPen = getSelectedPen();
+//            SdGraphicsPen pen = parent.mus.SdGraphicPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
+            sdGraphicsPen.Pen.Width= (float)numericUpDownThickness.Value;
 
         }
 
         private void radioButtonSolid_CheckedChanged(object sender, EventArgs e)
         {
-            SdGraphicsPen pen = parent.mus.SdGraphicPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
+            //SdGraphicsPen pen = parent.mus.SdGraphicPens.Where(f => f.Name.Equals(comboBoxPens.SelectedItem)).FirstOrDefault();
+            SdGraphicsPen sdGraphicsPen = getSelectedPen();
             //String style = radioButtonDashed.Checked ? (String) radioButtonDashed.Tag : (String) radioButtonSolid.Tag;
             //setLineStyleForPen(pen, style);
-            pen.Pen.DashStyle= radioButtonDashed.Checked ? DashStyle.Dash:DashStyle.Solid;
+            sdGraphicsPen.Pen.DashStyle= radioButtonDashed.Checked ? DashStyle.Dash:DashStyle.Solid;
 
         }
 
-        private void comboBoxBrushes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SdGraphicsBrush sdGraphicsBrush = parent.mus.SdGraphicBrushes.Where(f => f.Name.Equals(comboBoxBrushes.SelectedItem)).FirstOrDefault();
-            String hexColor = sdGraphicsBrush.getHexColor();
-            textBoxBrushColor.BackColor = sdGraphicsBrush.Brush.Color;
-            // Currently onlu solid bruses are allowed
-            if (sdGraphicsBrush.FillType.Equals("Solid")) {
-                radioButtonSolidBrush.Checked = true;
-            } else {
-                radioButtonSolidBrush.Checked = false;
-            }
-
-        }
-
+  
         private void buttonBrushColor_Click(object sender, EventArgs e)
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK) {
                 textBoxBrushColor.BackColor = colorDialog1.Color;
-                SdGraphicsBrush brush = parent.mus.SdGraphicBrushes.Where(f => f.Name.Equals(comboBoxBrushes.SelectedItem)).FirstOrDefault();
-                brush.setColor(colorDialog1.Color);
+                SdGraphicsBrush sdGraphicsBrush = getSelectedBrush();
+                sdGraphicsBrush.setColor(colorDialog1.Color);
             }
+        }
+
+        private void SettingsForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
