@@ -117,6 +117,7 @@
             0,
             0,
             65536});
+            this.numericUpDownScale.ValueChanged += new System.EventHandler(this.numericUpDownScale_ValueChanged);
             // 
             // checkBoxBorder
             // 

@@ -20,7 +20,6 @@ namespace SdGraphics
         private int marginTop=15;
         private int maxLineLength=40;
         private int noseSize= 6;
-        private int newValue=999;
         public struct BrushValuesStruct
         {
             public string Name;
@@ -31,6 +30,16 @@ namespace SdGraphics
                 Color = color;
                 Name = name;
                 FillType = fillType;
+            }
+        }
+        public struct SizeStruct
+        {
+            public int Height;
+            public int Width;
+            public SizeStruct(int width, int height)
+            {
+                Height = height;
+                Width = width;
             }
         }
         public struct PenValuesStruct
@@ -48,11 +57,10 @@ namespace SdGraphics
             }
         }
 
-         private Dictionary<String, BrushValuesStruct> brushValues = new Dictionary<String, BrushValuesStruct>(); 
+        private Dictionary<String, BrushValuesStruct> brushValues = new Dictionary<String, BrushValuesStruct>();
+        private Dictionary<String, PenValuesStruct> penValues = new Dictionary<String, PenValuesStruct>();
+        private SizeStruct pageSize = new SizeStruct();
 
-        private Dictionary<String, PenValuesStruct> penValues = new Dictionary<String, PenValuesStruct> {
-
-        };
         #endregion ----------------------------------------------- Private attributes
         #region -------------------------------------------------- Properties
 
@@ -112,11 +120,11 @@ namespace SdGraphics
             get { return noseSize; }
             set { noseSize = value; }
         }
-        public int NewValue {
-            get { return newValue; }
-            set { newValue = value; }
-        }
+        public SizeStruct PageSize {
+            get { return pageSize; }
+            set { pageSize = value; }
 
+        }
         #endregion ----------------------------------------------- Properties
         public SettingsValues()
         {
@@ -127,6 +135,7 @@ namespace SdGraphics
             BrushValues.Add("DancerTextBrush", new BrushValuesStruct("DancerTextBrush", "#000000", "Solid"));
             BrushValues.Add("DancerNoseBrush", new BrushValuesStruct("DancerNoseBrush", "#FF0000", "Solid"));
             BrushValues.Add("CallerNoseBrush", new BrushValuesStruct("CallerNoseBrush", "#FF0000", "Solid"));
+            PageSize = new SizeStruct(778, 1100); //Size of the each page in pixels.Corresponds to 94 pixels / inch for an A4 page(210 mm × 297 mm)
 
         }
         //public SettingsValues(int blankSpace, bool breakLines, string copyrightName, int copyrightYear,

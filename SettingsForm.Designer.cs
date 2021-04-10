@@ -30,6 +30,10 @@ namespace SdGraphics
         private void InitializeComponent()
         {
             this.panelSettings = new System.Windows.Forms.Panel();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textBoxPageHeight = new System.Windows.Forms.TextBox();
+            this.textBoxPageWidth = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDownLineHeight = new System.Windows.Forms.NumericUpDown();
@@ -78,6 +82,7 @@ namespace SdGraphics
             this.label18 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label17 = new System.Windows.Forms.Label();
+            this.buttonReset = new System.Windows.Forms.Button();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancerSize)).BeginInit();
@@ -98,6 +103,10 @@ namespace SdGraphics
             // panelSettings
             // 
             this.panelSettings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSettings.Controls.Add(this.label20);
+            this.panelSettings.Controls.Add(this.textBoxPageHeight);
+            this.panelSettings.Controls.Add(this.textBoxPageWidth);
+            this.panelSettings.Controls.Add(this.label19);
             this.panelSettings.Controls.Add(this.label12);
             this.panelSettings.Controls.Add(this.label2);
             this.panelSettings.Controls.Add(this.numericUpDownLineHeight);
@@ -116,8 +125,52 @@ namespace SdGraphics
             this.panelSettings.Controls.Add(this.numericUpDownMaxLineLength);
             this.panelSettings.Location = new System.Drawing.Point(363, 12);
             this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Size = new System.Drawing.Size(377, 203);
+            this.panelSettings.Size = new System.Drawing.Size(377, 243);
             this.panelSettings.TabIndex = 45;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(203, 198);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(94, 20);
+            this.label20.TabIndex = 40;
+            this.label20.Text = "Page height";
+            // 
+            // textBoxPageHeight
+            // 
+            this.textBoxPageHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPageHeight.Location = new System.Drawing.Point(301, 195);
+            this.textBoxPageHeight.Name = "textBoxPageHeight";
+            this.textBoxPageHeight.Size = new System.Drawing.Size(60, 26);
+            this.textBoxPageHeight.TabIndex = 39;
+            this.textBoxPageHeight.Text = "1100";
+            this.textBoxPageHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBoxPageHeight.TextChanged += new System.EventHandler(this.textBoxPageHeight_TextChanged);
+            // 
+            // textBoxPageWidth
+            // 
+            this.textBoxPageWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPageWidth.Location = new System.Drawing.Point(121, 195);
+            this.textBoxPageWidth.Name = "textBoxPageWidth";
+            this.textBoxPageWidth.Size = new System.Drawing.Size(60, 26);
+            this.textBoxPageWidth.TabIndex = 38;
+            this.textBoxPageWidth.Text = "778";
+            this.textBoxPageWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBoxPageWidth.TextChanged += new System.EventHandler(this.textBoxPageWidth_TextChanged);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(5, 198);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(87, 20);
+            this.label19.TabIndex = 37;
+            this.label19.Text = "Page width";
             // 
             // label12
             // 
@@ -197,7 +250,7 @@ namespace SdGraphics
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(2, 119);
+            this.label9.Location = new System.Drawing.Point(5, 119);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(111, 20);
@@ -239,7 +292,7 @@ namespace SdGraphics
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(2, 47);
+            this.label3.Location = new System.Drawing.Point(5, 47);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 20);
@@ -318,7 +371,7 @@ namespace SdGraphics
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(2, 83);
+            this.label5.Location = new System.Drawing.Point(5, 83);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(96, 20);
@@ -355,7 +408,7 @@ namespace SdGraphics
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(2, 159);
+            this.label10.Location = new System.Drawing.Point(5, 159);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(114, 20);
@@ -486,7 +539,7 @@ namespace SdGraphics
             // buttonCancel
             // 
             this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.Location = new System.Drawing.Point(485, 443);
+            this.buttonCancel.Location = new System.Drawing.Point(518, 457);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 32);
             this.buttonCancel.TabIndex = 46;
@@ -497,7 +550,7 @@ namespace SdGraphics
             // buttonOk
             // 
             this.buttonOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOk.Location = new System.Drawing.Point(623, 443);
+            this.buttonOk.Location = new System.Drawing.Point(623, 457);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 32);
             this.buttonOk.TabIndex = 47;
@@ -788,11 +841,23 @@ namespace SdGraphics
             this.label17.TabIndex = 51;
             this.label17.Text = "Copyright";
             // 
+            // buttonReset
+            // 
+            this.buttonReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonReset.Location = new System.Drawing.Point(363, 410);
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.Size = new System.Drawing.Size(135, 32);
+            this.buttonReset.TabIndex = 51;
+            this.buttonReset.Text = "Reset to default";
+            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(754, 508);
+            this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelBrushes);
             this.Controls.Add(this.panelPens);
@@ -878,5 +943,10 @@ namespace SdGraphics
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox textBoxPageHeight;
+        private System.Windows.Forms.TextBox textBoxPageWidth;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Button buttonReset;
     }
 }

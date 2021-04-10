@@ -10,7 +10,14 @@ using System.Windows.Forms;
 
 namespace SdGraphics
 {
+
+    /// <summary>
+    /// GraphicsForm is a Form window containing a PictureBox.
+    ///  The PictureBox is filled with a Bitmap, there is one bitmap for each page
+    ///  Each bitmap contains a header, a sequence of calls and formations, and a footer.
+    /// </summary>
     public partial class GraphicsForm : Form
+
     {
         private Form1 myParentForm;
         public GraphicsForm(ref PictureBox myPictureBox, Form1 parent)

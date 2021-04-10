@@ -103,6 +103,10 @@ namespace SdGraphics
             get { return SettingsValues.NoseSize; }
             set { SettingsValues.NoseSize = value; }
         }
+        public SettingsValues.SizeStruct PageSize {
+            get { return SettingsValues.PageSize; }
+            set { SettingsValues.PageSize = value; }
+        }
 
         public Pen penForCaller {
 
@@ -156,6 +160,10 @@ namespace SdGraphics
             }
         }
 
+        public void MyReset()
+        {
+            base.Reset();
+        }
         public new void Save()
         {
             SettingsValues.PenValues.Clear();
