@@ -135,7 +135,9 @@ namespace SdGraphics
             BrushValues.Add("DancerTextBrush", new BrushValuesStruct("DancerTextBrush", "#000000", "Solid"));
             BrushValues.Add("DancerNoseBrush", new BrushValuesStruct("DancerNoseBrush", "#FF0000", "Solid"));
             BrushValues.Add("CallerNoseBrush", new BrushValuesStruct("CallerNoseBrush", "#FF0000", "Solid"));
-            PageSize = new SizeStruct(778, 1100); //Size of the each page in pixels.Corresponds to 94 pixels / inch for an A4 page(210 mm × 297 mm)
+
+            //Size of the each page in pixels.Corresponds to 94 pixels / inch for an A4 page(210 mm × 297 mm)
+            PageSize = new SizeStruct(778, 1100);
 
         }
         //public SettingsValues(int blankSpace, bool breakLines, string copyrightName, int copyrightYear,
