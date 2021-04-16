@@ -2,16 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Text.RegularExpressions;
 using System.IO;
 using System.IO.Compression;
-using System.Configuration;
-using System.Drawing.Imaging;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace SdGraphics
 {
@@ -48,50 +45,54 @@ namespace SdGraphics
         #region ----------------------------------------- Other Attributes
         public UserSettings mus;// = new UserSettings();
 
-        // Each bitmap in this list corresponds to a (A4) page
+        public Preferences preferences;
+
+        /// <summary>Each bitmap in this list corresponds to a (A4) page </summary>
         private List<Bitmap> bitmapList = new List<Bitmap>();
 
-        private Regex digitsOnlyRegex = new Regex(@"^\s*\d+$");
         private Font fontForCalls = new Font("Helvetica", 10, FontStyle.Bold);
-        private Form graphicsForm; // The window with the graphics
-        System.Drawing.Imaging.Encoder myEncoder;
+        private Form graphicsForm;
+        private System.Drawing.Imaging.Encoder myEncoder;
         private EncoderParameters myEncoderParameters;
         private Pen penForBorder = new Pen(Color.Red, 2);
-        // Used by the printing function
         private Pen penForFocusDancer = new Pen(Color.Red, 2);
-
         private Pen penForPartner = new Pen(Color.Black, 1);
         private PictureBox pictureBox1 = new PictureBox();
-        private Regex sdIdRegex = new Regex(@".*Sd\d\d\.\d\d:");
+        private Regex regexAtHome = new Regex(@".+\(at home\)");
+        private Regex regexDigitsOnly = new Regex(@"^\s*\d+$");
+        private Regex regexPromenade = new Regex(@"\(.*promenade\)");
+        private Regex regexSdId = new Regex(@".*Sd\d\d\.\d\d:");
         private List<SdLine> sdLines = new List<SdLine>();
         private ZipArchive zipArchive;
         private MemoryStream zipMemoryStream = new MemoryStream();
-
-        Regex regexPromenade = new Regex(@"\(.*promenade\)");
-        Regex regexAtHome = new Regex(@".+\(at home\)");
-
         #endregion ----------------------------------------- Other Attributes
 
         #endregion  ------------------------------------- Attributes
         struct SdLine
         {
-            #region Fields
             /// <summary>Sd dancer symbols in this line,  e.g. 3BV  3G^</summary>
             public String[] atoms; 
 
             /// <summary>
-            /// Sequental number in the tip.
-            /// Also use to identify home postions and warnings (bad practice TODO: Fix)
+            /// Sequental call number in the tip.
+            /// Also used to identify home postions (=0) and warnings (=-1) (bad practice TODO: Fix)
             /// </summary>
             public int callNumber;
 
             /// <summary>Used to position the line correctly in the bitmap</summary>
             public int emptylinesBefore;
+
+            /// <summary>The number of dancers in thus line</summary>
             public int noOfDancers;
+
+            /// <summary>Used to position the line correctly in the bitmap</summary>
             public List<int> noOfLeadingSpaces;
+
+            /// <summary>The call (or warning)</summary>
             public String text;
+
+            /// <summary>True if the line is a warning</summary>
             public Boolean warning;
-            #endregion Fields
         }
 
         #region  ---------------------------------------- Methods
@@ -215,22 +216,32 @@ namespace SdGraphics
 
         }
 
-        private int checkBufferAndWriteCall(ref Bitmap pageBitmap, List<SdLine> sdLineList, int y, int i, SdLine sdLine,
+        /// <summary>
+        /// This function is called when a SdLine contains a call.
+        /// Check if sdLineList has rows describing the end formation from the last call.
+        /// If so we create the bitmap for that formation, and copies it to the page bitmap
+        /// </summary>
+        /// <param name="pageBitmap"></param>
+        /// <param name="sdLineList"></param>
+        /// <param name="y"></param>
+        /// <param name="sdLine"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="marginTop"></param>
+        /// <param name="maxTextLineLength"></param>
+        /// <param name="lineBreak"></param>
+        /// <param name="noOfColumns"></param>
+        /// <param name="showCaller"></param>
+        /// <returns></returns>
+        private int checkSdLineListAndWriteCall(ref Bitmap pageBitmap, List<SdLine> sdLineList, int y, SdLine sdLine,
                     ref int pageNumber, int marginTop, int maxTextLineLength, Boolean lineBreak, int noOfColumns,
             bool showCaller)
         {
-            // The line contains a call 
-            // Check if we have a buffer for the end formation from the last call.
-            // If so we create the bitmap for that formation, and copies it to the page bitmap
-            if (sdLineList.Count > 0) {
+             if (sdLineList.Count > 0) {
                 int height1 = calculateBitMapSize(sdLineList, 0).Height;
                 int h2 = y + height1;
                 y += SPACE_BETWEEN_CALL_AND_FORMATION;
-                y += createAndCopyFormationBitmap(ref pageBitmap, checkBoxBorder.Checked, sdLineList, y, i, sdLine, this.currentXoffset); ;
+                y += createAndCopyFormationBitmap(ref pageBitmap, checkBoxBorder.Checked, sdLineList, y, sdLine, this.currentXoffset); ;
             }
-            //if (matchSdId(sdLine.text)) {
-            //    sdLineList.Clear();
-            //} else {
                 // Add extra 5 pixelsfor safety (Needed due to some calculation miss)
                 //int height = lineHeight * (buffer1.Count + 3) + MARGIN_TOP + 5;
                 int height = calculateBitMapSize(sdLineList, 0).Height;
@@ -265,9 +276,6 @@ namespace SdGraphics
                     y += mus.LineHeight;
                     y = writeText(String.Format("{0}) {1}", sdLine.callNumber, sdLine.text), pageBitmap, y, this.currentXoffset, lineBreak);
                     y += mus.LineHeight / 2;
-                    //if (checkBoxCreateHTML.Checked) {
-                    //    writeHtmlCall(sdLine);
-                    //}
                 }
 
             //}
@@ -294,7 +302,7 @@ namespace SdGraphics
             }
         }
 
-        private int createAndCopyFormationBitmap(ref Bitmap bmp, Boolean drawBorder, List<SdLine> sdLineList, int y, int i, SdLine sdLine, int xOffset = 0)
+        private int createAndCopyFormationBitmap(ref Bitmap bmp, Boolean drawBorder, List<SdLine> sdLineList, int y, SdLine sdLine, int xOffset = 0)
         {
             int height = 0;
 
@@ -355,10 +363,53 @@ namespace SdGraphics
                 createTempSdLine(lines[i1], sdLinesTmp, ref numberOfEmptyLines, i1);
             }
             int callNumber = 0;
-            for (int i = 0; i < sdLinesTmp.Count; i++) {
-                callNumber = linesLoop2(sdLinesTmp, callNumber, i);
+            for (int i2 = 0; i2 < sdLinesTmp.Count; i2++) {
+               modifyAndCopySdLine(sdLinesTmp, ref callNumber, i2);
             }
         }
+        /// <summary>
+        /// Parses a line in the Sd output file
+        /// Skips unnecessary lines
+        /// Fills the temporary SdLine list with SdLine objects
+        /// These object ar modified in a later loop
+        /// </summary>
+        /// <param name="line"></param>
+        /// <param name="sdLinesTmp"></param>
+        /// <param name="numberOfEmptyLines">See SdLine struct</param>
+        /// <param name="i1"></param>
+        /// <returns></returns>
+        private void createTempSdLine(string line, List<SdLine> sdLinesTmp, ref int numberOfEmptyLines, int i1)
+        {
+
+            Boolean emptyLine = false;
+            //String line0 = lines[i1];
+            Boolean warning = false;
+            //CHeck if the line should be skipped
+            if (this.skip(ref line, ref warning, ref emptyLine)) {
+                if (emptyLine) numberOfEmptyLines++;
+                return;
+            }
+            String line1 = cleanUp(line);
+            List<String> atoms = new List<String>();
+            String trimmedLine = "";
+            List<int> numberOfLeadingSpaces = calculateNumberOfLeadingSpaces(line1, ref atoms, ref trimmedLine);
+            Dictionary<int, string> dancers = findDancers(trimmedLine);
+            SdLine sdLine = new SdLine();
+            sdLine.noOfDancers = dancers.Count;
+            sdLine.text = trimmedLine;
+            // sdLine.dancers = dancers;
+            sdLine.atoms = atoms.ToArray();
+            sdLine.warning = warning;
+            sdLine.emptylinesBefore = numberOfEmptyLines;
+            sdLine.noOfLeadingSpaces = numberOfLeadingSpaces;
+            //this.sdLines.Add(sdLine);
+            sdLinesTmp.Add(sdLine);
+            numberOfEmptyLines = 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         private void createTip()
         {
             this.formationNumber = 0;
@@ -384,30 +435,43 @@ namespace SdGraphics
             int y = mus.MarginTop;
 
             int pageNumber = 1;
-            this.currentXoffset = 0;// MARGIN_LEFT;
+            this.currentXoffset = 0;// will be increased in 2:nd column
             this.writePageHeader(pageBitmap, y, 1, lineHeight);
             this.writeCopyright(pageBitmap, lineHeight);
             y += lineHeight;
             //int callNumber = 0;
             String lastCall = "";
-            for (int i = 0; i < sdLines.Count; i++) {
-                SdLine sdLine = sdLines[i];
-                if (sdLine.noOfDancers == 0) {
-                    y = checkBufferAndWriteCall(ref pageBitmap, sdLineList, y, i, sdLine,
-                         ref pageNumber,
-                         mus.MarginTop, mus.MaxLineLength, mus.BreakLines,
-                         (int)numericUpDownColumns.Value, checkBoxShowPartner.Checked);
-                    lastCall = sdLine.text;
-                } else {
-                    sdLineList.Add(sdLine);
-                }
-
+            for (int sdLineNo = 0; sdLineNo < sdLines.Count; sdLineNo++) {
+                NewMethod(sdLines[sdLineNo], ref pageBitmap, sdLineList, ref y, ref pageNumber, ref lastCall, sdLineNo);
             }
             // this.writeText("Copyright \u00a9 Bronc Wise 2012", lineHeight, pageBitmap, mus.PageSize.Height - lineHeight, mus.PageSize.Width / 2 - 100);
 
             this.bitmapList.Add(pageBitmap);  // The last bitmap (Could be a duplicate?)
             this.viewBitmap(0);
 
+        }
+        /// <summary>
+        /// if sdLine contains zero dancers, call checkBufferAndWriteCall, else add the line to sdLineList
+        /// </summary>
+        /// <param name="sdLine">A sdLine stucture, created from th Sd file</param>
+        /// <param name="pageBitmap">Bitmap of current page</param>
+        /// <param name="sdLineList"></param>
+        /// <param name="y"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="lastCall"></param>
+        /// <param name="sdLineNo"></param>
+        private void NewMethod(SdLine sdLine, ref Bitmap pageBitmap, List<SdLine> sdLineList, ref int y, ref int pageNumber, ref string lastCall, int sdLineNo)
+        {
+            //SdLine sdLine = sdLines[sdLineNo];
+            if (sdLine.noOfDancers == 0) {
+                y = checkSdLineListAndWriteCall(ref pageBitmap, sdLineList, y, sdLine,
+                     ref pageNumber,
+                     mus.MarginTop, mus.MaxLineLength, mus.BreakLines,
+                     (int)numericUpDownColumns.Value, checkBoxShowPartner.Checked);
+                lastCall = sdLine.text;
+            } else {
+                sdLineList.Add(sdLine);
+            }
         }
 
         private void drawBorder(Bitmap bmp)
@@ -600,73 +664,38 @@ namespace SdGraphics
         {
             this.mus = new UserSettings();
             this.mus.Reload();
+            preferences = new Preferences();
+            preferences.Reload();
+            radioButtonCallerView.Checked = preferences.SdView == PreferencesValues.ViewEnum.Caller;
+            radioButtonDancerView.Checked = preferences.SdView == PreferencesValues.ViewEnum.Dancer;
+            numericUpDownNoseUp.Value= preferences.FocusDancer.CoupleNumber;
+            radioButtonBelle.Checked = preferences.FocusDancer.DancerId == PreferencesValues.DancerId.Belle;
+            radioButtonBeau.Checked = preferences.FocusDancer.DancerId == PreferencesValues.DancerId.Beau;
         }
-
-        /// <summary>
-        /// Parses a line in the Sd output file
-        /// Fills the temporary SdLine list with SdLine objects
-        /// These object ar modified in a later loop
-        /// </summary>
-        /// <param name="line"></param>
-        /// <param name="sdLinesTmp"></param>
-        /// <param name="numberOfEmptyLines">See SdLine struct</param>
-        /// <param name="i1"></param>
-        /// <returns></returns>
-        private void createTempSdLine(string line, List<SdLine> sdLinesTmp, ref int numberOfEmptyLines, int i1)
-        {
-
-            Boolean emptyLine = false;
-            //String line0 = lines[i1];
-            Boolean warning = false;
-            //CHeck if the line should be skipped
-            if (this.skip(ref line, ref warning, ref emptyLine)) {
-                if (emptyLine) numberOfEmptyLines++;
-                return;
-            }
-            String line1 = cleanUp(line);
-            List<String> atoms = new List<String>();
-            String trimmedLine = "";
-            List<int> numberOfLeadingSpaces = calculateNumberOfLeadingSpaces(line1, ref atoms, ref trimmedLine);
-            Dictionary<int, string> dancers = findDancers(trimmedLine);
-            SdLine sdLine = new SdLine();
-            sdLine.noOfDancers = dancers.Count;
-            sdLine.text = trimmedLine;
-           // sdLine.dancers = dancers;
-            sdLine.atoms = atoms.ToArray();
-            sdLine.warning = warning;
-            sdLine.emptylinesBefore = numberOfEmptyLines;
-            sdLine.noOfLeadingSpaces = numberOfLeadingSpaces;
-            //this.sdLines.Add(sdLine);
-            sdLinesTmp.Add(sdLine);
-            numberOfEmptyLines = 0;
-        }
-
-
-        private int linesLoop2(List<SdLine> sdLinesTmp, int callNumber, int i)
+        private void modifyAndCopySdLine(List<SdLine> sdLinesTmp, ref int callNumber, int i2)
         {
             Boolean addSequenceEnd = false;
-            SdLine sdLine = sdLinesTmp[i];
+            SdLine sdLine = sdLinesTmp[i2];
 
             if (sdLine.warning) {
-                sdLine.callNumber = -1;
+                sdLine.callNumber = -1;  //TODO Remove this bad practice
             } else if (sdLine.text == AT_HOME) {
                 sdLine.text = "------------ " + sdLine.text + " -------------";
-                sdLine.callNumber = 0;
+                sdLine.callNumber = 0; //TODO Remove this bad practice also
             } else if (this.regexPromenade.Match(sdLine.text).Success || this.regexAtHome.Match(sdLine.text).Success) {
                 addSequenceEnd = true;
 
             } else if (sdLine.text == TWO_COUPLES_ONLY) {
+                // TODO create a test valid for both 2-couples and 4-couples
                 sdLine.callNumber = -1;
             } else if (sdLine.text.Length < 1) {
                 // This test should not be necessary, but it is!
                 sdLine.callNumber = -1;
             } else if (sdLine.noOfDancers == 0) {
-                if (i > 0 && sdLinesTmp[i - 1].noOfDancers == 0) {
-                    //sdLine.callNumber = -1;
+                if (i2 > 0 && sdLinesTmp[i2 - 1].noOfDancers == 0) {
                     callNumber++;
                     sdLine.callNumber = callNumber;
-                } else if (i < sdLinesTmp.Count - 1 && sdLinesTmp[i + 1].noOfDancers == 0) {
-                    // sdLine.text += sdLinesTmp[i + 1].text;
+                } else if (i2 < sdLinesTmp.Count - 1 && sdLinesTmp[i2 + 1].noOfDancers == 0) {
                     callNumber++;
                     sdLine.callNumber = callNumber;
                 } else {
@@ -684,8 +713,6 @@ namespace SdGraphics
                 sequenceEnd.warning = false;
                 this.sdLines.Add(sequenceEnd);
             }
-
-            return callNumber;
         }
          private void openSdFile()
         {
@@ -746,9 +773,9 @@ namespace SdGraphics
             warning = false;
 
  
-            if (this.digitsOnlyRegex.Match(line).Success) {
+            if (this.regexDigitsOnly.Match(line).Success) {
                 skip = true;  
-            } else if (this.sdIdRegex.Match(line).Success) {
+            } else if (this.regexSdId.Match(line).Success) {
                 skip = true;  
             } else if (line.Length == 1) {
                 if (line[0] == FF) {
@@ -906,6 +933,7 @@ namespace SdGraphics
         private void numericUpDownNoseUp_ValueChanged(object sender, EventArgs e)
         {
             this.setViewTypeName();
+            this.setFocusDancer();
         }
 
         private void numericUpDownScale_ValueChanged(object sender, EventArgs e)
@@ -934,10 +962,13 @@ namespace SdGraphics
             if (radioButtonDancerView.Checked) {
                 groupBoxFocusDancer.Enabled = true;
                 this.dancerView = true;
+                preferences.SdView = PreferencesValues.ViewEnum.Dancer;
             } else {
                 groupBoxFocusDancer.Enabled = false;
                 this.dancerView = false;
+                preferences.SdView = PreferencesValues.ViewEnum.Caller;
             }
+            preferences.Save();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -946,7 +977,23 @@ namespace SdGraphics
             settingsForm.Show();
         }
 
+        private void radioButtonBelle_CheckedChanged(object sender, EventArgs e)
+        {
+            this.setFocusDancer();
+        }
 
+        private void setFocusDancer()
+        {
+            int coupleNumber = (int)numericUpDownNoseUp.Value;
+            if (radioButtonBelle.Checked) {
+                preferences.FocusDancer = new PreferencesValues.FocusDancerStruct(
+                   coupleNumber, PreferencesValues.DancerId.Belle);
+            } else {
+                preferences.FocusDancer = new PreferencesValues.FocusDancerStruct(
+                   coupleNumber, PreferencesValues.DancerId.Beau);
+            }
+            preferences.Save();
+        }
     }
 
     #endregion ------------------------------------- Event Handlers

@@ -325,6 +325,7 @@
             this.radioButtonBelle.TabIndex = 1;
             this.radioButtonBelle.Text = "Belle";
             this.radioButtonBelle.UseVisualStyleBackColor = true;
+            this.radioButtonBelle.CheckedChanged += new System.EventHandler(this.radioButtonBelle_CheckedChanged);
             // 
             // label13
             // 

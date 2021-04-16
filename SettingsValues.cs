@@ -20,6 +20,15 @@ namespace SdGraphics
         private int marginTop=15;
         private int maxLineLength=40;
         private int noseSize= 6;
+
+        private Dictionary<String, BrushValuesStruct> brushValues = new Dictionary<String, BrushValuesStruct>();
+        private Dictionary<String, PenValuesStruct> penValues = new Dictionary<String, PenValuesStruct>();
+        private SizeStruct pageSize = new SizeStruct();
+
+        #endregion ----------------------------------------------- Private attributes
+
+        #region -------------------------------------------------- Structs
+
         public struct BrushValuesStruct
         {
             public string Name;
@@ -57,11 +66,8 @@ namespace SdGraphics
             }
         }
 
-        private Dictionary<String, BrushValuesStruct> brushValues = new Dictionary<String, BrushValuesStruct>();
-        private Dictionary<String, PenValuesStruct> penValues = new Dictionary<String, PenValuesStruct>();
-        private SizeStruct pageSize = new SizeStruct();
+        #endregion ----------------------------------------------- Structs
 
-        #endregion ----------------------------------------------- Private attributes
         #region -------------------------------------------------- Properties
 
         public Dictionary<String, BrushValuesStruct> BrushValues {
