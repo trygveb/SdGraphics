@@ -129,6 +129,7 @@
             this.checkBoxBorder.TabIndex = 17;
             this.checkBoxBorder.Text = "Draw border";
             this.checkBoxBorder.UseVisualStyleBackColor = true;
+            this.checkBoxBorder.CheckedChanged += new System.EventHandler(this.checkBoxBorder_CheckedChanged);
             // 
             // label11
             // 
@@ -315,6 +316,7 @@
             this.checkBoxShowPartner.TabIndex = 42;
             this.checkBoxShowPartner.Text = "Show partner";
             this.checkBoxShowPartner.UseVisualStyleBackColor = true;
+            this.checkBoxShowPartner.CheckedChanged += new System.EventHandler(this.checkBoxShowPartner_CheckedChanged);
             // 
             // radioButtonBelle
             // 
@@ -395,6 +397,7 @@
             this.checkBoxCreateHTML.TabIndex = 50;
             this.checkBoxCreateHTML.Text = "Create zip file";
             this.checkBoxCreateHTML.UseVisualStyleBackColor = true;
+            this.checkBoxCreateHTML.CheckedChanged += new System.EventHandler(this.checkBoxCreateHTML_CheckedChanged);
             // 
             // Form1
             // 
@@ -419,6 +422,8 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).EndInit();
             this.groupBoxView.ResumeLayout(false);

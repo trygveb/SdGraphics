@@ -71,7 +71,7 @@ namespace SdGraphics
         struct SdLine
         {
             /// <summary>Sd dancer symbols in this line,  e.g. 3BV  3G^</summary>
-            public String[] atoms; 
+            public String[] atoms;
 
             /// <summary>
             /// Sequental call number in the tip.
@@ -236,47 +236,47 @@ namespace SdGraphics
                     ref int pageNumber, int marginTop, int maxTextLineLength, Boolean lineBreak, int noOfColumns,
             bool showCaller)
         {
-             if (sdLineList.Count > 0) {
+            if (sdLineList.Count > 0) {
                 int height1 = calculateBitMapSize(sdLineList, 0).Height;
                 int h2 = y + height1;
                 y += SPACE_BETWEEN_CALL_AND_FORMATION;
-                y += createAndCopyFormationBitmap(ref pageBitmap, checkBoxBorder.Checked, sdLineList, y, sdLine, this.currentXoffset); ;
+                y += createAndCopyFormationBitmap(ref pageBitmap, preferences.DrawBorder, sdLineList, y, sdLine, this.currentXoffset); ;
             }
-                // Add extra 5 pixelsfor safety (Needed due to some calculation miss)
-                //int height = lineHeight * (buffer1.Count + 3) + MARGIN_TOP + 5;
-                int height = calculateBitMapSize(sdLineList, 0).Height;
-                sdLineList.Clear();
-                if (y + height + mus.LineHeight * 2 > mus.PageSize.Height - mus.MarginBottom) {
-                    if (noOfColumns == 2 && IsOdd(pageNumber)) {
+            // Add extra 5 pixelsfor safety (Needed due to some calculation miss)
+            //int height = lineHeight * (buffer1.Count + 3) + MARGIN_TOP + 5;
+            int height = calculateBitMapSize(sdLineList, 0).Height;
+            sdLineList.Clear();
+            if (y + height + mus.LineHeight * 2 > mus.PageSize.Height - mus.MarginBottom) {
+                if (noOfColumns == 2 && IsOdd(pageNumber)) {
 
-                        this.currentXoffset = mus.PageSize.Width / 2;
-                        y = marginTop + mus.LineHeight;
+                    this.currentXoffset = mus.PageSize.Width / 2;
+                    y = marginTop + mus.LineHeight;
 
-                    } else {
-                        this.currentXoffset = 0;
-                        this.bitmapList.Add(pageBitmap);
-                        pageBitmap = new Bitmap(mus.PageSize.Width, mus.PageSize.Height);
-                        y = marginTop;
-                        writeCopyright(pageBitmap, mus.LineHeight);
-                        int x = pageNumber;
-                        if (noOfColumns == 2) {
-                            x = pageNumber / 2;
-                        }
-                        writePageHeader(pageBitmap, y, 1 + x, mus.LineHeight);
-                        y += mus.LineHeight;
+                } else {
+                    this.currentXoffset = 0;
+                    this.bitmapList.Add(pageBitmap);
+                    pageBitmap = new Bitmap(mus.PageSize.Width, mus.PageSize.Height);
+                    y = marginTop;
+                    writeCopyright(pageBitmap, mus.LineHeight);
+                    int x = pageNumber;
+                    if (noOfColumns == 2) {
+                        x = pageNumber / 2;
                     }
-                    pageNumber++;
-                }
-
-                if (sdLine.callNumber == 0) {
-                    y += mus.LineHeight / 2;
-                    y = writeText(String.Format("{0}", sdLine.text), pageBitmap, y, this.currentXoffset, lineBreak);
-                    y += mus.LineHeight / 2;
-                } else if (sdLine.callNumber > 0) {
+                    writePageHeader(pageBitmap, y, 1 + x, mus.LineHeight);
                     y += mus.LineHeight;
-                    y = writeText(String.Format("{0}) {1}", sdLine.callNumber, sdLine.text), pageBitmap, y, this.currentXoffset, lineBreak);
-                    y += mus.LineHeight / 2;
                 }
+                pageNumber++;
+            }
+
+            if (sdLine.callNumber == 0) {
+                y += mus.LineHeight / 2;
+                y = writeText(String.Format("{0}", sdLine.text), pageBitmap, y, this.currentXoffset, lineBreak);
+                y += mus.LineHeight / 2;
+            } else if (sdLine.callNumber > 0) {
+                y += mus.LineHeight;
+                y = writeText(String.Format("{0}) {1}", sdLine.callNumber, sdLine.text), pageBitmap, y, this.currentXoffset, lineBreak);
+                y += mus.LineHeight / 2;
+            }
 
             //}
             return y;
@@ -307,7 +307,7 @@ namespace SdGraphics
             int height = 0;
 
             //int lineHeight = (int)numericUpDownLineHeight.Value;
-            using (Bitmap bmp1 = this.drawFormation(sdLineList, drawBorder, checkBoxShowPartner.Checked, (int)numericUpDownNoseUp.Value)) {
+            using (Bitmap bmp1 = this.drawFormation(sdLineList, drawBorder, preferences.ShowPartner, (int)numericUpDownNoseUp.Value)) {
                 Rectangle srcRegion = new Rectangle(0, 0, bmp1.Width, bmp1.Height);
                 int destx0 = xOffset + mus.PageSize.Width / 4 - bmp1.Width / 2 - marginLeftFormations;
                 // Rectangle destRegion = new Rectangle(xOffset + MARGIN_LEFT, y, bmp1.Width, bmp1.Height);
@@ -315,7 +315,7 @@ namespace SdGraphics
                 copyRegionIntoImage(bmp1, srcRegion, ref bmp, destRegion);
                 height = bmp1.Height;
 
-                if (checkBoxCreateHTML.Checked) {
+                if (preferences.CreateZipFile) {
                     String pictureFileName = String.Format("frm_{0:D3}", this.formationNumber);
                     this.formationNumber++;
                     //MemoryStream stream = new MemoryStream();
@@ -364,7 +364,7 @@ namespace SdGraphics
             }
             int callNumber = 0;
             for (int i2 = 0; i2 < sdLinesTmp.Count; i2++) {
-               modifyAndCopySdLine(sdLinesTmp, ref callNumber, i2);
+                modifyAndCopySdLine(sdLinesTmp, ref callNumber, i2);
             }
         }
         /// <summary>
@@ -450,30 +450,6 @@ namespace SdGraphics
             this.viewBitmap(0);
 
         }
-        /// <summary>
-        /// if sdLine contains zero dancers, call checkBufferAndWriteCall, else add the line to sdLineList
-        /// </summary>
-        /// <param name="sdLine">A sdLine stucture, created from th Sd file</param>
-        /// <param name="pageBitmap">Bitmap of current page</param>
-        /// <param name="sdLineList"></param>
-        /// <param name="y"></param>
-        /// <param name="pageNumber"></param>
-        /// <param name="lastCall"></param>
-        /// <param name="sdLineNo"></param>
-        private void NewMethod(SdLine sdLine, ref Bitmap pageBitmap, List<SdLine> sdLineList, ref int y, ref int pageNumber, ref string lastCall, int sdLineNo)
-        {
-            //SdLine sdLine = sdLines[sdLineNo];
-            if (sdLine.noOfDancers == 0) {
-                y = checkSdLineListAndWriteCall(ref pageBitmap, sdLineList, y, sdLine,
-                     ref pageNumber,
-                     mus.MarginTop, mus.MaxLineLength, mus.BreakLines,
-                     (int)numericUpDownColumns.Value, checkBoxShowPartner.Checked);
-                lastCall = sdLine.text;
-            } else {
-                sdLineList.Add(sdLine);
-            }
-        }
-
         private void drawBorder(Bitmap bmp)
         {
             using (Graphics g = Graphics.FromImage(bmp)) {
@@ -668,10 +644,14 @@ namespace SdGraphics
             preferences.Reload();
             radioButtonCallerView.Checked = preferences.SdView == PreferencesValues.ViewEnum.Caller;
             radioButtonDancerView.Checked = preferences.SdView == PreferencesValues.ViewEnum.Dancer;
-            numericUpDownNoseUp.Value= preferences.FocusDancer.CoupleNumber;
+            numericUpDownNoseUp.Value = preferences.FocusDancer.CoupleNumber;
             radioButtonBelle.Checked = preferences.FocusDancer.DancerId == PreferencesValues.DancerId.Belle;
             radioButtonBeau.Checked = preferences.FocusDancer.DancerId == PreferencesValues.DancerId.Beau;
+            checkBoxCreateHTML.Checked = preferences.CreateZipFile;
+            checkBoxBorder.Checked = preferences.DrawBorder;
+            checkBoxShowPartner.Checked = preferences.ShowPartner;
         }
+
         private void modifyAndCopySdLine(List<SdLine> sdLinesTmp, ref int callNumber, int i2)
         {
             Boolean addSequenceEnd = false;
@@ -714,7 +694,31 @@ namespace SdGraphics
                 this.sdLines.Add(sequenceEnd);
             }
         }
-         private void openSdFile()
+
+        /// <summary>
+        /// if sdLine contains zero dancers, call checkBufferAndWriteCall, else add the line to sdLineList
+        /// </summary>
+        /// <param name="sdLine">A sdLine stucture, created from th Sd file</param>
+        /// <param name="pageBitmap">Bitmap of current page</param>
+        /// <param name="sdLineList"></param>
+        /// <param name="y"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="lastCall"></param>
+        /// <param name="sdLineNo"></param>
+        private void NewMethod(SdLine sdLine, ref Bitmap pageBitmap, List<SdLine> sdLineList, ref int y, ref int pageNumber, ref string lastCall, int sdLineNo)
+        {
+            //SdLine sdLine = sdLines[sdLineNo];
+            if (sdLine.noOfDancers == 0) {
+                y = checkSdLineListAndWriteCall(ref pageBitmap, sdLineList, y, sdLine,
+                     ref pageNumber,
+                     mus.MarginTop, mus.MaxLineLength, mus.BreakLines,
+                     (int)numericUpDownColumns.Value, preferences.ShowPartner);
+                lastCall = sdLine.text;
+            } else {
+                sdLineList.Add(sdLine);
+            }
+        }
+        private void openSdFile()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog()) {
                 openFileDialog.InitialDirectory = @"e:\Mina dokument\Sqd\SD";
@@ -740,6 +744,18 @@ namespace SdGraphics
                     numericUpDownScale.Enabled = true;
                 }
             }
+        }
+        private void setFocusDancer()
+        {
+            int coupleNumber = (int)numericUpDownNoseUp.Value;
+            if (radioButtonBelle.Checked) {
+                preferences.FocusDancer = new PreferencesValues.FocusDancerStruct(
+                   coupleNumber, PreferencesValues.DancerId.Belle);
+            } else {
+                preferences.FocusDancer = new PreferencesValues.FocusDancerStruct(
+                   coupleNumber, PreferencesValues.DancerId.Beau);
+            }
+
         }
 
         private void setViewTypeName()
@@ -772,11 +788,11 @@ namespace SdGraphics
             Boolean skip = false;
             warning = false;
 
- 
+
             if (this.regexDigitsOnly.Match(line).Success) {
-                skip = true;  
+                skip = true;
             } else if (this.regexSdId.Match(line).Success) {
-                skip = true;  
+                skip = true;
             } else if (line.Length == 1) {
                 if (line[0] == FF) {
                     skip = true;
@@ -911,6 +927,21 @@ namespace SdGraphics
             this.createTip();
         }
 
+        private void checkBoxBorder_CheckedChanged(object sender, EventArgs e)
+        {
+            preferences.DrawBorder = checkBoxBorder.Checked;
+        }
+
+        private void checkBoxCreateHTML_CheckedChanged(object sender, EventArgs e)
+        {
+            preferences.CreateZipFile = checkBoxCreateHTML.Checked;
+        }
+
+        private void checkBoxShowPartner_CheckedChanged(object sender, EventArgs e)
+        {
+            preferences.ShowPartner = checkBoxShowPartner.Checked;
+        }
+
         private void docPrintPage(object sender, PrintPageEventArgs e)
         {
             if (pageIndex >= this.bitmapList.Count) {
@@ -928,6 +959,16 @@ namespace SdGraphics
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            preferences.Save();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void numericUpDownNoseUp_ValueChanged(object sender, EventArgs e)
@@ -956,6 +997,11 @@ namespace SdGraphics
 
         }
 
+        private void radioButtonBelle_CheckedChanged(object sender, EventArgs e)
+        {
+            this.setFocusDancer();
+        }
+
         private void radioButtonDancerView_CheckedChanged(object sender, EventArgs e)
         {
             this.setViewTypeName();
@@ -968,31 +1014,12 @@ namespace SdGraphics
                 this.dancerView = false;
                 preferences.SdView = PreferencesValues.ViewEnum.Caller;
             }
-            preferences.Save();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SettingsForm settingsForm = new SettingsForm(this);
             settingsForm.Show();
-        }
-
-        private void radioButtonBelle_CheckedChanged(object sender, EventArgs e)
-        {
-            this.setFocusDancer();
-        }
-
-        private void setFocusDancer()
-        {
-            int coupleNumber = (int)numericUpDownNoseUp.Value;
-            if (radioButtonBelle.Checked) {
-                preferences.FocusDancer = new PreferencesValues.FocusDancerStruct(
-                   coupleNumber, PreferencesValues.DancerId.Belle);
-            } else {
-                preferences.FocusDancer = new PreferencesValues.FocusDancerStruct(
-                   coupleNumber, PreferencesValues.DancerId.Beau);
-            }
-            preferences.Save();
         }
     }
 

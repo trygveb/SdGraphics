@@ -25,7 +25,6 @@ namespace SdGraphics
         #region -------------------------------------------------- Private attributes
 
         private PreferencesValues preferencesValues;
-        private PreferencesValues.FocusDancerStruct focusDancer;
 
         #endregion ----------------------------------------------- Private attributes
 
@@ -45,6 +44,19 @@ namespace SdGraphics
             get { return preferencesValues.SdView; }
             set { preferencesValues.SdView = value; }
         }
+        public bool CreateZipFile {
+            get { return preferencesValues.CreateZipFile; }
+            set { preferencesValues.CreateZipFile = value; }
+        }
+        public bool DrawBorder {
+            get { return preferencesValues.DrawBorder; }
+            set { preferencesValues.DrawBorder = value; }
+        }
+        public bool ShowPartner {
+            get { return preferencesValues.ShowPartner; }
+            set { preferencesValues.ShowPartner = value; }
+        }
+        
         #endregion ----------------------------------------------- Properties
         public new void Reload()
         {

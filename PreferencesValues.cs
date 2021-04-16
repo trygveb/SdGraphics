@@ -22,6 +22,23 @@ namespace SdGraphics
         #region -------------------------------------------------- Private attributes
         private FocusDancerStruct focusDancer = new FocusDancerStruct(3, DancerId.Beau);
         private ViewEnum sdView = ViewEnum.Caller;
+        private bool createZipFile = true;
+        private bool drawBorder = false;
+        private bool showPartner = false;
+
+        public bool CreateZipFile {
+            get { return createZipFile; }
+            set { createZipFile= value; }
+        }
+
+        public bool DrawBorder {
+            get { return drawBorder; }
+            set { drawBorder = value; }
+        }
+        public bool ShowPartner {
+            get { return showPartner; }
+            set { showPartner = value; }
+        }
         #endregion ----------------------------------------------- Private attributes
 
         #region -------------------------------------------------- Structs

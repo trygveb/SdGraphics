@@ -14,13 +14,11 @@ namespace SdGraphics
         #region -------------------------------------------------- Settings
  
         [UserScopedSetting()]
-        [DefaultSettingValue(
-            "{\"BlankSpace\":6,\"BreakLines\":true,\"CopyrightName\":\"Caller\",\"CopyrightYear\":2021,\"DancerSize\":18," +
-            "\"LineHeight\":26,\"MarginBottom\":50,\"MarginTop\":15,\"MaxLineLength\":40,\"NoseSize\":6}")]
+        [DefaultSettingValue("")]
 
-        public string JsonString {
-            get { return ((string)this["JsonString"]); }
-            set { this["JsonString"] = (string)value; }
+        public string JsonUserSettings {
+            get { return ((string)this["JsonUserSettings"]); }
+            set { this["JsonUserSettings"] = (string)value; }
         }
 
         #endregion ----------------------------------------------- Settings
@@ -28,7 +26,7 @@ namespace SdGraphics
 
         #region -------------------------------------------------- Private attributes
         private SettingsValues settingsValues;
-
+        
         private Dictionary<string, SdGraphicsBrush> mySdGraphicBrushes = new Dictionary<string, SdGraphicsBrush>();
         private Dictionary<string, SdGraphicsPen> mySdGraphicPens = new Dictionary<string,SdGraphicsPen>();
         //private int noseSize;
@@ -141,24 +139,28 @@ namespace SdGraphics
 
         public new void Reload()
         {
-#if DEBUG
-            // use only when settings are added or deleted, or default values changed
-            //base.Reset();
-#endif
             base.Reload();
-            SettingsValues = JsonConvert.DeserializeObject<SettingsValues>(JsonString);
-
+            if (JsonUserSettings == null || JsonUserSettings.Equals("null") || JsonUserSettings.Equals("")) {
+                //base.Reset();
+                SettingsValues = new SettingsValues();
+                JsonUserSettings = JsonConvert.SerializeObject(SettingsValues);
+            } else {
+                SettingsValues = JsonConvert.DeserializeObject<SettingsValues>(JsonUserSettings);
+            }
             mySdGraphicPens.Clear();
             mySdGraphicBrushes.Clear();
 
-            foreach (KeyValuePair<string, SettingsValues.PenValuesStruct> kvp in SettingsValues.PenValues) { 
-                    mySdGraphicPens.Add(kvp.Key,new SdGraphicsPen(kvp.Key, kvp.Value.Color, kvp.Value.Width,
-                         kvp.Value.DashStyle == "solid" ? DashStyle.Solid : DashStyle.Dash));
-                }
+            foreach (KeyValuePair<string, SettingsValues.PenValuesStruct> kvp in SettingsValues.PenValues) {
+                mySdGraphicPens.Add(kvp.Key, new SdGraphicsPen(kvp.Key, kvp.Value.Color, kvp.Value.Width,
+                     kvp.Value.DashStyle == "solid" ? DashStyle.Solid : DashStyle.Dash));
+            }
             foreach (KeyValuePair<string, SettingsValues.BrushValuesStruct> kvp in SettingsValues.BrushValues) {
                 mySdGraphicBrushes.Add(kvp.Key, new SdGraphicsBrush(kvp.Key, kvp.Value.Color, kvp.Value.FillType));
             }
+
         }
+
+
 
         public void MyReset()
         {
@@ -177,7 +179,7 @@ namespace SdGraphics
                     kvp.Key, kvp.Value.getHexColor(), kvp.Value.FillType));
             }
 
-            JsonString = JsonConvert.SerializeObject(SettingsValues);
+            JsonUserSettings = JsonConvert.SerializeObject(SettingsValues);
             base.Save();
         }
 
