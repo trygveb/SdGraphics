@@ -55,6 +55,7 @@
             this.radioButtonBeau = new System.Windows.Forms.RadioButton();
             this.buttonExit = new System.Windows.Forms.Button();
             this.checkBoxCreateHTML = new System.Windows.Forms.CheckBox();
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).BeginInit();
             this.groupBoxView.SuspendLayout();
@@ -170,8 +171,11 @@
             // 
             this.groupBoxView.Controls.Add(this.radioButtonCallerView);
             this.groupBoxView.Controls.Add(this.radioButtonDancerView);
+            this.helpProvider1.SetHelpKeyword(this.groupBoxView, "View");
+            this.helpProvider1.SetHelpString(this.groupBoxView, "Hejhej");
             this.groupBoxView.Location = new System.Drawing.Point(15, 197);
             this.groupBoxView.Name = "groupBoxView";
+            this.helpProvider1.SetShowHelp(this.groupBoxView, true);
             this.groupBoxView.Size = new System.Drawing.Size(173, 77);
             this.groupBoxView.TabIndex = 42;
             this.groupBoxView.TabStop = false;
@@ -181,8 +185,11 @@
             // 
             this.radioButtonCallerView.AutoSize = true;
             this.radioButtonCallerView.Checked = true;
+            this.helpProvider1.SetHelpKeyword(this.radioButtonCallerView, "Caller view");
+            this.helpProvider1.SetHelpString(this.radioButtonCallerView, "Caller view is blabla");
             this.radioButtonCallerView.Location = new System.Drawing.Point(88, 25);
             this.radioButtonCallerView.Name = "radioButtonCallerView";
+            this.helpProvider1.SetShowHelp(this.radioButtonCallerView, true);
             this.radioButtonCallerView.Size = new System.Drawing.Size(67, 24);
             this.radioButtonCallerView.TabIndex = 1;
             this.radioButtonCallerView.TabStop = true;
@@ -399,6 +406,10 @@
             this.checkBoxCreateHTML.UseVisualStyleBackColor = true;
             this.checkBoxCreateHTML.CheckedChanged += new System.EventHandler(this.checkBoxCreateHTML_CheckedChanged);
             // 
+            // helpProvider1
+            // 
+            this.helpProvider1.HelpNamespace = "D:\\Development\\SdGraphics\\Web\\help.htm";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -467,6 +478,7 @@
         private System.Windows.Forms.CheckBox checkBoxShowPartner;
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.CheckBox checkBoxCreateHTML;
+        private System.Windows.Forms.HelpProvider helpProvider1;
     }
 }
 
