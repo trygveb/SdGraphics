@@ -102,6 +102,7 @@ namespace SdGraphics
             set { dancerSize = value; }
         }
 
+ 
         public int LineHeight {
             get { return lineHeight; }
             set { lineHeight = value; }

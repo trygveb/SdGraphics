@@ -53,6 +53,7 @@ namespace SdGraphics
             numericUpDownMaxLineLength.Value = (decimal)mus.MaxLineLength;
             numericUpDownNoseSize.Value = (decimal)mus.NoseSize;
             textBoxCopyrightName.Text = mus.CopyrightName;
+
             foreach (KeyValuePair<string, SdGraphicsPen> kvp in mus.SdGraphicPens) {
                 comboBoxPens.Items.Add(kvp.Value.Name);
             }

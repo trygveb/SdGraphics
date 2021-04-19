@@ -77,6 +77,7 @@ namespace SdGraphics
             set { SettingsValues.DancerSize = value; }
         }
 
+ 
         public int LineHeight {
             get { return SettingsValues.LineHeight; }
             set { SettingsValues.LineHeight = value; }

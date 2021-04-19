@@ -52,6 +52,11 @@ namespace SdGraphics
             get { return preferencesValues.DrawBorder; }
             set { preferencesValues.DrawBorder = value; }
         }
+        public string InitialDirectory {
+            get { return preferencesValues.InitialDirectory; }
+            set { preferencesValues.InitialDirectory = value; }
+        }
+
         public bool ShowPartner {
             get { return preferencesValues.ShowPartner; }
             set { preferencesValues.ShowPartner = value; }

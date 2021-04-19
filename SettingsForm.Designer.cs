@@ -844,7 +844,7 @@ namespace SdGraphics
             // buttonReset
             // 
             this.buttonReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonReset.Location = new System.Drawing.Point(363, 410);
+            this.buttonReset.Location = new System.Drawing.Point(363, 457);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(135, 32);
             this.buttonReset.TabIndex = 51;
@@ -865,7 +865,7 @@ namespace SdGraphics
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.panelSettings);
             this.Name = "SettingsForm";
-            this.Text = "Settings";
+            this.Text = "SdGraphics Settings";
             this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.panelSettings.ResumeLayout(false);
             this.panelSettings.PerformLayout();

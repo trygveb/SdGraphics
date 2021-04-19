@@ -56,6 +56,7 @@
             this.buttonExit = new System.Windows.Forms.Button();
             this.checkBoxCreateHTML = new System.Windows.Forms.CheckBox();
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
+            this.showWebPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).BeginInit();
             this.groupBoxView.SuspendLayout();
@@ -67,7 +68,7 @@
             // buttonReadFile
             // 
             this.buttonReadFile.Enabled = false;
-            this.buttonReadFile.Location = new System.Drawing.Point(27, 396);
+            this.buttonReadFile.Location = new System.Drawing.Point(27, 344);
             this.buttonReadFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonReadFile.Name = "buttonReadFile";
             this.buttonReadFile.Size = new System.Drawing.Size(143, 35);
@@ -80,7 +81,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 154);
+            this.label1.Location = new System.Drawing.Point(214, 110);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 20);
@@ -97,7 +98,7 @@
             0,
             0,
             65536});
-            this.numericUpDownScale.Location = new System.Drawing.Point(114, 151);
+            this.numericUpDownScale.Location = new System.Drawing.Point(272, 107);
             this.numericUpDownScale.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownScale.Maximum = new decimal(new int[] {
             2,
@@ -123,12 +124,12 @@
             // checkBoxBorder
             // 
             this.checkBoxBorder.AutoSize = true;
-            this.checkBoxBorder.Location = new System.Drawing.Point(206, 109);
+            this.checkBoxBorder.Location = new System.Drawing.Point(27, 235);
             this.checkBoxBorder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBoxBorder.Name = "checkBoxBorder";
-            this.checkBoxBorder.Size = new System.Drawing.Size(115, 24);
+            this.checkBoxBorder.Size = new System.Drawing.Size(76, 24);
             this.checkBoxBorder.TabIndex = 17;
-            this.checkBoxBorder.Text = "Draw border";
+            this.checkBoxBorder.Text = "Border";
             this.checkBoxBorder.UseVisualStyleBackColor = true;
             this.checkBoxBorder.CheckedChanged += new System.EventHandler(this.checkBoxBorder_CheckedChanged);
             // 
@@ -145,7 +146,7 @@
             // 
             // numericUpDownColumns
             // 
-            this.numericUpDownColumns.Location = new System.Drawing.Point(115, 107);
+            this.numericUpDownColumns.Location = new System.Drawing.Point(102, 107);
             this.numericUpDownColumns.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownColumns.Maximum = new decimal(new int[] {
             2,
@@ -158,7 +159,7 @@
             0,
             0});
             this.numericUpDownColumns.Name = "numericUpDownColumns";
-            this.numericUpDownColumns.Size = new System.Drawing.Size(68, 26);
+            this.numericUpDownColumns.Size = new System.Drawing.Size(50, 26);
             this.numericUpDownColumns.TabIndex = 36;
             this.numericUpDownColumns.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownColumns.Value = new decimal(new int[] {
@@ -173,13 +174,14 @@
             this.groupBoxView.Controls.Add(this.radioButtonDancerView);
             this.helpProvider1.SetHelpKeyword(this.groupBoxView, "View");
             this.helpProvider1.SetHelpString(this.groupBoxView, "Hejhej");
-            this.groupBoxView.Location = new System.Drawing.Point(15, 197);
+            this.groupBoxView.Location = new System.Drawing.Point(15, 156);
             this.groupBoxView.Name = "groupBoxView";
             this.helpProvider1.SetShowHelp(this.groupBoxView, true);
-            this.groupBoxView.Size = new System.Drawing.Size(173, 77);
+            this.groupBoxView.Size = new System.Drawing.Size(168, 55);
             this.groupBoxView.TabIndex = 42;
             this.groupBoxView.TabStop = false;
             this.groupBoxView.Text = "View";
+            this.groupBoxView.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBoxView_Paint);
             // 
             // radioButtonCallerView
             // 
@@ -209,7 +211,7 @@
             // 
             // textBoxFile
             // 
-            this.textBoxFile.Location = new System.Drawing.Point(21, 68);
+            this.textBoxFile.Location = new System.Drawing.Point(21, 63);
             this.textBoxFile.Name = "textBoxFile";
             this.textBoxFile.ReadOnly = true;
             this.textBoxFile.Size = new System.Drawing.Size(371, 26);
@@ -219,7 +221,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(19, 45);
+            this.label14.Location = new System.Drawing.Point(19, 40);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(90, 20);
@@ -231,10 +233,11 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.settingsToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.showWebPageToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(435, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(413, 24);
             this.menuStrip1.TabIndex = 47;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -291,6 +294,7 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.helpToolStripMenuItem.Text = "&Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem1
             // 
@@ -306,13 +310,14 @@
             this.groupBoxFocusDancer.Controls.Add(this.numericUpDownNoseUp);
             this.groupBoxFocusDancer.Controls.Add(this.radioButtonBeau);
             this.groupBoxFocusDancer.Enabled = false;
-            this.groupBoxFocusDancer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxFocusDancer.Location = new System.Drawing.Point(206, 151);
+            this.groupBoxFocusDancer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxFocusDancer.Location = new System.Drawing.Point(206, 156);
             this.groupBoxFocusDancer.Name = "groupBoxFocusDancer";
             this.groupBoxFocusDancer.Size = new System.Drawing.Size(188, 159);
             this.groupBoxFocusDancer.TabIndex = 42;
             this.groupBoxFocusDancer.TabStop = false;
             this.groupBoxFocusDancer.Text = "Focus dancer";
+            this.groupBoxFocusDancer.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBoxFocusDancer_Paint);
             // 
             // checkBoxShowPartner
             // 
@@ -385,9 +390,9 @@
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(246, 394);
+            this.buttonExit.Location = new System.Drawing.Point(262, 344);
             this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(95, 37);
+            this.buttonExit.Size = new System.Drawing.Size(95, 35);
             this.buttonExit.TabIndex = 48;
             this.buttonExit.Text = "Exit";
             this.buttonExit.UseVisualStyleBackColor = true;
@@ -398,7 +403,7 @@
             this.checkBoxCreateHTML.AutoSize = true;
             this.checkBoxCreateHTML.Checked = true;
             this.checkBoxCreateHTML.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxCreateHTML.Location = new System.Drawing.Point(18, 270);
+            this.checkBoxCreateHTML.Location = new System.Drawing.Point(27, 276);
             this.checkBoxCreateHTML.Name = "checkBoxCreateHTML";
             this.checkBoxCreateHTML.Size = new System.Drawing.Size(124, 24);
             this.checkBoxCreateHTML.TabIndex = 50;
@@ -410,11 +415,18 @@
             // 
             this.helpProvider1.HelpNamespace = "D:\\Development\\SdGraphics\\Web\\help.htm";
             // 
+            // showWebPageToolStripMenuItem
+            // 
+            this.showWebPageToolStripMenuItem.Name = "showWebPageToolStripMenuItem";
+            this.showWebPageToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
+            this.showWebPageToolStripMenuItem.Text = "Show web page";
+            this.showWebPageToolStripMenuItem.Click += new System.EventHandler(this.showWebPageToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(435, 445);
+            this.ClientSize = new System.Drawing.Size(413, 407);
             this.Controls.Add(this.checkBoxCreateHTML);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.label14);
@@ -432,7 +444,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "SdGraphics";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScale)).EndInit();
@@ -479,6 +491,7 @@
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.CheckBox checkBoxCreateHTML;
         private System.Windows.Forms.HelpProvider helpProvider1;
+        private System.Windows.Forms.ToolStripMenuItem showWebPageToolStripMenuItem;
     }
 }
 

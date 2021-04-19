@@ -121,8 +121,8 @@ namespace SdGraphics
             InitializeComponent();
             this.init();
         }
-
-        public void firstPage()
+ 
+            public void firstPage()
         {
             if (this.currentPage > 0) {
                 this.viewBitmap(0);
@@ -741,14 +741,15 @@ namespace SdGraphics
         private void openSdFile()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog()) {
-                openFileDialog.InitialDirectory = @"e:\Mina dokument\Sqd\SD";
+                openFileDialog.InitialDirectory =preferences.InitialDirectory;
                 openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 2;
+                openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK) {
                     //Get the path of specified file
                     this.fileName = openFileDialog.FileName;
+                    preferences.InitialDirectory=Path.GetDirectoryName(this.fileName);
                     textBoxFile.Text = this.fileName;
                     buttonReadFile.Enabled = true;
                     printToolStripMenuItem.Enabled = true;
@@ -1040,6 +1041,31 @@ namespace SdGraphics
         {
             SettingsForm settingsForm = new SettingsForm(this);
             settingsForm.Show();
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Help.ShowHelp(this, "file:Help\\SdGraphics.chm");
+        }
+
+        private void groupBoxFocusDancer_Paint(object sender, PaintEventArgs e)
+        {
+            GroupBox box = sender as GroupBox;
+            Util.DrawGroupBox(box, e.Graphics, Color.Black, Color.Blue);
+        }
+
+        private void groupBoxView_Paint(object sender, PaintEventArgs e)
+        {
+            GroupBox box = sender as GroupBox;
+            Util.DrawGroupBox(box, e.Graphics, Color.Black, Color.Blue);
+        }
+
+        private void showWebPageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string applicationDirectory = Path.GetDirectoryName(Application.ExecutablePath);
+            string myFile = Path.Combine(applicationDirectory, @"Web\index.html");
+
+            System.Diagnostics.Process.Start(myFile);
         }
     }
 
