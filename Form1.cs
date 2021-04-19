@@ -121,8 +121,8 @@ namespace SdGraphics
             InitializeComponent();
             this.init();
         }
- 
-            public void firstPage()
+
+        public void firstPage()
         {
             if (this.currentPage > 0) {
                 this.viewBitmap(0);
@@ -741,7 +741,7 @@ namespace SdGraphics
         private void openSdFile()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog()) {
-                openFileDialog.InitialDirectory =preferences.InitialDirectory;
+                openFileDialog.InitialDirectory = preferences.InitialDirectory;
                 openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
@@ -749,7 +749,7 @@ namespace SdGraphics
                 if (openFileDialog.ShowDialog() == DialogResult.OK) {
                     //Get the path of specified file
                     this.fileName = openFileDialog.FileName;
-                    preferences.InitialDirectory=Path.GetDirectoryName(this.fileName);
+                    preferences.InitialDirectory = Path.GetDirectoryName(this.fileName);
                     textBoxFile.Text = this.fileName;
                     buttonReadFile.Enabled = true;
                     printToolStripMenuItem.Enabled = true;
@@ -1067,9 +1067,14 @@ namespace SdGraphics
 
             System.Diagnostics.Process.Start(myFile);
         }
+
+        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            AboutBox1 a = new AboutBox1();
+            a.ShowDialog();
+        }
+
+        #endregion ------------------------------------- Event Handlers
     }
-
-    #endregion ------------------------------------- Event Handlers
-
 
 }

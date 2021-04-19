@@ -47,6 +47,7 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.showWebPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxFocusDancer = new System.Windows.Forms.GroupBox();
             this.checkBoxShowPartner = new System.Windows.Forms.CheckBox();
             this.radioButtonBelle = new System.Windows.Forms.RadioButton();
@@ -56,7 +57,6 @@
             this.buttonExit = new System.Windows.Forms.Button();
             this.checkBoxCreateHTML = new System.Windows.Forms.CheckBox();
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
-            this.showWebPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).BeginInit();
             this.groupBoxView.SuspendLayout();
@@ -292,15 +292,23 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.helpToolStripMenuItem.Text = "&Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem1.Text = "&About";
+            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
+            // 
+            // showWebPageToolStripMenuItem
+            // 
+            this.showWebPageToolStripMenuItem.Name = "showWebPageToolStripMenuItem";
+            this.showWebPageToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
+            this.showWebPageToolStripMenuItem.Text = "Show web page";
+            this.showWebPageToolStripMenuItem.Click += new System.EventHandler(this.showWebPageToolStripMenuItem_Click);
             // 
             // groupBoxFocusDancer
             // 
@@ -414,13 +422,6 @@
             // helpProvider1
             // 
             this.helpProvider1.HelpNamespace = "D:\\Development\\SdGraphics\\Web\\help.htm";
-            // 
-            // showWebPageToolStripMenuItem
-            // 
-            this.showWebPageToolStripMenuItem.Name = "showWebPageToolStripMenuItem";
-            this.showWebPageToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
-            this.showWebPageToolStripMenuItem.Text = "Show web page";
-            this.showWebPageToolStripMenuItem.Click += new System.EventHandler(this.showWebPageToolStripMenuItem_Click);
             // 
             // Form1
             // 
