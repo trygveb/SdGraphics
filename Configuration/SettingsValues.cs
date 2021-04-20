@@ -10,16 +10,16 @@ namespace SdGraphics
     {
         #region -------------------------------------------------- Private attributes
 
-        private int blankSpace = 6;
-        private bool breakLines= true;
-        private string copyrightName= "Copyright Name";
+        private int blankSpace = 6;     // Number of pixel for each blank in the Sd file
+        private bool breakLines= true;  // True to break lines longer than maxLineLength
+        private string copyrightName= "Caller Name";
         private int copyrightYear=2021;
-        private int dancerSize=18;
-        private int lineHeight=26;
-        private int marginBottom=50;
-        private int marginTop=15;
-        private int maxLineLength=40;
-        private int noseSize= 6;
+        private int dancerSize=18;      // Width and height in pixels for dancer symbols (circle or square)
+        private int lineHeight=26;      // Line height in PDF file, pixels
+        private int marginBottom=50;    // Bottom margin in PDF file, pixels. 
+        private int marginTop=15;       // Top margin in PDF file, pixels
+        private int maxLineLength=40;   // Max number of characters in a line (if breakLines==true)
+        private int noseSize= 6;        // Diameter of noses, pixels
 
         private Dictionary<String, BrushValuesStruct> brushValues = new Dictionary<String, BrushValuesStruct>();
         private Dictionary<String, PenValuesStruct> penValues = new Dictionary<String, PenValuesStruct>();
