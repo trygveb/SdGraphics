@@ -59,8 +59,8 @@ namespace SdGraphics
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.panelPens = new System.Windows.Forms.Panel();
             this.groupBoxLineStyle = new System.Windows.Forms.GroupBox();
-            this.radioButtonDashed = new System.Windows.Forms.RadioButton();
-            this.radioButtonSolid = new System.Windows.Forms.RadioButton();
+            this.radioButtonDashedPen = new System.Windows.Forms.RadioButton();
+            this.radioButtonSolidPen = new System.Windows.Forms.RadioButton();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -577,8 +577,8 @@ namespace SdGraphics
             // 
             // groupBoxLineStyle
             // 
-            this.groupBoxLineStyle.Controls.Add(this.radioButtonDashed);
-            this.groupBoxLineStyle.Controls.Add(this.radioButtonSolid);
+            this.groupBoxLineStyle.Controls.Add(this.radioButtonDashedPen);
+            this.groupBoxLineStyle.Controls.Add(this.radioButtonSolidPen);
             this.groupBoxLineStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxLineStyle.Location = new System.Drawing.Point(30, 167);
             this.groupBoxLineStyle.Name = "groupBoxLineStyle";
@@ -587,30 +587,31 @@ namespace SdGraphics
             this.groupBoxLineStyle.TabStop = false;
             this.groupBoxLineStyle.Text = "Line Style";
             // 
-            // radioButtonDashed
+            // radioButtonDashedPen
             // 
-            this.radioButtonDashed.AutoSize = true;
-            this.radioButtonDashed.Location = new System.Drawing.Point(97, 41);
-            this.radioButtonDashed.Name = "radioButtonDashed";
-            this.radioButtonDashed.Size = new System.Drawing.Size(83, 24);
-            this.radioButtonDashed.TabIndex = 1;
-            this.radioButtonDashed.Tag = "";
-            this.radioButtonDashed.Text = "Dashed";
-            this.radioButtonDashed.UseVisualStyleBackColor = true;
+            this.radioButtonDashedPen.AutoSize = true;
+            this.radioButtonDashedPen.Location = new System.Drawing.Point(97, 41);
+            this.radioButtonDashedPen.Name = "radioButtonDashedPen";
+            this.radioButtonDashedPen.Size = new System.Drawing.Size(83, 24);
+            this.radioButtonDashedPen.TabIndex = 1;
+            this.radioButtonDashedPen.Tag = "";
+            this.radioButtonDashedPen.Text = "Dashed";
+            this.radioButtonDashedPen.UseVisualStyleBackColor = true;
+            this.radioButtonDashedPen.CheckedChanged += new System.EventHandler(this.radioButtonDashedPen_CheckedChanged);
             // 
-            // radioButtonSolid
+            // radioButtonSolidPen
             // 
-            this.radioButtonSolid.AutoSize = true;
-            this.radioButtonSolid.Checked = true;
-            this.radioButtonSolid.Location = new System.Drawing.Point(16, 41);
-            this.radioButtonSolid.Name = "radioButtonSolid";
-            this.radioButtonSolid.Size = new System.Drawing.Size(62, 24);
-            this.radioButtonSolid.TabIndex = 0;
-            this.radioButtonSolid.TabStop = true;
-            this.radioButtonSolid.Tag = "";
-            this.radioButtonSolid.Text = "Solid";
-            this.radioButtonSolid.UseVisualStyleBackColor = true;
-            this.radioButtonSolid.CheckedChanged += new System.EventHandler(this.radioButtonSolid_CheckedChanged);
+            this.radioButtonSolidPen.AutoSize = true;
+            this.radioButtonSolidPen.Checked = true;
+            this.radioButtonSolidPen.Location = new System.Drawing.Point(16, 41);
+            this.radioButtonSolidPen.Name = "radioButtonSolidPen";
+            this.radioButtonSolidPen.Size = new System.Drawing.Size(62, 24);
+            this.radioButtonSolidPen.TabIndex = 0;
+            this.radioButtonSolidPen.TabStop = true;
+            this.radioButtonSolidPen.Tag = "";
+            this.radioButtonSolidPen.Text = "Solid";
+            this.radioButtonSolidPen.UseVisualStyleBackColor = true;
+            this.radioButtonSolidPen.CheckedChanged += new System.EventHandler(this.radioButtonSolid_CheckedChanged);
             // 
             // label14
             // 
@@ -925,8 +926,8 @@ namespace SdGraphics
         private System.Windows.Forms.Button buttonPenColor;
         private System.Windows.Forms.TextBox textBoxPenColor;
         private System.Windows.Forms.GroupBox groupBoxLineStyle;
-        private System.Windows.Forms.RadioButton radioButtonDashed;
-        private System.Windows.Forms.RadioButton radioButtonSolid;
+        private System.Windows.Forms.RadioButton radioButtonDashedPen;
+        private System.Windows.Forms.RadioButton radioButtonSolidPen;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label11;

@@ -138,6 +138,8 @@ namespace SdGraphics
             penValues.Add("PhantomPen", new PenValuesStruct("PhantomPen", "#0000FF", 1, "Dash"));
             penValues.Add("CallerPen", new PenValuesStruct("CallerPen", "#00FF00", 1, "Solid"));
             penValues.Add("DancerPen", new PenValuesStruct("DancerPen", "#000000", 1, "Solid"));
+            penValues.Add("BorderPen", new PenValuesStruct("BorderPen", "#FF0000", 1, "Solid"));
+            
             BrushValues.Add("CallTextBrush", new BrushValuesStruct("CallTextBrush", "#000000", "Solid"));
             BrushValues.Add("DancerTextBrush", new BrushValuesStruct("DancerTextBrush", "#000000", "Solid"));
             BrushValues.Add("DancerNoseBrush", new BrushValuesStruct("DancerNoseBrush", "#FF0000", "Solid"));

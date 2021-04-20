@@ -58,6 +58,10 @@ namespace SdGraphics
                 comboBoxPens.Items.Add(kvp.Value.Name);
             }
             comboBoxPens.SelectedItem = comboBoxPens.Items[0];// mus.SdGraphicPens.First().Value.Name;
+            
+            // Solid is checked by default
+            SdGraphicsPen sdGraphicsPen = getSelectedPen();
+            radioButtonDashedPen.Checked = sdGraphicsPen.Pen.DashStyle == DashStyle.Dash;
 
             foreach (KeyValuePair<string, SdGraphicsBrush> kvp in mus.SdGraphicBrushes) {
                 comboBoxBrushes.Items.Add(kvp.Value.Name);
@@ -136,7 +140,7 @@ namespace SdGraphics
             SdGraphicsBrush sdGraphicsBrush = getSelectedBrush();
             String hexColor = sdGraphicsBrush.getHexColor();
             textBoxBrushColor.BackColor = sdGraphicsBrush.Brush.Color;
-            // Currently onlu solid bruses are allowed
+            // Currently only solid bruses are allowed
             if (sdGraphicsBrush.FillType.Equals("Solid")) {
                 radioButtonSolidBrush.Checked = true;
             } else {
@@ -153,9 +157,9 @@ namespace SdGraphics
             textBoxPenColor.BackColor = sdGraphicsPen.Pen.Color;
             numericUpDownThickness.Value = (Decimal)sdGraphicsPen.Pen.Width;
             if (sdGraphicsPen.Pen.DashStyle.Equals(DashStyle.Dash)) {
-                radioButtonDashed.Checked = true;
+                radioButtonDashedPen.Checked = true;
             } else {
-                radioButtonSolid.Checked = true;
+                radioButtonSolidPen.Checked = true;
             }
         }
 
@@ -210,7 +214,7 @@ namespace SdGraphics
             SdGraphicsPen sdGraphicsPen = getSelectedPen();
             //String style = radioButtonDashed.Checked ? (String) radioButtonDashed.Tag : (String) radioButtonSolid.Tag;
             //setLineStyleForPen(pen, style);
-            sdGraphicsPen.Pen.DashStyle = radioButtonDashed.Checked ? DashStyle.Dash : DashStyle.Solid;
+            sdGraphicsPen.Pen.DashStyle = radioButtonDashedPen.Checked ? DashStyle.Dash : DashStyle.Solid;
 
         }
 
@@ -233,5 +237,10 @@ namespace SdGraphics
             updatePageSize();
         }
         #endregion ------------------------------------------------ Event handlers
+
+        private void radioButtonDashedPen_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

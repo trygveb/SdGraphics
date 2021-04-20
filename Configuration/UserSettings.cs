@@ -107,6 +107,10 @@ namespace SdGraphics
             set { SettingsValues.PageSize = value; }
         }
 
+        public Pen penForBorder {
+
+            get { return SdGraphicPens.Where(f => f.Key.Equals("BorderPen")).FirstOrDefault().Value.Pen; }
+        }
         public Pen penForCaller {
 
             get { return SdGraphicPens.Where(f => f.Key.Equals("CallerPen")).FirstOrDefault().Value.Pen; }
@@ -152,8 +156,9 @@ namespace SdGraphics
             mySdGraphicBrushes.Clear();
 
             foreach (KeyValuePair<string, SettingsValues.PenValuesStruct> kvp in SettingsValues.PenValues) {
+                bool isSolid= String.Equals(kvp.Value.DashStyle, "solid", StringComparison.OrdinalIgnoreCase);
                 mySdGraphicPens.Add(kvp.Key, new SdGraphicsPen(kvp.Key, kvp.Value.Color, kvp.Value.Width,
-                     kvp.Value.DashStyle == "solid" ? DashStyle.Solid : DashStyle.Dash));
+                     isSolid ? DashStyle.Solid : DashStyle.Dash));
             }
             foreach (KeyValuePair<string, SettingsValues.BrushValuesStruct> kvp in SettingsValues.BrushValues) {
                 mySdGraphicBrushes.Add(kvp.Key, new SdGraphicsBrush(kvp.Key, kvp.Value.Color, kvp.Value.FillType));

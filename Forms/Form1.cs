@@ -74,7 +74,7 @@ namespace SdGraphics
         private Form graphicsForm;
         private System.Drawing.Imaging.Encoder myEncoder;
         private EncoderParameters myEncoderParameters;
-        private Pen penForBorder = new Pen(Color.Red, 2);
+        //private Pen penForBorder = new Pen(Color.Red, 2);
         private Pen penForFocusDancer = new Pen(Color.Red, 2);
         private Pen penForPartner = new Pen(Color.Black, 1);
         private PictureBox pictureBox1 = new PictureBox();
@@ -473,7 +473,7 @@ namespace SdGraphics
         private void drawBorder(Bitmap bmp)
         {
             using (Graphics g = Graphics.FromImage(bmp)) {
-                g.DrawRectangle(penForBorder, 0, 0, bmp.Width, bmp.Height);
+                g.DrawRectangle(mus.penForBorder, 0, 0, bmp.Width, bmp.Height);
             }
         }
 
@@ -741,7 +741,6 @@ namespace SdGraphics
         private void openSdFile()
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog()) {
-                openFileDialog.InitialDirectory = preferences.InitialDirectory;
                 openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
@@ -749,7 +748,6 @@ namespace SdGraphics
                 if (openFileDialog.ShowDialog() == DialogResult.OK) {
                     //Get the path of specified file
                     this.fileName = openFileDialog.FileName;
-                    preferences.InitialDirectory = Path.GetDirectoryName(this.fileName);
                     textBoxFile.Text = this.fileName;
                     buttonReadFile.Enabled = true;
                     printToolStripMenuItem.Enabled = true;

@@ -29,7 +29,6 @@ namespace SdGraphics
         private bool createZipFile = true;
         private bool drawBorder = false;
         private FocusDancerStruct focusDancer = new FocusDancerStruct(3, DancerId.Beau);
-        private string initialDirectory = @"C:\Sd";
         private ViewEnum sdView = ViewEnum.Caller;
         private bool showPartner = false;
         private decimal zoom;
@@ -74,10 +73,6 @@ namespace SdGraphics
         public FocusDancerStruct FocusDancer {
             get { return focusDancer; }
             set { focusDancer = value; }
-        }
-        public string InitialDirectory {
-            get { return initialDirectory; }
-            set { initialDirectory = value; }
         }
 
 
