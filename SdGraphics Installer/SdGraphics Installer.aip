@@ -16,6 +16,8 @@
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Text.Json.dll" Value="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Threading.Tasks.Extensions.dll" Value="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_index.html" Value="..\bin\Release\Web"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_sequence_A2.txt" Value="..\bin\Release\Example"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_sequence_A2.zip" Value="..\bin\Release\Example"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Bcl.AsyncInterfaces.dll" Value="Microsoft.Bcl.AsyncInterfaces.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Newtonsoft.Json.dll" Value="Newtonsoft.Json.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_SdGraphics.chm" Value="SdGraphics.chm"/>
@@ -28,7 +30,9 @@
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Text.Encodings.Web.dll" Value="System.Text.Encodings.Web.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Text.Json.dll" Value="System.Text.Json.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Threading.Tasks.Extensions.dll" Value="System.Threading.Tasks.Extensions.dll"/>
-    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_index.html" Value="index.html"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_index.html" Value="ZipViewer.html"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_sequence_A2.txt" Value="sequence_A2.txt"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_sequence_A2.zip" Value="sequence_A2.zip"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPURLINFOABOUT" Value="https://github.com/trygveb/SdGraphics"/>
@@ -50,6 +54,7 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="Example_Dir" Directory_Parent="SdGraphics_Dir" DefaultDir="Example"/>
     <ROW Directory="Help_Dir" Directory_Parent="SdGraphics_Dir" DefaultDir="Help"/>
     <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
     <ROW Directory="SdGraphics_Dir" Directory_Parent="APPDIR" DefaultDir="SDGRAP~1|SdGraphics"/>
@@ -60,6 +65,7 @@
     <ROW Component="APPDIR" ComponentId="{0751C6C8-BAEA-46C5-9A8A-DAB93EBFD13D}" Directory_="APPDIR" Attributes="0"/>
     <ROW Component="ProductInformation" ComponentId="{20B54858-1E97-4436-A0AA-806D88AA5BC7}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{E5EF023D-76C3-4D04-9A46-120A43B7824C}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="SdGraphics_ContentOutput_Example" ComponentId="{BBF03063-E9EE-44A4-AD56-8EC3EA1B185A}" Directory_="Example_Dir" Attributes="0" KeyPath="sequence_A2.txt" Type="0"/>
     <ROW Component="SdGraphics_ContentOutput_Help" ComponentId="{62ABCC41-BC86-4FC5-BA11-2474167E6BAB}" Directory_="Help_Dir" Attributes="0" KeyPath="SdGraphics.chm"/>
     <ROW Component="SdGraphics_ContentOutput_Web" ComponentId="{59E5B5A8-EF75-46BC-BA58-F58EDE8AB5BC}" Directory_="Web_Dir" Attributes="0" KeyPath="index.html" Type="0"/>
     <ROW Component="SdGraphics_PrimaryOutput" ComponentId="{817CB752-8F45-4AAF-AE2C-F65F2A96FDD3}" Directory_="SdGraphics_Dir" Attributes="0" KeyPath="SdGraphics.exe"/>
@@ -83,6 +89,8 @@
     <ROW File="System.Runtime.CompilerServices.Unsafe.dll" Component_="SdGraphics_References" FileName="SYSTEM~8.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Runtime.CompilerServices.Unsafe.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Runtime.CompilerServices.Unsafe.dll&gt;" SelfReg="false"/>
     <ROW File="SdGraphics.chm" Component_="SdGraphics_ContentOutput_Help" FileName="SDGRAP~2.CHM|[|AI_PROPPATH_FILENAME_PERBUILD_SdGraphics.chm]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_SdGraphics.chm&gt;" SelfReg="false"/>
     <ROW File="index.html" Component_="SdGraphics_ContentOutput_Web" FileName="INDEX~2.HTM|[|AI_PROPPATH_FILENAME_PERBUILD_index.html]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_index.html&gt;" SelfReg="false"/>
+    <ROW File="sequence_A2.txt" Component_="SdGraphics_ContentOutput_Example" FileName="SEQUEN~2.TXT|[|AI_PROPPATH_FILENAME_PERBUILD_sequence_A2.txt]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_sequence_A2.txt&gt;" SelfReg="false"/>
+    <ROW File="sequence_A2.zip" Component_="SdGraphics_ContentOutput_Example" FileName="SEQUEN~2.ZIP|[|AI_PROPPATH_FILENAME_PERBUILD_sequence_A2.zip]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_sequence_A2.zip&gt;" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
     <ROW Name="AI_APPPATH_PERBUILD_Microsoft.Bcl.AsyncInterfaces.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Microsoft.Bcl.AsyncInterfaces.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Bcl.AsyncInterfaces.dll]" Type="2" Content="0"/>
@@ -98,6 +106,8 @@
     <ROW Name="AI_APPPATH_PERBUILD_System.Text.Json.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Text.Json.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Text.Json.dll]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_System.Threading.Tasks.Extensions.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Threading.Tasks.Extensions.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Threading.Tasks.Extensions.dll]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_index.html" Path="[|AI_PROPPATH_DIR_PERBUILD_index.html]\[|AI_PROPPATH_FILENAME_PERBUILD_index.html]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_sequence_A2.txt" Path="[|AI_PROPPATH_DIR_PERBUILD_sequence_A2.txt]\[|AI_PROPPATH_FILENAME_PERBUILD_sequence_A2.txt]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_sequence_A2.zip" Path="[|AI_PROPPATH_DIR_PERBUILD_sequence_A2.zip]\[|AI_PROPPATH_FILENAME_PERBUILD_sequence_A2.zip]" Type="2" Content="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -164,7 +174,7 @@
     <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
     <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
     <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
-    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="DefaultBuild:[ProgramFilesFolder][Manufacturer]"/>
     <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
     <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
   </COMPONENT>
@@ -176,6 +186,7 @@
     <ROW Feature_="MainFeature" Component_="SdGraphics_References"/>
     <ROW Feature_="MainFeature" Component_="SdGraphics_ContentOutput_Help"/>
     <ROW Feature_="MainFeature" Component_="SdGraphics_ContentOutput_Web"/>
+    <ROW Feature_="MainFeature" Component_="SdGraphics_ContentOutput_Example"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
@@ -225,5 +236,7 @@
     <ROW ProjectId="{d4153ca7-45b4-41d0-b336-bcef55e8e709}" ProjectName="SdGraphics" OutputGroup="References" OutputFile="System.Runtime.CompilerServices.Unsafe.dll"/>
     <ROW ProjectId="{d4153ca7-45b4-41d0-b336-bcef55e8e709}" ProjectName="SdGraphics" OutputGroup="ContentOutput" OutputFile="SdGraphics.chm"/>
     <ROW ProjectId="{d4153ca7-45b4-41d0-b336-bcef55e8e709}" ProjectName="SdGraphics" OutputGroup="ContentOutput" OutputFile="index.html"/>
+    <ROW ProjectId="{d4153ca7-45b4-41d0-b336-bcef55e8e709}" ProjectName="SdGraphics" OutputGroup="ContentOutput" OutputFile="sequence_A2.txt"/>
+    <ROW ProjectId="{d4153ca7-45b4-41d0-b336-bcef55e8e709}" ProjectName="SdGraphics" OutputGroup="ContentOutput" OutputFile="sequence_A2.zip"/>
   </COMPONENT>
 </DOCUMENT>

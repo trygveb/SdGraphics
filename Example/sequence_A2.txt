@@ -1,0 +1,70 @@
+
+Thu Apr 22 07:44:09 2021     Sd39.29:db39.29     A2
+
+Two couples only
+
+
+ 3GV   3BV
+
+ 1B^   1G^
+
+
+
+square thru 2
+
+
+ 1G<   1B>
+
+ 3B<   3G>
+
+
+
+zoom
+
+
+ 1B>   1G<
+
+ 3G>   3B<
+
+
+
+swing thru
+
+
+ 1G>
+
+ 3B<
+
+ 1B>
+
+ 3G<
+
+
+recycle
+
+
+ 3G>   3B<
+
+ 1B>   1G<
+
+
+
+star thru
+
+
+ 3B^   3G^
+
+ 1GV   1BV
+
+
+
+partner trade
+
+
+ 3GV   3BV
+
+ 1B^   1G^
+
+
+
+at home

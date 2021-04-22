@@ -462,7 +462,7 @@ namespace SdGraphics
             //int callNumber = 0;
             String lastCall = "";
             for (int sdLineNo = 0; sdLineNo < sdLines.Count; sdLineNo++) {
-                NewMethod(sdLines[sdLineNo], ref pageBitmap, sdLineList, ref y, ref pageNumber, ref lastCall, sdLineNo);
+                WriteCallOrAddLineToList(sdLines[sdLineNo], ref pageBitmap, sdLineList, ref y, ref pageNumber, ref lastCall, sdLineNo);
             }
             // this.writeText("Copyright \u00a9 Bronc Wise 2012", lineHeight, pageBitmap, mus.PageSize.Height - lineHeight, mus.PageSize.Width / 2 - 100);
 
@@ -716,7 +716,7 @@ namespace SdGraphics
         }
 
         /// <summary>
-        /// if sdLine contains zero dancers, call checkBufferAndWriteCall, else add the line to sdLineList
+        /// if sdLine contains zero dancers, call checkSdLineListAndWriteCall, else add the line to sdLineList
         /// </summary>
         /// <param name="sdLine">A sdLine stucture, created from th Sd file</param>
         /// <param name="pageBitmap">Bitmap of current page</param>
@@ -725,7 +725,7 @@ namespace SdGraphics
         /// <param name="pageNumber"></param>
         /// <param name="lastCall"></param>
         /// <param name="sdLineNo"></param>
-        private void NewMethod(SdLine sdLine, ref Bitmap pageBitmap, List<SdLine> sdLineList, ref int y, ref int pageNumber, ref string lastCall, int sdLineNo)
+        private void WriteCallOrAddLineToList(SdLine sdLine, ref Bitmap pageBitmap, List<SdLine> sdLineList, ref int y, ref int pageNumber, ref string lastCall, int sdLineNo)
         {
             //SdLine sdLine = sdLines[sdLineNo];
             if (sdLine.noOfDancers == 0) {
@@ -1061,7 +1061,7 @@ namespace SdGraphics
         private void showWebPageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string applicationDirectory = Path.GetDirectoryName(Application.ExecutablePath);
-            string myFile = Path.Combine(applicationDirectory, @"Web\index.html");
+            string myFile = Path.Combine(applicationDirectory, @"Web\ZipViewer.html");
 
             System.Diagnostics.Process.Start(myFile);
         }

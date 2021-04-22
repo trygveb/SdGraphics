@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>SdGraphics Zip viewer</title>
     <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -47,8 +48,13 @@
 </head>
 <body>
     <div style="background-color: #555555;height:500px; width:auto;max-width:400px;margin-left:10px;padding:10px; color:white;position:relative;">
-        <label id="zip_label" for="zip_file">Select a zip file:</label>
-        <input type="file" id="zip_file" accept=".zip">
+        <!--<label id="zip_label" for="zip_file">Select a zip file:</label>
+        <input type="file" id="zip_file" accept=".zip">-->
+       
+        <button style="width:120px; height:25px;"
+                onclick="document.getElementById('zip_file').click()">Select a zip file:</button>
+        <input type='file' id="zip_file" style="display:none" accept=".zip">
+       
         <label id="zip_file_name"></label>
         <button id="new_file" style="display: none;float: right;" onclick="newFile()">New file</button>
         <br /><br />

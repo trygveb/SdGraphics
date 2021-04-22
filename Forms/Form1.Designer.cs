@@ -292,22 +292,22 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.helpToolStripMenuItem.Text = "&Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem1.Text = "&About";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
             // showWebPageToolStripMenuItem
             // 
             this.showWebPageToolStripMenuItem.Name = "showWebPageToolStripMenuItem";
-            this.showWebPageToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
-            this.showWebPageToolStripMenuItem.Text = "Show web page";
+            this.showWebPageToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.showWebPageToolStripMenuItem.Text = "ZipViewer";
             this.showWebPageToolStripMenuItem.Click += new System.EventHandler(this.showWebPageToolStripMenuItem_Click);
             // 
             // groupBoxFocusDancer
