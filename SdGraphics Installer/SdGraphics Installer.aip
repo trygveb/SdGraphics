@@ -5,9 +5,9 @@
     <ROW Property="AI_CURRENT_YEAR" Value="2021" ValueLocId="-"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.Bcl.AsyncInterfaces.dll" Value="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Newtonsoft.Json.dll" Value="..\packages\Newtonsoft.Json.13.0.1\lib\net45"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_SdGraphics.chm" Value="..\bin\Release\Help"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_SdGraphics.exe" Value="..\bin\Release"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_SdGraphics.exe.config" Value="..\bin\Release"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_SdGraphics.chm" Value="..\bin\Debug\Help"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_SdGraphics.exe" Value="..\bin\Debug"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_SdGraphics.exe.config" Value="..\bin\Debug"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Buffers.dll" Value="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Memory.dll" Value="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Numerics.Vectors.dll" Value="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin"/>
@@ -15,9 +15,9 @@
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Text.Encodings.Web.dll" Value="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Text.Json.dll" Value="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Threading.Tasks.Extensions.dll" Value="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_index.html" Value="..\bin\Release\Web"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_sequence_A2.txt" Value="..\bin\Release\Example"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_sequence_A2.zip" Value="..\bin\Release\Example"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_index.html" Value="..\bin\Debug\Web"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_sequence_A2.txt" Value="..\bin\Debug\Example"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_sequence_A2.zip" Value="..\bin\Debug\Example"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Bcl.AsyncInterfaces.dll" Value="Microsoft.Bcl.AsyncInterfaces.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Newtonsoft.Json.dll" Value="Newtonsoft.Json.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_SdGraphics.chm" Value="SdGraphics.chm"/>
@@ -37,10 +37,10 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPURLINFOABOUT" Value="https://github.com/trygveb/SdGraphics"/>
     <ROW Property="Manufacturer" Value="TGB-Data"/>
-    <ROW Property="ProductCode" Value="1033:{C06BF820-AC1C-46D6-A3F7-DC03656B1B8C} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{D476CA90-1166-47E1-B727-82FD3C42C532} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="SdGraphics"/>
-    <ROW Property="ProductVersion" Value="1.0.0" Type="32"/>
+    <ROW Property="ProductVersion" Value="2.0.0.2" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{C48267D7-1E88-460A-B6B6-4AA376F6FCBD}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>

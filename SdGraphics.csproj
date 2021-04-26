@@ -186,6 +186,12 @@
     <Content Include="Resources\beginning.png" />
     <Content Include="Resources\end.png" />
     <Content Include="Resources\forward.png" />
+    <Content Include="Web\js\jszip-utils.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web\js\jszip.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web\ZipViewer.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
