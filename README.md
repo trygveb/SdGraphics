@@ -9,4 +9,4 @@ displayed one by one. One click, and the call is displayed. Another click, and t
 This makes it very easy to go through the tip (without music) at your own pace, using a browser in your handheld smartphone.
 If you are a single dancer, you can let SdGraphics rotate all formations in a way that one selected dance always has it nose up.
 
-Se <a href="https://github.com/trygveb/SdGraphics/wiki">SdGraphics Wiki</a> for more detai
+Se <a href="https://github.com/trygveb/SdGraphics/wiki">SdGraphics Wiki</a> for more detail.
