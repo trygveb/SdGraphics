@@ -83,6 +83,7 @@ namespace SdGraphics
             this.panel1 = new System.Windows.Forms.Panel();
             this.label17 = new System.Windows.Forms.Label();
             this.buttonReset = new System.Windows.Forms.Button();
+            this.checkBoxPageHeaders = new System.Windows.Forms.CheckBox();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancerSize)).BeginInit();
@@ -103,6 +104,7 @@ namespace SdGraphics
             // panelSettings
             // 
             this.panelSettings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSettings.Controls.Add(this.checkBoxPageHeaders);
             this.panelSettings.Controls.Add(this.label20);
             this.panelSettings.Controls.Add(this.textBoxPageHeight);
             this.panelSettings.Controls.Add(this.textBoxPageWidth);
@@ -125,14 +127,14 @@ namespace SdGraphics
             this.panelSettings.Controls.Add(this.numericUpDownMaxLineLength);
             this.panelSettings.Location = new System.Drawing.Point(363, 12);
             this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Size = new System.Drawing.Size(377, 243);
+            this.panelSettings.Size = new System.Drawing.Size(377, 269);
             this.panelSettings.TabIndex = 45;
             // 
             // label20
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(203, 198);
+            this.label20.Location = new System.Drawing.Point(203, 160);
             this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(94, 20);
@@ -142,7 +144,7 @@ namespace SdGraphics
             // textBoxPageHeight
             // 
             this.textBoxPageHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPageHeight.Location = new System.Drawing.Point(301, 195);
+            this.textBoxPageHeight.Location = new System.Drawing.Point(301, 157);
             this.textBoxPageHeight.Name = "textBoxPageHeight";
             this.textBoxPageHeight.Size = new System.Drawing.Size(60, 26);
             this.textBoxPageHeight.TabIndex = 39;
@@ -153,7 +155,7 @@ namespace SdGraphics
             // textBoxPageWidth
             // 
             this.textBoxPageWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPageWidth.Location = new System.Drawing.Point(121, 195);
+            this.textBoxPageWidth.Location = new System.Drawing.Point(121, 157);
             this.textBoxPageWidth.Name = "textBoxPageWidth";
             this.textBoxPageWidth.Size = new System.Drawing.Size(60, 26);
             this.textBoxPageWidth.TabIndex = 38;
@@ -165,7 +167,7 @@ namespace SdGraphics
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(5, 198);
+            this.label19.Location = new System.Drawing.Point(5, 160);
             this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(87, 20);
@@ -272,11 +274,6 @@ namespace SdGraphics
             0,
             0,
             0});
-            this.numericUpDownMarginTop.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
             this.numericUpDownMarginTop.Name = "numericUpDownMarginTop";
             this.numericUpDownMarginTop.Size = new System.Drawing.Size(68, 26);
             this.numericUpDownMarginTop.TabIndex = 30;
@@ -311,11 +308,6 @@ namespace SdGraphics
             this.numericUpDownMarginBottom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownMarginBottom.Maximum = new decimal(new int[] {
             90,
-            0,
-            0,
-            0});
-            this.numericUpDownMarginBottom.Minimum = new decimal(new int[] {
-            30,
             0,
             0,
             0});
@@ -395,7 +387,7 @@ namespace SdGraphics
             this.checkBoxBreakLines.Checked = true;
             this.checkBoxBreakLines.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxBreakLines.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxBreakLines.Location = new System.Drawing.Point(207, 157);
+            this.checkBoxBreakLines.Location = new System.Drawing.Point(13, 231);
             this.checkBoxBreakLines.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBoxBreakLines.Name = "checkBoxBreakLines";
             this.checkBoxBreakLines.Size = new System.Drawing.Size(106, 24);
@@ -408,7 +400,7 @@ namespace SdGraphics
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(5, 159);
+            this.label10.Location = new System.Drawing.Point(183, 200);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(114, 20);
@@ -454,7 +446,7 @@ namespace SdGraphics
             0,
             0,
             0});
-            this.numericUpDownMaxLineLength.Location = new System.Drawing.Point(121, 156);
+            this.numericUpDownMaxLineLength.Location = new System.Drawing.Point(299, 200);
             this.numericUpDownMaxLineLength.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownMaxLineLength.Maximum = new decimal(new int[] {
             90,
@@ -827,7 +819,7 @@ namespace SdGraphics
             this.panel1.Controls.Add(this.numericUpDownCopyrightYear);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.textBoxCopyrightName);
-            this.panel1.Location = new System.Drawing.Point(363, 278);
+            this.panel1.Location = new System.Drawing.Point(363, 325);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(377, 114);
             this.panel1.TabIndex = 50;
@@ -852,6 +844,21 @@ namespace SdGraphics
             this.buttonReset.Text = "Reset to default";
             this.buttonReset.UseVisualStyleBackColor = true;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            // 
+            // checkBoxPageHeaders
+            // 
+            this.checkBoxPageHeaders.AutoSize = true;
+            this.checkBoxPageHeaders.Checked = true;
+            this.checkBoxPageHeaders.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxPageHeaders.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxPageHeaders.Location = new System.Drawing.Point(13, 200);
+            this.checkBoxPageHeaders.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBoxPageHeaders.Name = "checkBoxPageHeaders";
+            this.checkBoxPageHeaders.Size = new System.Drawing.Size(127, 24);
+            this.checkBoxPageHeaders.TabIndex = 41;
+            this.checkBoxPageHeaders.Text = "Page headers";
+            this.checkBoxPageHeaders.UseVisualStyleBackColor = true;
+            this.checkBoxPageHeaders.CheckedChanged += new System.EventHandler(this.checkBoxPageHeaders_CheckedChanged);
             // 
             // SettingsForm
             // 
@@ -949,5 +956,6 @@ namespace SdGraphics
         private System.Windows.Forms.TextBox textBoxPageWidth;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button buttonReset;
+        private System.Windows.Forms.CheckBox checkBoxPageHeaders;
     }
 }

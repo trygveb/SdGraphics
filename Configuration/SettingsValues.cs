@@ -11,7 +11,7 @@ namespace SdGraphics
         #region -------------------------------------------------- Private attributes
 
         private int blankSpace = 6;     // Number of pixel for each blank in the Sd file
-        private bool breakLines= true;  // True to break lines longer than maxLineLength
+        private bool breakLines = true;  // True to break lines longer than maxLineLength
         private string copyrightName= "Caller Name";
         private int copyrightYear=2021;
         private int dancerSize=18;      // Width and height in pixels for dancer symbols (circle or square)
@@ -20,6 +20,7 @@ namespace SdGraphics
         private int marginTop=15;       // Top margin in PDF file, pixels
         private int maxLineLength=40;   // Max number of characters in a line (if breakLines==true)
         private int noseSize= 6;        // Diameter of noses, pixels
+        private bool pageHeaders = true;  // True to write pageheaders on ALL pages. First page will always have one
 
         private Dictionary<String, BrushValuesStruct> brushValues = new Dictionary<String, BrushValuesStruct>();
         private Dictionary<String, PenValuesStruct> penValues = new Dictionary<String, PenValuesStruct>();
@@ -127,6 +128,11 @@ namespace SdGraphics
             get { return noseSize; }
             set { noseSize = value; }
         }
+        public bool PageHeaders {
+            get { return pageHeaders; }
+            set { pageHeaders = value; }
+        }
+
         public SizeStruct PageSize {
             get { return pageSize; }
             set { pageSize = value; }

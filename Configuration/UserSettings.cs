@@ -102,6 +102,12 @@ namespace SdGraphics
             get { return SettingsValues.NoseSize; }
             set { SettingsValues.NoseSize = value; }
         }
+
+        public bool PageHeaders {
+            get { return SettingsValues.PageHeaders; }
+            set { SettingsValues.PageHeaders = value; }
+        }
+
         public SettingsValues.SizeStruct PageSize {
             get { return SettingsValues.PageSize; }
             set { SettingsValues.PageSize = value; }

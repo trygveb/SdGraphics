@@ -35,6 +35,7 @@
             this.buttonBack = new System.Windows.Forms.Button();
             this.buttonForward = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +53,8 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.printToolStripMenuItem});
+            this.printToolStripMenuItem,
+            this.saveToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -72,7 +74,7 @@
             this.buttonBeginnin.Size = new System.Drawing.Size(27, 25);
             this.buttonBeginnin.TabIndex = 14;
             this.buttonBeginnin.UseVisualStyleBackColor = true;
-            this.buttonBeginnin.Click += new System.EventHandler(this.buttonBeginnin_Click);
+            this.buttonBeginnin.Click += new System.EventHandler(this.buttonBeginning_Click);
             // 
             // buttonEnd
             // 
@@ -92,7 +94,7 @@
             this.buttonBack.Size = new System.Drawing.Size(27, 25);
             this.buttonBack.TabIndex = 12;
             this.buttonBack.UseVisualStyleBackColor = true;
-            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click_1);
+            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
             // buttonForward
             // 
@@ -102,7 +104,7 @@
             this.buttonForward.Size = new System.Drawing.Size(27, 25);
             this.buttonForward.TabIndex = 11;
             this.buttonForward.UseVisualStyleBackColor = true;
-            this.buttonForward.Click += new System.EventHandler(this.buttonForward_Click_1);
+            this.buttonForward.Click += new System.EventHandler(this.buttonForward_Click);
             // 
             // pictureBox1
             // 
@@ -113,10 +115,18 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
             // GraphicsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(589, 866);
             this.Controls.Add(this.buttonBeginnin);
             this.Controls.Add(this.buttonEnd);
@@ -145,5 +155,6 @@
         private System.Windows.Forms.Button buttonBack;
         private System.Windows.Forms.Button buttonEnd;
         private System.Windows.Forms.Button buttonBeginnin;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
     }
 }

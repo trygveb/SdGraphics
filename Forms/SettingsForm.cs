@@ -44,6 +44,7 @@ namespace SdGraphics
         private void myInit()
         {
             checkBoxBreakLines.Checked = mus.BreakLines;
+            checkBoxPageHeaders.Checked = mus.PageHeaders;
             numericUpDownBlankSpace.Value = (decimal)mus.BlankSpace;
             numericUpDownCopyrightYear.Value = (decimal)mus.CopyrightYear;
             numericUpDownDancerSize.Value = (decimal)mus.DancerSize;
@@ -241,6 +242,11 @@ namespace SdGraphics
         private void radioButtonDashedPen_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBoxPageHeaders_CheckedChanged(object sender, EventArgs e)
+        {
+            this.mus.PageHeaders = checkBoxPageHeaders.Checked;
         }
     }
 }

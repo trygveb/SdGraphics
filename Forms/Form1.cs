@@ -60,6 +60,7 @@ namespace SdGraphics
         private int SPACE_BETWEEN_CALL_AND_FORMATION = 15;
         private String ViewTypeName = "Caller view";
         private String zipFileName;
+       
 
         #endregion ----------------------------------------- Simple Attributes
         #region ----------------------------------------- Other Attributes
@@ -158,6 +159,8 @@ namespace SdGraphics
         {
 
             PrintDocument printDocument = new PrintDocument();
+            int w = printDocument.PrinterSettings.DefaultPageSettings.PaperSize.Width;
+            //printDocument.DefaultPageSettings.PaperSize = new PaperSize("Custom", w, 1169);
             printDocument.PrintPage += docPrintPage;
             PrintPreviewDialog previewDialog = new PrintPreviewDialog();
             previewDialog.Height = 1200;
@@ -169,6 +172,17 @@ namespace SdGraphics
             printDocument.PrintPage -= docPrintPage;
         }
 
+        /// <summary>
+        /// Check if we should begin a new page
+        /// </summary>
+        /// <param name="curentY"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        private Boolean breakPage(int curentY, int height)
+        {
+            Boolean doBreak = (curentY + height + mus.LineHeight * 2 > mus.PageSize.Height - mus.MarginBottom);
+            return doBreak;
+        }
         private static ImageCodecInfo GetEncoderInfo(String mimeType)
         {
             int j;
@@ -252,7 +266,7 @@ namespace SdGraphics
         /// <param name="noOfColumns"></param>
         /// <param name="showCaller"></param>
         /// <returns></returns>
-        private int checkSdLineListAndWriteCall(ref Bitmap pageBitmap, List<SdLine> sdLineList, int y, SdLine sdLine,
+        private void checkSdLineListAndWriteCall(ref Bitmap pageBitmap, List<SdLine> sdLineList, ref int y, SdLine sdLine,
                     ref int pageNumber, int marginTop, int maxTextLineLength, Boolean lineBreak, int noOfColumns,
             bool showCaller)
         {
@@ -262,11 +276,10 @@ namespace SdGraphics
                 y += SPACE_BETWEEN_CALL_AND_FORMATION;
                 y += createAndCopyFormationBitmap(ref pageBitmap, preferences.DrawBorder, sdLineList, y, sdLine, this.currentXoffset); ;
             }
-            // Add extra 5 pixelsfor safety (Needed due to some calculation miss)
-            //int height = lineHeight * (buffer1.Count + 3) + MARGIN_TOP + 5;
-            int height = calculateBitMapSize(sdLineList, 0).Height;
+            
+            int bitmapHeight = calculateBitMapSize(sdLineList, 0).Height;
             sdLineList.Clear();
-            if (y + height + mus.LineHeight * 2 > mus.PageSize.Height - mus.MarginBottom) {
+            if (breakPage(y,bitmapHeight)) {
                 if (noOfColumns == 2 && IsOdd(pageNumber)) {
 
                     this.currentXoffset = mus.PageSize.Width / 2;
@@ -276,14 +289,17 @@ namespace SdGraphics
                     this.currentXoffset = 0;
                     this.bitmapList.Add(pageBitmap);
                     pageBitmap = new Bitmap(mus.PageSize.Width, mus.PageSize.Height);
-                    y = marginTop;
+                    y = 0;
                     writeCopyright(pageBitmap, mus.LineHeight);
                     int x = pageNumber;
                     if (noOfColumns == 2) {
                         x = pageNumber / 2;
                     }
-                    writePageHeader(pageBitmap, y, 1 + x, mus.LineHeight);
-                    y += mus.LineHeight;
+                    if (mus.PageHeaders) {
+                        y += marginTop;
+                        writePageHeader(pageBitmap, y, 1 + x, mus.LineHeight);
+                        y += mus.LineHeight;
+                    }
                 }
                 pageNumber++;
             }
@@ -299,7 +315,7 @@ namespace SdGraphics
             }
 
             //}
-            return y;
+            //return y;
         }
 
 
@@ -729,7 +745,7 @@ namespace SdGraphics
         {
             //SdLine sdLine = sdLines[sdLineNo];
             if (sdLine.noOfDancers == 0) {
-                y = checkSdLineListAndWriteCall(ref pageBitmap, sdLineList, y, sdLine,
+                checkSdLineListAndWriteCall(ref pageBitmap, sdLineList, ref y, sdLine,
                      ref pageNumber,
                      mus.MarginTop, mus.MaxLineLength, mus.BreakLines,
                      (int)numericUpDownColumns.Value, preferences.ShowPartner);
@@ -829,6 +845,7 @@ namespace SdGraphics
             return skip;
         }
 
+
         private void viewBitmap(int page = 0)
         {
             if (this.bitmapList.Count > page) {
@@ -850,7 +867,6 @@ namespace SdGraphics
 
         private int writePageHeader(Bitmap pageBitmap, int y, int pageNumber, int lineHeight)
         {
-
             return writeText(String.Format("Sd file={0}     View={1}          Page {2}",
                 Path.GetFileName(fileName), this.ViewTypeName, pageNumber),
                 pageBitmap, y, 0, false);

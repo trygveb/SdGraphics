@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,30 +27,10 @@ namespace SdGraphics
             myPictureBox = this.pictureBox1;
             myParentForm = parent;
         }
-        public PictureBox getPictureBox()
-        {
-            return this.pictureBox1;
-        }
 
         private void GraphicsForm_FormClosed(object sender, FormClosedEventArgs e)
         {
 
-        }
-
-        private void buttonBack_Click(object sender, EventArgs e)
-        {
-            myParentForm.previousPage();
-        }
-
-        private void buttonForward_Click(object sender, EventArgs e)
-        {
-            myParentForm.nextPage();
-
-        }
-
-        private void buttonPrint_Click(object sender, EventArgs e)
-        {
-            myParentForm.printImage();
         }
 
         private void printToolStripMenuItem_Click(object sender, EventArgs e)
@@ -57,17 +38,17 @@ namespace SdGraphics
             myParentForm.printImage();
         }
 
-        private void buttonForward_Click_1(object sender, EventArgs e)
+        private void buttonForward_Click(object sender, EventArgs e)
         {
             myParentForm.nextPage();
         }
 
-        private void buttonBack_Click_1(object sender, EventArgs e)
+        private void buttonBack_Click(object sender, EventArgs e)
         {
             myParentForm.previousPage();
         }
 
-        private void buttonBeginnin_Click(object sender, EventArgs e)
+        private void buttonBeginning_Click(object sender, EventArgs e)
         {
             myParentForm.firstPage();
         }
@@ -76,5 +57,31 @@ namespace SdGraphics
         {
             myParentForm.lastPage();
         }
+        //EncoderParameters myEncoderParameters;
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Function not implemented");
+            //System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
+            //ImageCodecInfo  myImageCodecInfo = GetEncoderInfo("image/jpeg");
+            //EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 100L);
+            //myEncoderParameters = new EncoderParameters(1);
+            //myEncoderParameters.Param[0] = myEncoderParameter;
+            //this.pictureBox1.Image.Save(@"D:\Mina dokument\Sqd\SD\Test.jpg", myImageCodecInfo, myEncoderParameters);
+
+            //this.pictureBox1.Image.Save(@"D:\Mina dokument\Sqd\SD\Test.bmp", 
+            //    System.Drawing.Imaging.ImageFormat.Bmp);
+        }
+        //private static ImageCodecInfo GetEncoderInfo(String mimeType)
+        //{
+        //    int j;
+        //    ImageCodecInfo[] encoders;
+        //    encoders = ImageCodecInfo.GetImageEncoders();
+        //    for (j = 0; j < encoders.Length; ++j) {
+        //        if (encoders[j].MimeType == mimeType)
+        //            return encoders[j];
+        //    }
+        //    return null;
+        //}
+
     }
 }
