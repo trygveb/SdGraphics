@@ -24,12 +24,12 @@ SdGraphics can also create a “zipped” (compressed) file with pictures of all for
 These pictures can then be displayed one at a time, in a browser on your desktop or in a smartphone,
 using an html file (ZipViewer.html) delivered with the application.
 One click, and the call is displayed. Another click, and the resulting formation is displayed. 
-ZipViewer currently has some problems diplaying large dancer matrixes.
+ZipViewer currently has some problems displaying large dancer matrixes.
 
 The program can rotate all formations in a way that one selected dancer is shown with his/hers nose “up”.
 This option makes it easier for single dancers to check that they are standing in the right position.
 
-This application still has some minor flaws, and more functionality can be added.
+The application still has some minor flaws, and more functionality can be added.
 You can download the latest release here: https://github.com/trygveb/SdGraphics/releases/latest
 
 Se <a href="https://github.com/trygveb/SdGraphics/wiki">SdGraphics Wiki</a> for more detail.
