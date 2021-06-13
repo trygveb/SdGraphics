@@ -30,6 +30,7 @@ namespace SdGraphics
         private void InitializeComponent()
         {
             this.panelSettings = new System.Windows.Forms.Panel();
+            this.checkBoxPageHeaders = new System.Windows.Forms.CheckBox();
             this.label20 = new System.Windows.Forms.Label();
             this.textBoxPageHeight = new System.Windows.Forms.TextBox();
             this.textBoxPageWidth = new System.Windows.Forms.TextBox();
@@ -83,7 +84,6 @@ namespace SdGraphics
             this.panel1 = new System.Windows.Forms.Panel();
             this.label17 = new System.Windows.Forms.Label();
             this.buttonReset = new System.Windows.Forms.Button();
-            this.checkBoxPageHeaders = new System.Windows.Forms.CheckBox();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDancerSize)).BeginInit();
@@ -129,6 +129,21 @@ namespace SdGraphics
             this.panelSettings.Name = "panelSettings";
             this.panelSettings.Size = new System.Drawing.Size(377, 269);
             this.panelSettings.TabIndex = 45;
+            // 
+            // checkBoxPageHeaders
+            // 
+            this.checkBoxPageHeaders.AutoSize = true;
+            this.checkBoxPageHeaders.Checked = true;
+            this.checkBoxPageHeaders.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxPageHeaders.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxPageHeaders.Location = new System.Drawing.Point(13, 200);
+            this.checkBoxPageHeaders.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBoxPageHeaders.Name = "checkBoxPageHeaders";
+            this.checkBoxPageHeaders.Size = new System.Drawing.Size(127, 24);
+            this.checkBoxPageHeaders.TabIndex = 41;
+            this.checkBoxPageHeaders.Text = "Page headers";
+            this.checkBoxPageHeaders.UseVisualStyleBackColor = true;
+            this.checkBoxPageHeaders.CheckedChanged += new System.EventHandler(this.checkBoxPageHeaders_CheckedChanged);
             // 
             // label20
             // 
@@ -279,7 +294,7 @@ namespace SdGraphics
             this.numericUpDownMarginTop.TabIndex = 30;
             this.numericUpDownMarginTop.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownMarginTop.Value = new decimal(new int[] {
-            15,
+            5,
             0,
             0,
             0});
@@ -316,7 +331,7 @@ namespace SdGraphics
             this.numericUpDownMarginBottom.TabIndex = 32;
             this.numericUpDownMarginBottom.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownMarginBottom.Value = new decimal(new int[] {
-            50,
+            5,
             0,
             0,
             0});
@@ -511,8 +526,9 @@ namespace SdGraphics
             this.textBoxCopyrightName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxCopyrightName.Location = new System.Drawing.Point(80, 39);
             this.textBoxCopyrightName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxCopyrightName.MaxLength = 20;
             this.textBoxCopyrightName.Name = "textBoxCopyrightName";
-            this.textBoxCopyrightName.Size = new System.Drawing.Size(234, 26);
+            this.textBoxCopyrightName.Size = new System.Drawing.Size(202, 26);
             this.textBoxCopyrightName.TabIndex = 16;
             this.textBoxCopyrightName.Text = "Thomas Bernhed";
             this.textBoxCopyrightName.TextChanged += new System.EventHandler(this.textBoxCopyrightName_TextChanged);
@@ -844,21 +860,6 @@ namespace SdGraphics
             this.buttonReset.Text = "Reset to default";
             this.buttonReset.UseVisualStyleBackColor = true;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
-            // 
-            // checkBoxPageHeaders
-            // 
-            this.checkBoxPageHeaders.AutoSize = true;
-            this.checkBoxPageHeaders.Checked = true;
-            this.checkBoxPageHeaders.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxPageHeaders.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxPageHeaders.Location = new System.Drawing.Point(13, 200);
-            this.checkBoxPageHeaders.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.checkBoxPageHeaders.Name = "checkBoxPageHeaders";
-            this.checkBoxPageHeaders.Size = new System.Drawing.Size(127, 24);
-            this.checkBoxPageHeaders.TabIndex = 41;
-            this.checkBoxPageHeaders.Text = "Page headers";
-            this.checkBoxPageHeaders.UseVisualStyleBackColor = true;
-            this.checkBoxPageHeaders.CheckedChanged += new System.EventHandler(this.checkBoxPageHeaders_CheckedChanged);
             // 
             // SettingsForm
             // 

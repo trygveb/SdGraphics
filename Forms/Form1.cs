@@ -267,7 +267,7 @@ namespace SdGraphics
         /// <param name="showCaller"></param>
         /// <returns></returns>
         private void checkSdLineListAndWriteCall(ref Bitmap pageBitmap, List<SdLine> sdLineList, ref int y, SdLine sdLine,
-                    ref int pageNumber, int marginTop, int maxTextLineLength, Boolean lineBreak, int noOfColumns,
+                    ref int pageNumber,int numberOfCalls, int marginTop, int maxTextLineLength, Boolean lineBreak, int noOfColumns,
             bool showCaller)
         {
             if (sdLineList.Count > 0) {
@@ -290,14 +290,14 @@ namespace SdGraphics
                     this.bitmapList.Add(pageBitmap);
                     pageBitmap = new Bitmap(mus.PageSize.Width, mus.PageSize.Height);
                     y = 0;
-                    writeCopyright(pageBitmap, mus.LineHeight);
+                    writeCopyright(pageBitmap, mus.LineHeight, pageNumber);
                     int x = pageNumber;
                     if (noOfColumns == 2) {
                         x = pageNumber / 2;
                     }
                     if (mus.PageHeaders) {
                         y += marginTop;
-                        writePageHeader(pageBitmap, y, 1 + x, mus.LineHeight);
+                        writePageHeader(pageBitmap, y,  mus.LineHeight, numberOfCalls);
                         y += mus.LineHeight;
                     }
                 }
@@ -389,7 +389,7 @@ namespace SdGraphics
             this.graphicsForm.Show();
         }
 
-        private void createSdLines(string[] lines)
+        private int createSdLines(string[] lines)
         {
             this.sdLines.Clear();
             List<SdLine> sdLinesTmp = new List<SdLine>();
@@ -402,6 +402,7 @@ namespace SdGraphics
             for (int i2 = 0; i2 < sdLinesTmp.Count; i2++) {
                 modifyAndCopySdLine(sdLinesTmp, ref callNumber, i2);
             }
+            return callNumber;
         }
         /// <summary>
         /// Parses a line in the Sd output file
@@ -464,7 +465,7 @@ namespace SdGraphics
                 this.Close();
             }
 
-            this.createSdLines(lines);
+            int numberOfCalls=this.createSdLines(lines);
             int lineHeight = mus.LineHeight;
             Bitmap pageBitmap = new Bitmap(mus.PageSize.Width, mus.PageSize.Height);
             List<SdLine> sdLineList = new List<SdLine>();
@@ -472,13 +473,13 @@ namespace SdGraphics
 
             int pageNumber = 1;
             this.currentXoffset = 0;// will be increased in 2:nd column
-            this.writePageHeader(pageBitmap, y, 1, lineHeight);
-            this.writeCopyright(pageBitmap, lineHeight);
+            this.writePageHeader(pageBitmap, y, lineHeight, numberOfCalls);
+            this.writeCopyright(pageBitmap, lineHeight, pageNumber);
             y += lineHeight;
             //int callNumber = 0;
             String lastCall = "";
             for (int sdLineNo = 0; sdLineNo < sdLines.Count; sdLineNo++) {
-                WriteCallOrAddLineToList(sdLines[sdLineNo], ref pageBitmap, sdLineList, ref y, ref pageNumber, ref lastCall, sdLineNo);
+                WriteCallOrAddLineToList(sdLines[sdLineNo], ref pageBitmap, sdLineList, ref y, ref pageNumber, ref lastCall, numberOfCalls);
             }
             // this.writeText("Copyright \u00a9 Bronc Wise 2012", lineHeight, pageBitmap, mus.PageSize.Height - lineHeight, mus.PageSize.Width / 2 - 100);
 
@@ -741,12 +742,12 @@ namespace SdGraphics
         /// <param name="pageNumber"></param>
         /// <param name="lastCall"></param>
         /// <param name="sdLineNo"></param>
-        private void WriteCallOrAddLineToList(SdLine sdLine, ref Bitmap pageBitmap, List<SdLine> sdLineList, ref int y, ref int pageNumber, ref string lastCall, int sdLineNo)
+        private void WriteCallOrAddLineToList(SdLine sdLine, ref Bitmap pageBitmap, List<SdLine> sdLineList, ref int y, ref int pageNumber, ref string lastCall, int numberOfCalls)
         {
             //SdLine sdLine = sdLines[sdLineNo];
             if (sdLine.noOfDancers == 0) {
                 checkSdLineListAndWriteCall(ref pageBitmap, sdLineList, ref y, sdLine,
-                     ref pageNumber,
+                     ref pageNumber, numberOfCalls,
                      mus.MarginTop, mus.MaxLineLength, mus.BreakLines,
                      (int)numericUpDownColumns.Value, preferences.ShowPartner);
                 lastCall = sdLine.text;
@@ -859,16 +860,23 @@ namespace SdGraphics
             }
         }
 
-        private void writeCopyright(Bitmap pageBitmap, int lineHeight)
+        private void writeCopyright(Bitmap pageBitmap, int lineHeight, int pageNumber)
         {
-            this.writeText(String.Format("Copyright \u00a9 {0} {1}", mus.CopyrightName, mus.CopyrightYear),
-                pageBitmap, mus.PageSize.Height - lineHeight, mus.PageSize.Width / 2 - 150, false);
+            if (mus.CopyrightName.Length > 0) {
+                this.writeText(String.Format("Copyright \u00a9 {0} {1}  Page {2}",
+                    mus.CopyrightName, mus.CopyrightYear, pageNumber),
+                    pageBitmap, mus.PageSize.Height - lineHeight, mus.PageSize.Width - 350, false);
+            } else {
+                this.writeText(String.Format("Page {0}", pageNumber),
+                    pageBitmap, mus.PageSize.Height - lineHeight, mus.PageSize.Width - 150, false);
+
+            }
         }
 
-        private int writePageHeader(Bitmap pageBitmap, int y, int pageNumber, int lineHeight)
+        private int writePageHeader(Bitmap pageBitmap, int y, int lineHeight, int numberOfCalls)
         {
-            return writeText(String.Format("Sd file={0}     View={1}          Page {2}",
-                Path.GetFileName(fileName), this.ViewTypeName, pageNumber),
+            return writeText(String.Format("Sd file={0}     View={1},    Number of calls={2}",
+                Path.GetFileName(fileName), this.ViewTypeName, numberOfCalls),
                 pageBitmap, y, 0, false);
         }
 

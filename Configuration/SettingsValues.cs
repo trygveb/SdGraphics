@@ -16,8 +16,8 @@ namespace SdGraphics
         private int copyrightYear=2021;
         private int dancerSize=18;      // Width and height in pixels for dancer symbols (circle or square)
         private int lineHeight=26;      // Line height in PDF file, pixels
-        private int marginBottom=50;    // Bottom margin in PDF file, pixels. 
-        private int marginTop=15;       // Top margin in PDF file, pixels
+        private int marginBottom=5;     // Bottom margin in PDF file, pixels. 
+        private int marginTop=5;        // Top margin in PDF file, pixels
         private int maxLineLength=40;   // Max number of characters in a line (if breakLines==true)
         private int noseSize= 6;        // Diameter of noses, pixels
         private bool pageHeaders = true;  // True to write pageheaders on ALL pages. First page will always have one
