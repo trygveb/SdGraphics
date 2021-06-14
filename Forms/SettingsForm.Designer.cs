@@ -136,7 +136,7 @@ namespace SdGraphics
             this.checkBoxPageHeaders.Checked = true;
             this.checkBoxPageHeaders.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxPageHeaders.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxPageHeaders.Location = new System.Drawing.Point(13, 200);
+            this.checkBoxPageHeaders.Location = new System.Drawing.Point(13, 230);
             this.checkBoxPageHeaders.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBoxPageHeaders.Name = "checkBoxPageHeaders";
             this.checkBoxPageHeaders.Size = new System.Drawing.Size(127, 24);
@@ -402,7 +402,7 @@ namespace SdGraphics
             this.checkBoxBreakLines.Checked = true;
             this.checkBoxBreakLines.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxBreakLines.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxBreakLines.Location = new System.Drawing.Point(13, 231);
+            this.checkBoxBreakLines.Location = new System.Drawing.Point(13, 196);
             this.checkBoxBreakLines.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBoxBreakLines.Name = "checkBoxBreakLines";
             this.checkBoxBreakLines.Size = new System.Drawing.Size(106, 24);
